@@ -1,8 +1,14 @@
-THEORY ProofList
+THEORY ProofList IS
+_f(1) & _f(2) & Initialisation.1,(_f(3) => _f(4))
 END
 &
-THEORY Formulas
+THEORY Formulas IS
+((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
+((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {});
+"Invariant is preserved";
+((0) : (NAT))
 END
 &
-THEORY EnumerateX
+THEORY EnumerateX IS
+DIRECTIONS == {up,down}
 END

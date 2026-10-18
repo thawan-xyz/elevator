@@ -18,13 +18,57 @@
     </Define>
     <Define name="ctx" hash="0"/>
     <Define name="seext" hash="0"/>
-    <Define name="lprp" hash="0"/>
+    <Define name="lprp" hash="2981726514898873961">
+        <Set>
+            <Id value="DIRECTIONS" typref="0"/>
+            <Enumerated_Values>
+                <Id value="up" typref="1"/>
+                <Id value="down" typref="1"/>
+            </Enumerated_Values>
+        </Set>
+    </Define>
     <Define name="inprp" hash="0"/>
     <Define name="inext" hash="0"/>
-    <Define name="inv" hash="0"/>
+    <Define name="inv" hash="837157914771467674">
+        <Exp_Comparison op=":">
+            <Id value="position" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:1:1"/>
+            <Id value="NAT" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:1:2"/>
+        </Exp_Comparison>
+        <Exp_Comparison op=":">
+            <Id value="direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:2:1"/>
+            <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:2:2"/>
+        </Exp_Comparison>
+    </Define>
     <Define name="ass" hash="0"/>
     <Define name="cst" hash="0"/>
-    <Define name="sets" hash="0"/>
+    <Define name="sets" hash="2981726514898873961">
+        <Set>
+            <Id value="DIRECTIONS" typref="0"/>
+            <Enumerated_Values>
+                <Id value="up" typref="1"/>
+                <Id value="down" typref="1"/>
+            </Enumerated_Values>
+        </Set>
+    </Define>
+    <Proof_Obligation goalHash="4425435582555419249">
+        <Tag>Initialisation</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:1:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:2:1"/>
+                    <Id value="NAT" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:3:1:1:2"/>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
     <TypeInfos>
         <Type id="0">
             <Unary_Exp op="POW">

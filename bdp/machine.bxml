@@ -1,7 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Machine xmlns='https://www.atelierb.eu/Formats/bxml' version='1.0' name='machine' type='abstraction' position='true' semantic='true' b0check='false'>
+<Sets>
+<Attr>
+<Pos l='8' c='1' s='4'/>
+</Attr>
+<Set>
+<Id value='DIRECTIONS' typref='4'>
+<Attr>
+<Pos l='9' c='3' s='10'/>
+</Attr>
+</Id>
+<Enumerated_Values>
+<Id value='up' typref='5'>
+<Attr>
+<Pos l='9' c='17' s='2'/>
+</Attr>
+</Id>
+<Id value='down' typref='5'>
+<Attr>
+<Pos l='9' c='21' s='4'/>
+</Attr>
+</Id>
+</Enumerated_Values>
+</Set>
+</Sets>
+<Abstract_Variables>
+<Attr>
+<Pos l='11' c='1' s='18'/>
+</Attr>
+<Id value='position' typref='1'>
+<Attr>
+<Pos l='12' c='3' s='8'/>
+</Attr>
+</Id>
+<Id value='direction' typref='5'>
+<Attr>
+<Pos l='13' c='3' s='9'/>
+</Attr>
+</Id>
+</Abstract_Variables>
+<Invariant>
+<Attr>
+<Pos l='15' c='1' s='9'/>
+</Attr>
+<Nary_Pred op='&amp;'>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='16' c='12' s='1'/>
+</Attr>
+<Id value='position' typref='1'>
+<Attr>
+<Pos l='16' c='3' s='8'/>
+</Attr>
+</Id>
+<Id value='NAT' typref='2'>
+<Attr>
+<Pos l='16' c='14' s='3'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='17' c='13' s='1'/>
+</Attr>
+<Id value='direction' typref='5'>
+<Attr>
+<Pos l='17' c='3' s='9'/>
+</Attr>
+</Id>
+<Id value='DIRECTIONS' typref='4'>
+<Attr>
+<Pos l='17' c='15' s='10'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+</Nary_Pred>
+</Invariant>
 <Initialisation>
-<Skip/>
+<Attr>
+<Pos l='19' c='1' s='14'/>
+</Attr>
+<Nary_Sub op='||'>
+<Assignement_Sub>
+<Attr>
+<Pos l='20' c='12' s='2'/>
+</Attr>
+<Variables>
+<Id value='position' typref='1'>
+<Attr>
+<Pos l='20' c='3' s='8'/>
+</Attr>
+</Id>
+</Variables>
+<Values>
+<Integer_Literal value='0' typref='1'>
+<Attr>
+<Pos l='20' c='15' s='1'/>
+</Attr>
+</Integer_Literal>
+</Values>
+</Assignement_Sub>
+<Assignement_Sub>
+<Attr>
+<Pos l='21' c='13' s='2'/>
+</Attr>
+<Variables>
+<Id value='direction' typref='5'>
+<Attr>
+<Pos l='21' c='3' s='9'/>
+</Attr>
+</Id>
+</Variables>
+<Values>
+<Id value='up' typref='5'>
+<Attr>
+<Pos l='21' c='16' s='2'/>
+</Attr>
+</Id>
+</Values>
+</Assignement_Sub>
+</Nary_Sub>
 </Initialisation>
 <TypeInfos>
 <Type id='0'>
@@ -21,6 +139,14 @@
 <Id value='INTEGER'/>
 </Unary_Exp>
 </Unary_Exp>
+</Type>
+<Type id='4'>
+<Unary_Exp op='POW'>
+<Id value='DIRECTIONS'/>
+</Unary_Exp>
+</Type>
+<Type id='5'>
+<Id value='DIRECTIONS'/>
 </Type>
 </TypeInfos>
 

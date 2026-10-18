@@ -4,20 +4,31 @@
 SETS
   DIRECTIONS = { up , down }
 
+CONCRETE_CONSTANTS
+  LEVELS
+
+PROPERTIES
+  LEVELS <: NATURAL &
+  LEVELS = 0 .. 2
+
 ABSTRACT_VARIABLES
   time ,
-  position ,
-  direction
+  level ,
+  direction ,
+  requests
 
 INVARIANT
   time : NATURAL &
-  position : NATURAL &
-  direction : DIRECTIONS
+  level : NATURAL &
+  level : LEVELS &
+  direction : DIRECTIONS &
+  requests : LEVELS <-> DIRECTIONS
 
 INITIALISATION
   time := 0 ||
-  position := 0 ||
-  direction := up
+  level := 0 ||
+  direction := up ||
+  requests := {}
 
 OPERATIONS
   pass_seconds ( delta ) =
@@ -32,5 +43,12 @@ OPERATIONS
       delta : NATURAL1
     THEN
       time := time + 60 * delta
+    END ;
+
+  pass_hours ( delta ) =
+    PRE
+      delta : NATURAL1
+    THEN
+      time := time + 3600 * delta
     END
 END

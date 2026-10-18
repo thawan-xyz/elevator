@@ -1,18 +1,24 @@
 THEORY ProofList IS
-_f(1) & _f(2) & _f(5) & _f(6) & Operation_pass_minutes.1,(_f(3) => _f(8));
-_f(1) & _f(2) & _f(5) & _f(6) & Operation_pass_seconds.1,(_f(3) => _f(7));
+_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_hours.1,(_f(3) => _f(11));
+_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_minutes.1,(_f(3) => _f(10));
+_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_seconds.1,(_f(3) => _f(9));
+_f(1) & _f(2) & Initialisation.3,(_f(3) => _f(6));
+_f(1) & _f(2) & Initialisation.2,(_f(3) => _f(5));
 _f(1) & _f(2) & Initialisation.1,(_f(3) => _f(4))
 END
 &
 THEORY Formulas IS
 ((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
-((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {});
+((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & LEVELS : POW( NATURAL) & ((LEVELS) = (((0) .. (2))));
 "Invariant is preserved";
 ((0) : (NATURAL));
-time : INTEGER & 0 <= time & ((time) : (NATURAL)) & position : INTEGER & 0 <= position & ((position) : (NATURAL)) & ((direction) : (((1..2)*{DIRECTIONS})));
+((0) : (LEVELS));
+(({}) : (((LEVELS) <-> (((1..2)*{DIRECTIONS})))));
+time : INTEGER & 0 <= time & ((time) : (NATURAL)) & level : INTEGER & 0 <= level & ((level) : (NATURAL)) & ((level) : (LEVELS)) & ((direction) : (((1..2)*{DIRECTIONS}))) & ((requests) : (((LEVELS) <-> (((1..2)*{DIRECTIONS})))));
 ((delta) : ((NATURAL-{0})));
 (((time + delta)) : (NATURAL));
-(((time + (60 * delta))) : (NATURAL))
+(((time + (60 * delta))) : (NATURAL));
+(((time + (3600 * delta))) : (NATURAL))
 END
 &
 THEORY EnumerateX IS

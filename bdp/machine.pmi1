@@ -1,21 +1,31 @@
 THEORY BalanceX IS
-machine,1,0,0,1,0,0,0;
-Initialisation,1,0,0,1,0,0,0
+machine,3,0,0,1,0,0,0;
+Initialisation,1,0,0,1,0,0,0;
+Operation_pass_minutes,1,0,0,0,0,0,0;
+Operation_pass_seconds,1,0,0,0,0,0,0
 END
 &
 THEORY ProofState IS
+Unproved;
+Unproved;
 Proved(0)
 END
 &
 THEORY MethodList IS
+?;
+?;
 pr
 END
 &
 THEORY PassList IS
+Force(0),(?; 0);
+Force(0),(?; 0);
 Force(0),?
 END
 &
 THEORY Status IS
-machine,1,0,1,0,0,0;
-Initialisation,1,0,1,0,0,0
+machine,3,0,1,0,0,0;
+Initialisation,1,0,1,0,0,0;
+Operation_pass_minutes,1,0,0,0,0,0;
+Operation_pass_seconds,1,0,0,0,0,0
 END

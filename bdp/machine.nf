@@ -37,9 +37,9 @@ THEORY ListVariablesX IS
   External_Context_List_Variables(Machine(machine))==(?);
   Context_List_Variables(Machine(machine))==(?);
   Abstract_List_Variables(Machine(machine))==(?);
-  Local_List_Variables(Machine(machine))==(direction,position);
-  List_Variables(Machine(machine))==(direction,position);
-  External_List_Variables(Machine(machine))==(direction,position)
+  Local_List_Variables(Machine(machine))==(direction,position,time);
+  List_Variables(Machine(machine))==(direction,position,time);
+  External_List_Variables(Machine(machine))==(direction,position,time)
 END
 &
 THEORY ListVisibleVariablesX IS
@@ -57,7 +57,7 @@ THEORY ListInvariantX IS
   Expanded_List_Invariant(Machine(machine))==(btrue);
   Abstract_List_Invariant(Machine(machine))==(btrue);
   Context_List_Invariant(Machine(machine))==(btrue);
-  List_Invariant(Machine(machine))==(position: NAT & direction: DIRECTIONS)
+  List_Invariant(Machine(machine))==(time: NATURAL & position: NATURAL & direction: DIRECTIONS)
 END
 &
 THEORY ListAssertionsX IS
@@ -76,9 +76,9 @@ THEORY ListExclusivityX IS
 END
 &
 THEORY ListInitialisationX IS
-  Expanded_List_Initialisation(Machine(machine))==(position,direction:=0,up);
+  Expanded_List_Initialisation(Machine(machine))==(time,position,direction:=0,0,up);
   Context_List_Initialisation(Machine(machine))==(skip);
-  List_Initialisation(Machine(machine))==(position:=0 || direction:=up)
+  List_Initialisation(Machine(machine))==(time:=0 || position:=0 || direction:=up)
 END
 &
 THEORY ListParametersX IS
@@ -93,21 +93,38 @@ THEORY ListConstraintsX IS
 END
 &
 THEORY ListOperationsX IS
-  Internal_List_Operations(Machine(machine))==(?);
-  List_Operations(Machine(machine))==(?)
+  Internal_List_Operations(Machine(machine))==(pass_seconds,pass_minutes);
+  List_Operations(Machine(machine))==(pass_seconds,pass_minutes)
 END
 &
-THEORY ListInputX END
+THEORY ListInputX IS
+  List_Input(Machine(machine),pass_seconds)==(delta);
+  List_Input(Machine(machine),pass_minutes)==(delta)
+END
 &
-THEORY ListOutputX END
+THEORY ListOutputX IS
+  List_Output(Machine(machine),pass_seconds)==(?);
+  List_Output(Machine(machine),pass_minutes)==(?)
+END
 &
-THEORY ListHeaderX END
+THEORY ListHeaderX IS
+  List_Header(Machine(machine),pass_seconds)==(pass_seconds(delta));
+  List_Header(Machine(machine),pass_minutes)==(pass_minutes(delta))
+END
 &
 THEORY ListOperationGuardX END
 &
-THEORY ListPreconditionX END
+THEORY ListPreconditionX IS
+  List_Precondition(Machine(machine),pass_seconds)==(delta: NATURAL1);
+  List_Precondition(Machine(machine),pass_minutes)==(delta: NATURAL1)
+END
 &
-THEORY ListSubstitutionX END
+THEORY ListSubstitutionX IS
+  Expanded_List_Substitution(Machine(machine),pass_minutes)==(delta: NATURAL1 | time:=time+60*delta);
+  Expanded_List_Substitution(Machine(machine),pass_seconds)==(delta: NATURAL1 | time:=time+delta);
+  List_Substitution(Machine(machine),pass_seconds)==(time:=time+delta);
+  List_Substitution(Machine(machine),pass_minutes)==(time:=time+60*delta)
+END
 &
 THEORY ListConstantsX IS
   List_Valuable_Constants(Machine(machine))==(?);
@@ -145,10 +162,13 @@ END
 &
 THEORY ListSeenInfoX END
 &
-THEORY ListANYVarX END
+THEORY ListANYVarX IS
+  List_ANY_Var(Machine(machine),pass_seconds)==(?);
+  List_ANY_Var(Machine(machine),pass_minutes)==(?)
+END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (DIRECTIONS,up,down | ? | direction,position | ? | ? | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (DIRECTIONS,up,down | ? | direction,position,time | ? | pass_seconds,pass_minutes | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
   List_Of_VisibleCst_Ids(Machine(machine)) == (?);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
@@ -164,7 +184,11 @@ THEORY ConstantsEnvX IS
 END
 &
 THEORY VariablesEnvX IS
-  Variables(Machine(machine)) == (Type(direction) == Mvl(etype(DIRECTIONS,?,?));Type(position) == Mvl(btype(INTEGER,?,?)))
+  Variables(Machine(machine)) == (Type(direction) == Mvl(etype(DIRECTIONS,?,?));Type(position) == Mvl(btype(INTEGER,?,?));Type(time) == Mvl(btype(INTEGER,?,?)))
+END
+&
+THEORY OperationsEnvX IS
+  Operations(Machine(machine)) == (Type(pass_minutes) == Cst(No_type,btype(INTEGER,?,?));Type(pass_seconds) == Cst(No_type,btype(INTEGER,?,?)))
 END
 &
 THEORY TCIntRdX IS

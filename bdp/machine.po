@@ -1,4 +1,6 @@
 THEORY ProofList IS
+_f(1) & _f(2) & _f(5) & _f(6) & Operation_pass_minutes.1,(_f(3) => _f(8));
+_f(1) & _f(2) & _f(5) & _f(6) & Operation_pass_seconds.1,(_f(3) => _f(7));
 _f(1) & _f(2) & Initialisation.1,(_f(3) => _f(4))
 END
 &
@@ -6,7 +8,11 @@ THEORY Formulas IS
 ((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
 ((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {});
 "Invariant is preserved";
-((0) : (NAT))
+((0) : (NATURAL));
+time : INTEGER & 0 <= time & ((time) : (NATURAL)) & position : INTEGER & 0 <= position & ((position) : (NATURAL)) & ((direction) : (((1..2)*{DIRECTIONS})));
+((delta) : ((NATURAL-{0})));
+(((time + delta)) : (NATURAL));
+(((time + (60 * delta))) : (NATURAL))
 END
 &
 THEORY EnumerateX IS

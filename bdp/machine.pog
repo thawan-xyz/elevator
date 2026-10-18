@@ -40,21 +40,21 @@
     </Define>
     <Define name="inprp" hash="0"/>
     <Define name="inext" hash="0"/>
-    <Define name="inv" hash="12547308949285448237">
+    <Define name="inv" hash="9783484727077590691">
         <Exp_Comparison op=":">
             <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:1"/>
             <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1"/>
+            <Id value="elevator_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1"/>
             <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1"/>
+            <Id value="elevator_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1"/>
             <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:4:1"/>
+            <Id value="elevator_direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:4:1"/>
             <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:4:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
@@ -76,7 +76,7 @@
             </Enumerated_Values>
         </Set>
     </Define>
-    <Proof_Obligation goalHash="16143376711895317907">
+    <Proof_Obligation goalHash="2580102153429334366">
         <Tag>Initialisation</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -116,7 +116,7 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="17326771937941150888">
+    <Proof_Obligation goalHash="7384007178908780710">
         <Tag>Operation_pass_seconds</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -146,7 +146,7 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="10712545321969403464">
+    <Proof_Obligation goalHash="18121025511925036527">
         <Tag>Operation_pass_minutes</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -179,7 +179,7 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="10678180155528182872">
+    <Proof_Obligation goalHash="3326662911112303364">
         <Tag>Operation_pass_hours</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -212,6 +212,78 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
+    <Proof_Obligation goalHash="16325535482494800444">
+        <Tag>Operation_add_request</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Definition name="inv"/>
+        <Definition name="ass"/>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="request_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:1:1"/>
+                <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:1:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="request_direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:2:1"/>
+                <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:2:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Binary_Pred op="=&gt;">
+                <Exp_Comparison op="=">
+                    <Id value="request_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:3:1:1"/>
+                    <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:3:1:2"/>
+                </Exp_Comparison>
+                <Unary_Pred op="not">
+                    <Exp_Comparison op="=">
+                        <Id value="request_direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:3:2:1"/>
+                        <Id value="down" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:3:2:2"/>
+                    </Exp_Comparison>
+                </Unary_Pred>
+            </Binary_Pred>
+        </Hypothesis>
+        <Hypothesis>
+            <Binary_Pred op="=&gt;">
+                <Exp_Comparison op="=">
+                    <Id value="request_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:4:1:1"/>
+                    <Integer_Literal value="2" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:4:1:2"/>
+                </Exp_Comparison>
+                <Unary_Pred op="not">
+                    <Exp_Comparison op="=">
+                        <Id value="request_direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:4:2:1"/>
+                        <Id value="up" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:4:2:2"/>
+                    </Exp_Comparison>
+                </Unary_Pred>
+            </Binary_Pred>
+        </Hypothesis>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Binary_Exp op="\/" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:5:1">
+                        <Id value="requests" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:2:1:1"/>
+                        <Nary_Exp op="{" typref="2">
+                            <Binary_Exp op="|-&gt;" typref="4">
+                                <Id value="request_level" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:2:1:2:1:1"/>
+                                <Id value="request_direction" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:2:1:2:1:2"/>
+                            </Binary_Exp>
+                        </Nary_Exp>
+                    </Binary_Exp>
+                    <Binary_Exp op="&lt;-&gt;" typref="3">
+                        <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:5:2:1"/>
+                        <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:5:2:2"/>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
     <TypeInfos>
         <Type id="0">
             <Unary_Exp op="POW">
@@ -238,6 +310,12 @@
                     </Binary_Exp>
                 </Unary_Exp>
             </Unary_Exp>
+        </Type>
+        <Type id="4">
+            <Binary_Exp op="*">
+                <Id value="INTEGER"/>
+                <Id value="INTEGER"/>
+            </Binary_Exp>
         </Type>
     </TypeInfos>
 </Proof_Obligations>

@@ -1,15 +1,18 @@
 THEORY BalanceX IS
-machine,5,0,0,2,0,0,0;
-Initialisation,2,0,0,2,0,0,0;
-Operation_pass_hours,1,0,0,0,0,0,0;
-Operation_pass_minutes,1,0,0,0,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0,0
+machine,7,0,0,4,3,0,0;
+Initialisation,3,0,0,3,0,0,0;
+Operation_add_request,1,0,0,1,0,0,0;
+Operation_pass_hours,1,0,0,0,1,0,0;
+Operation_pass_minutes,1,0,0,0,1,0,0;
+Operation_pass_seconds,1,0,0,0,1,0,0
 END
 &
 THEORY ProofState IS
-Unproved;
-Unproved;
-Unproved;
+Proved(0);
+Proved(1);
+Proved(1);
+Proved(1);
+Proved(0);
 Proved(0);
 Proved(0)
 END
@@ -19,21 +22,26 @@ pr;
 pr;
 pr;
 pr;
+pr;
+pr;
 pr
 END
 &
 THEORY PassList IS
-Force(0),(?; 0);
-Force(0),(?; 0);
-Force(0),(?; 0);
+Force(0),?;
+Force(1),(?; 0);
+Force(1),(?; 0);
+Force(1),(?; 0);
+Force(0),?;
 Force(0),?;
 Force(0),?
 END
 &
 THEORY Status IS
-machine,5,0,2,0,0,0;
-Initialisation,2,0,2,0,0,0;
-Operation_pass_hours,1,0,0,0,0,0;
-Operation_pass_minutes,1,0,0,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0
+machine,7,0,7,0,0,0;
+Initialisation,3,0,3,0,0,0;
+Operation_add_request,1,0,1,0,0,0;
+Operation_pass_hours,1,0,1,0,0,0;
+Operation_pass_minutes,1,0,1,0,0,0;
+Operation_pass_seconds,1,0,1,0,0,0
 END

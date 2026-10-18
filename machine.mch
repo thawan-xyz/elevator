@@ -1,54 +1,65 @@
 MACHINE
   machine
-
+  
 SETS
   DIRECTIONS = {up, down}
-
+  
 CONSTANTS
   LEVELS
-
+  
 PROPERTIES
   LEVELS <: NATURAL &
   LEVELS = 0..2
-
+  
 VARIABLES
   time,
-  level,
-  direction,
+  elevator_level,
+  elevator_direction,
   requests
-
+  
 INVARIANT
   time : NATURAL &
-  level : NATURAL &
-  level : LEVELS &
-  direction : DIRECTIONS &
+  elevator_level : NATURAL &
+  elevator_level : LEVELS &
+  elevator_direction : DIRECTIONS &
   requests : LEVELS <-> DIRECTIONS
-
+  
 INITIALISATION
   time := 0 ||
-  level := 0 ||
-  direction := up ||
+  elevator_level := 0 ||
+  elevator_direction := up ||
   requests := {}
-
+  
 OPERATIONS
   pass_seconds(delta) =
-    PRE
-      delta : NATURAL1
-    THEN
-      time := time + delta
-    END;
+  PRE
+    delta : NATURAL1
+  THEN
+    time := time + delta
+  END;
   
   pass_minutes(delta) =
-    PRE
-      delta : NATURAL1
-    THEN
-      time := time + 60 * delta
-    END;
+  PRE
+    delta : NATURAL1
+  THEN
+    time := time + 60 * delta
+  END;
   
   pass_hours(delta) =
-    PRE
-      delta : NATURAL1
-    THEN
-      time := time + 3600 * delta
-    END
+  PRE
+    delta : NATURAL1
+  THEN
+    time := time + 3600 * delta
+  END;
+  
+  add_request(request_level, request_direction) =
+  PRE
+    request_level : LEVELS &
+    request_direction : DIRECTIONS &
+    (request_level = 0 => request_direction /= down) &
+    (request_level = 2 => request_direction /= up)
+  THEN
+    requests := requests \/ {request_level |-> request_direction}
+  END
+
 END

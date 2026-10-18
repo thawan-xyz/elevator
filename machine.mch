@@ -5,29 +5,36 @@ SETS
   DIRECTIONS = {up, down}
   
 CONSTANTS
+  MIN_LEVEL,
+  MAX_LEVEL,
   LEVELS
   
 PROPERTIES
+  MIN_LEVEL = 0 &
+  MAX_LEVEL = 2 &
   LEVELS <: NATURAL &
-  LEVELS = 0..2
+  LEVELS = MIN_LEVEL..MAX_LEVEL
   
 VARIABLES
   time,
-  elevator_level,
-  elevator_direction,
+  weight,
+  level,
+  direction,
   requests
   
 INVARIANT
   time : NATURAL &
-  elevator_level : NATURAL &
-  elevator_level : LEVELS &
-  elevator_direction : DIRECTIONS &
+  weight : NATURAL &
+  level : NATURAL &
+  level : LEVELS &
+  direction : DIRECTIONS &
   requests : LEVELS <-> DIRECTIONS
   
 INITIALISATION
   time := 0 ||
-  elevator_level := 0 ||
-  elevator_direction := up ||
+  weight := 0 ||
+  level := 0 ||
+  direction := up ||
   requests := {}
   
 OPERATIONS
@@ -52,14 +59,14 @@ OPERATIONS
     time := time + 3600 * delta
   END;
   
-  add_request(request_level, request_direction) =
+  add_request(r_level, r_direction) =
   PRE
-    request_level : LEVELS &
-    request_direction : DIRECTIONS &
-    (request_level = 0 => request_direction /= down) &
-    (request_level = 2 => request_direction /= up)
+    r_level : LEVELS &
+    r_direction : DIRECTIONS &
+    (r_level = 0 => r_direction /= down) &
+    (r_level = 2 => r_direction /= up)
   THEN
-    requests := requests \/ {request_level |-> request_direction}
+    requests := requests \/ {r_level |-> r_direction}
   END
 
 END

@@ -37,9 +37,9 @@ THEORY ListVariablesX IS
   External_Context_List_Variables(Machine(machine))==(?);
   Context_List_Variables(Machine(machine))==(?);
   Abstract_List_Variables(Machine(machine))==(?);
-  Local_List_Variables(Machine(machine))==(requests,elevator_direction,elevator_level,time);
-  List_Variables(Machine(machine))==(requests,elevator_direction,elevator_level,time);
-  External_List_Variables(Machine(machine))==(requests,elevator_direction,elevator_level,time)
+  Local_List_Variables(Machine(machine))==(requests,direction,level,weight,time);
+  List_Variables(Machine(machine))==(requests,direction,level,weight,time);
+  External_List_Variables(Machine(machine))==(requests,direction,level,weight,time)
 END
 &
 THEORY ListVisibleVariablesX IS
@@ -57,7 +57,7 @@ THEORY ListInvariantX IS
   Expanded_List_Invariant(Machine(machine))==(btrue);
   Abstract_List_Invariant(Machine(machine))==(btrue);
   Context_List_Invariant(Machine(machine))==(btrue);
-  List_Invariant(Machine(machine))==(time: NATURAL & elevator_level: NATURAL & elevator_level: LEVELS & elevator_direction: DIRECTIONS & requests: LEVELS <-> DIRECTIONS)
+  List_Invariant(Machine(machine))==(time: NATURAL & weight: NATURAL & level: NATURAL & level: LEVELS & direction: DIRECTIONS & requests: LEVELS <-> DIRECTIONS)
 END
 &
 THEORY ListAssertionsX IS
@@ -76,9 +76,9 @@ THEORY ListExclusivityX IS
 END
 &
 THEORY ListInitialisationX IS
-  Expanded_List_Initialisation(Machine(machine))==(time,elevator_level,elevator_direction,requests:=0,0,up,{});
+  Expanded_List_Initialisation(Machine(machine))==(time,weight,level,direction,requests:=0,0,0,up,{});
   Context_List_Initialisation(Machine(machine))==(skip);
-  List_Initialisation(Machine(machine))==(time:=0 || elevator_level:=0 || elevator_direction:=up || requests:={})
+  List_Initialisation(Machine(machine))==(time:=0 || weight:=0 || level:=0 || direction:=up || requests:={})
 END
 &
 THEORY ListParametersX IS
@@ -101,7 +101,7 @@ THEORY ListInputX IS
   List_Input(Machine(machine),pass_seconds)==(delta);
   List_Input(Machine(machine),pass_minutes)==(delta);
   List_Input(Machine(machine),pass_hours)==(delta);
-  List_Input(Machine(machine),add_request)==(request_level,request_direction)
+  List_Input(Machine(machine),add_request)==(r_level,r_direction)
 END
 &
 THEORY ListOutputX IS
@@ -115,7 +115,7 @@ THEORY ListHeaderX IS
   List_Header(Machine(machine),pass_seconds)==(pass_seconds(delta));
   List_Header(Machine(machine),pass_minutes)==(pass_minutes(delta));
   List_Header(Machine(machine),pass_hours)==(pass_hours(delta));
-  List_Header(Machine(machine),add_request)==(add_request(request_level,request_direction))
+  List_Header(Machine(machine),add_request)==(add_request(r_level,r_direction))
 END
 &
 THEORY ListOperationGuardX END
@@ -124,24 +124,24 @@ THEORY ListPreconditionX IS
   List_Precondition(Machine(machine),pass_seconds)==(delta: NATURAL1);
   List_Precondition(Machine(machine),pass_minutes)==(delta: NATURAL1);
   List_Precondition(Machine(machine),pass_hours)==(delta: NATURAL1);
-  List_Precondition(Machine(machine),add_request)==(request_level: LEVELS & request_direction: DIRECTIONS & (request_level = 0 => request_direction/=down) & (request_level = 2 => request_direction/=up))
+  List_Precondition(Machine(machine),add_request)==(r_level: LEVELS & r_direction: DIRECTIONS & (r_level = 0 => r_direction/=down) & (r_level = 2 => r_direction/=up))
 END
 &
 THEORY ListSubstitutionX IS
-  Expanded_List_Substitution(Machine(machine),add_request)==(request_level: LEVELS & request_direction: DIRECTIONS & (request_level = 0 => request_direction/=down) & (request_level = 2 => request_direction/=up) | requests:=requests\/{request_level|->request_direction});
+  Expanded_List_Substitution(Machine(machine),add_request)==(r_level: LEVELS & r_direction: DIRECTIONS & (r_level = 0 => r_direction/=down) & (r_level = 2 => r_direction/=up) | requests:=requests\/{r_level|->r_direction});
   Expanded_List_Substitution(Machine(machine),pass_hours)==(delta: NATURAL1 | time:=time+3600*delta);
   Expanded_List_Substitution(Machine(machine),pass_minutes)==(delta: NATURAL1 | time:=time+60*delta);
   Expanded_List_Substitution(Machine(machine),pass_seconds)==(delta: NATURAL1 | time:=time+delta);
   List_Substitution(Machine(machine),pass_seconds)==(time:=time+delta);
   List_Substitution(Machine(machine),pass_minutes)==(time:=time+60*delta);
   List_Substitution(Machine(machine),pass_hours)==(time:=time+3600*delta);
-  List_Substitution(Machine(machine),add_request)==(requests:=requests\/{request_level|->request_direction})
+  List_Substitution(Machine(machine),add_request)==(requests:=requests\/{r_level|->r_direction})
 END
 &
 THEORY ListConstantsX IS
-  List_Valuable_Constants(Machine(machine))==(LEVELS);
+  List_Valuable_Constants(Machine(machine))==(MIN_LEVEL,MAX_LEVEL,LEVELS);
   Inherited_List_Constants(Machine(machine))==(?);
-  List_Constants(Machine(machine))==(LEVELS)
+  List_Constants(Machine(machine))==(MIN_LEVEL,MAX_LEVEL,LEVELS)
 END
 &
 THEORY ListSetsX IS
@@ -169,7 +169,7 @@ THEORY ListPropertiesX IS
   Abstract_List_Properties(Machine(machine))==(btrue);
   Context_List_Properties(Machine(machine))==(btrue);
   Inherited_List_Properties(Machine(machine))==(btrue);
-  List_Properties(Machine(machine))==(LEVELS <: NATURAL & LEVELS = 0..2 & DIRECTIONS: FIN(INTEGER) & not(DIRECTIONS = {}))
+  List_Properties(Machine(machine))==(MIN_LEVEL = 0 & MAX_LEVEL = 2 & LEVELS <: NATURAL & LEVELS = MIN_LEVEL..MAX_LEVEL & DIRECTIONS: FIN(INTEGER) & not(DIRECTIONS = {}))
 END
 &
 THEORY ListSeenInfoX END
@@ -182,9 +182,9 @@ THEORY ListANYVarX IS
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (LEVELS,DIRECTIONS,up,down | ? | requests,elevator_direction,elevator_level,time | ? | pass_seconds,pass_minutes,pass_hours,add_request | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (MIN_LEVEL,MAX_LEVEL,LEVELS,DIRECTIONS,up,down | ? | requests,direction,level,weight,time | ? | pass_seconds,pass_minutes,pass_hours,add_request | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
-  List_Of_VisibleCst_Ids(Machine(machine)) == (LEVELS);
+  List_Of_VisibleCst_Ids(Machine(machine)) == (MIN_LEVEL,MAX_LEVEL,LEVELS);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
   List_Of_Ids_SeenBNU(Machine(machine)) == (?: ?)
 END
@@ -194,11 +194,11 @@ THEORY SetsEnvX IS
 END
 &
 THEORY ConstantsEnvX IS
-  Constants(Machine(machine)) == (Type(up) == Cst(etype(DIRECTIONS,0,1));Type(down) == Cst(etype(DIRECTIONS,0,1));Type(LEVELS) == Cst(SetOf(btype(INTEGER,"[LEVELS","]LEVELS"))))
+  Constants(Machine(machine)) == (Type(up) == Cst(etype(DIRECTIONS,0,1));Type(down) == Cst(etype(DIRECTIONS,0,1));Type(MIN_LEVEL) == Cst(btype(INTEGER,?,?));Type(MAX_LEVEL) == Cst(btype(INTEGER,?,?));Type(LEVELS) == Cst(SetOf(btype(INTEGER,"[LEVELS","]LEVELS"))))
 END
 &
 THEORY VariablesEnvX IS
-  Variables(Machine(machine)) == (Type(requests) == Mvl(SetOf(btype(INTEGER,?,?)*etype(DIRECTIONS,?,?)));Type(elevator_direction) == Mvl(etype(DIRECTIONS,?,?));Type(elevator_level) == Mvl(btype(INTEGER,?,?));Type(time) == Mvl(btype(INTEGER,?,?)))
+  Variables(Machine(machine)) == (Type(requests) == Mvl(SetOf(btype(INTEGER,?,?)*etype(DIRECTIONS,?,?)));Type(direction) == Mvl(etype(DIRECTIONS,?,?));Type(level) == Mvl(btype(INTEGER,?,?));Type(weight) == Mvl(btype(INTEGER,?,?));Type(time) == Mvl(btype(INTEGER,?,?)))
 END
 &
 THEORY OperationsEnvX IS

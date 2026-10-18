@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<db_xml>
+    <atelierb version="3_7_ubuntu-cvs" />
+    <project decomp_dir="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/expand_src" old_decomp_dir="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/src">
+        <!-- Definition directory list -->
+        <!-- Proof mechanisms -->
+        <!-- Component file list -->
+        <component_file path="/opt/atelierb-free-24.04.2/press/bdb/elevator" name="machine" suffix="mch" user="thawan">
+            <component name="machine" type="specification" />
+        </component_file>
+    </project>
+</db_xml>

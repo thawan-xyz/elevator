@@ -2,40 +2,52 @@ MACHINE
   machine
   
 SETS
-  DIRECTIONS = {up, down}
+  DIRECTIONS = {up, down};
+  STATUS = {stopped, moving};
+  DOORS = {open, closed}
   
 CONSTANTS
   MIN_LEVEL,
   MAX_LEVEL,
-  LEVELS
+  LEVELS,
+  MAX_CAPACITY
   
 PROPERTIES
   MIN_LEVEL = 0 &
   MAX_LEVEL = 2 &
-  LEVELS <: NATURAL &
-  LEVELS = MIN_LEVEL..MAX_LEVEL
+  LEVELS = MIN_LEVEL..MAX_LEVEL &
+  MAX_CAPACITY = 450
   
 VARIABLES
   time,
   weight,
+  weights,
   level,
   direction,
-  requests
+  requests,
+  status,
+  doors
   
 INVARIANT
   time : NATURAL &
   weight : NATURAL &
+  weights : NATURAL +-> NATURAL1 &
   level : NATURAL &
   level : LEVELS &
   direction : DIRECTIONS &
-  requests : LEVELS <-> DIRECTIONS
+  requests : LEVELS <-> DIRECTIONS &
+  status : STATUS &
+  doors : DOORS
   
 INITIALISATION
   time := 0 ||
   weight := 0 ||
+  weights := {} ||
   level := 0 ||
   direction := up ||
-  requests := {}
+  requests := {} ||
+  status := stopped ||
+  doors := closed
   
 OPERATIONS
   pass_seconds(delta) =
@@ -45,28 +57,37 @@ OPERATIONS
     time := time + delta
   END;
   
-  pass_minutes(delta) =
+  insert_person(person_weight) =
   PRE
-    delta : NATURAL1
+    person_weight : NATURAL1
   THEN
-    time := time + 60 * delta
+    weight := weight + person_weight ||
+    IF person_weight : dom(weights) THEN
+      weights(person_weight) := weights(person_weight) + 1
+    ELSE
+      weights(person_weight) := 1
+    END
   END;
-  
-  pass_hours(delta) =
-  PRE
-    delta : NATURAL1
-  THEN
-    time := time + 3600 * delta
-  END;
-  
-  add_request(r_level, r_direction) =
-  PRE
-    r_level : LEVELS &
-    r_direction : DIRECTIONS &
-    (r_level = 0 => r_direction /= down) &
-    (r_level = 2 => r_direction /= up)
-  THEN
-    requests := requests \/ {r_level |-> r_direction}
-  END
 
+  remove_person(person_weight) =
+  PRE
+    person_weight : NATURAL1 &
+    person_weight : dom(weights)
+  THEN
+    weight := weight - person_weight ||
+    IF weights(person_weight) = 1 THEN
+      weights := {person_weight} <<| weights
+    ELSE
+      weights(person_weight) := weights(person_weight) - 1
+    END
+  END;
+
+  move =
+  PRE
+    status = stopped &
+    doors = closed &
+    weight <= MAX_CAPACITY
+  THEN
+    status := moving
+  END
 END

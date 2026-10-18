@@ -1,8 +1,17 @@
 THEORY ProofList IS
-_f(1) & _f(2) & _f(7) & _f(12) & _f(13) & _f(14) & _f(15) & Operation_add_request.1,(_f(3) => _f(16));
-_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_hours.1,(_f(3) => _f(11));
-_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_minutes.1,(_f(3) => _f(10));
-_f(1) & _f(2) & _f(7) & _f(8) & Operation_pass_seconds.1,(_f(3) => _f(9));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & WellDefinedness_remove_person.2,(_f(18) & _f(22) => _f(23));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & WellDefinedness_remove_person.1,(_f(22) => _f(23));
+_f(1) & _f(2) & _f(8) & _f(11) & WellDefinedness_insert_person.1,(_f(12) & _f(22) => _f(23));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.4,(_f(18) & _f(3) => _f(21));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.3,(_f(18) & _f(3) => _f(19));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.2,(_f(17) & _f(3) => _f(20));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.1,(_f(17) & _f(3) => _f(19));
+_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.4,(_f(13) & _f(3) => _f(16));
+_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.3,(_f(13) & _f(3) => _f(14));
+_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.2,(_f(12) & _f(3) => _f(15));
+_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.1,(_f(12) & _f(3) => _f(14));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_seconds.1,(_f(3) => _f(10));
+_f(1) & _f(2) & Initialisation.4,(_f(3) => _f(7));
 _f(1) & _f(2) & Initialisation.3,(_f(3) => _f(6));
 _f(1) & _f(2) & Initialisation.2,(_f(3) => _f(5));
 _f(1) & _f(2) & Initialisation.1,(_f(3) => _f(4))
@@ -10,23 +19,32 @@ END
 &
 THEORY Formulas IS
 ((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
-((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((MIN_LEVEL) = (0)) & ((MAX_LEVEL) = (2)) & LEVELS : POW( NATURAL) & ((LEVELS) = (((MIN_LEVEL) .. (MAX_LEVEL))));
+((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((1..2)*{STATUS}): FIN(NATURAL*{STATUS})& not(((1..2)*{STATUS}) = {}) & ((1..2)*{DOORS}): FIN(NATURAL*{DOORS})& not(((1..2)*{DOORS}) = {}) & ((MIN_LEVEL) = (0)) & ((MAX_LEVEL) = (2)) & ((LEVELS) = (((MIN_LEVEL) .. (MAX_LEVEL)))) & ((MAX_CAPACITY) = (450));
 "Invariant is preserved";
 ((0) : (NATURAL));
+(({}) : (((NATURAL) +-> ((NATURAL-{0})))));
 ((0) : (LEVELS));
 (({}) : (((LEVELS) <-> (((1..2)*{DIRECTIONS})))));
-time : INTEGER & 0 <= time & ((time) : (NATURAL)) & weight : INTEGER & 0 <= weight & ((weight) : (NATURAL)) & level : INTEGER & 0 <= level & ((level) : (NATURAL)) & ((level) : (LEVELS)) & ((direction) : (((1..2)*{DIRECTIONS}))) & ((requests) : (((LEVELS) <-> (((1..2)*{DIRECTIONS})))));
+time : INTEGER & 0 <= time & ((time) : (NATURAL)) & weight : INTEGER & 0 <= weight & ((weight) : (NATURAL)) & ((weights) : (((NATURAL) +-> ((NATURAL-{0}))))) & level : INTEGER & 0 <= level & ((level) : (NATURAL)) & ((level) : (LEVELS)) & ((direction) : (((1..2)*{DIRECTIONS}))) & ((requests) : (((LEVELS) <-> (((1..2)*{DIRECTIONS}))))) & ((status) : (((1..2)*{STATUS}))) & ((doors) : (((1..2)*{DOORS})));
 ((delta) : ((NATURAL-{0})));
 (((time + delta)) : (NATURAL));
-(((time + (60 * delta))) : (NATURAL));
-(((time + (3600 * delta))) : (NATURAL));
-((r_level) : (LEVELS));
-((r_direction) : (((1..2)*{DIRECTIONS})));
-((((r_level) = (0))) => (not(((r_direction) = ((2|->DIRECTIONS))))));
-((((r_level) = (2))) => (not(((r_direction) = ((1|->DIRECTIONS))))));
-((((requests) \/ (({((r_level) |-> (r_direction))})))) : (((LEVELS) <-> (((1..2)*{DIRECTIONS})))))
+((person_weight) : ((NATURAL-{0})));
+((person_weight) : (dom(weights)));
+not(((person_weight) : (dom(weights))));
+(((weight + person_weight)) : (NATURAL));
+((((weights) <+ (({((person_weight) |-> (((weights )(person_weight) + 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((weights) <+ (({((person_weight) |-> (1))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+(((weights )(person_weight)) = (1));
+not((((weights )(person_weight)) = (1)));
+(((weight - person_weight)) : (NATURAL));
+((((({person_weight})) <<| (weights))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((weights) <+ (({((person_weight) |-> (((weights )(person_weight) - 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+"Operation is well defined";
+((weights) : (((dom(weights)) +-> (ran(weights)))))
 END
 &
 THEORY EnumerateX IS
-DIRECTIONS == {up,down}
+DIRECTIONS == {up,down};
+DOORS == {open,closed};
+STATUS == {stopped,moving}
 END

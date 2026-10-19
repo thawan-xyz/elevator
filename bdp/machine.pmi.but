@@ -1,0 +1,1 @@
+﻿Flag(FileOn("machine.pmi.res")) & Set(toto | weight: INTEGER & weight: NATURAL & weight_frequency: NATURAL +-> NATURAL-{0} & weight: INTEGER & 0<=weight & weight: NATURAL => (weight: dom(weight_frequency) & "Invariant is preserved" => weight_frequency<+{weight|->weight_frequency(weight)+1}: NATURAL +-> NATURAL-{0}))

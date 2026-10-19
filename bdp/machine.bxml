@@ -91,144 +91,104 @@
 <Attr>
 <Pos l='9' c='1' s='18'/>
 </Attr>
-<Id value='MIN_LEVEL' typref='1'>
-<Attr>
-<Pos l='10' c='3' s='9'/>
-</Attr>
-</Id>
-<Id value='MAX_LEVEL' typref='1'>
-<Attr>
-<Pos l='11' c='3' s='9'/>
-</Attr>
-</Id>
 <Id value='LEVELS' typref='2'>
 <Attr>
-<Pos l='12' c='3' s='6'/>
+<Pos l='10' c='3' s='6'/>
 </Attr>
 </Id>
 <Id value='MAX_CAPACITY' typref='1'>
 <Attr>
-<Pos l='13' c='3' s='12'/>
+<Pos l='11' c='3' s='12'/>
 </Attr>
 </Id>
 </Concrete_Constants>
 <Abstract_Variables>
 <Attr>
-<Pos l='21' c='1' s='18'/>
+<Pos l='17' c='1' s='18'/>
 </Attr>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='22' c='3' s='4'/>
+<Pos l='18' c='3' s='4'/>
 </Attr>
 </Id>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='24' c='3' s='15'/>
+<Pos l='20' c='3' s='15'/>
 </Attr>
 </Id>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='25' c='3' s='16'/>
+<Pos l='21' c='3' s='16'/>
 </Attr>
 </Id>
 <Id value='level' typref='1'>
 <Attr>
-<Pos l='27' c='3' s='5'/>
+<Pos l='23' c='3' s='5'/>
 </Attr>
 </Id>
 <Id value='direction' typref='5'>
 <Attr>
-<Pos l='28' c='3' s='9'/>
+<Pos l='24' c='3' s='9'/>
 </Attr>
 </Id>
 <Id value='door_status' typref='7'>
 <Attr>
-<Pos l='30' c='3' s='11'/>
+<Pos l='26' c='3' s='11'/>
 </Attr>
 </Id>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='31' c='3' s='14'/>
+<Pos l='27' c='3' s='14'/>
 </Attr>
 </Id>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='32' c='3' s='15'/>
+<Pos l='28' c='3' s='15'/>
 </Attr>
 </Id>
 </Abstract_Variables>
 <Properties>
 <Attr>
-<Pos l='15' c='1' s='10'/>
+<Pos l='13' c='1' s='10'/>
 </Attr>
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op='='>
 <Attr>
-<Pos l='16' c='13' s='1'/>
-</Attr>
-<Id value='MIN_LEVEL' typref='1'>
-<Attr>
-<Pos l='16' c='3' s='9'/>
-</Attr>
-</Id>
-<Integer_Literal value='0' typref='1'>
-<Attr>
-<Pos l='16' c='15' s='1'/>
-</Attr>
-</Integer_Literal>
-</Exp_Comparison>
-<Exp_Comparison op='='>
-<Attr>
-<Pos l='17' c='13' s='1'/>
-</Attr>
-<Id value='MAX_LEVEL' typref='1'>
-<Attr>
-<Pos l='17' c='3' s='9'/>
-</Attr>
-</Id>
-<Integer_Literal value='2' typref='1'>
-<Attr>
-<Pos l='17' c='15' s='1'/>
-</Attr>
-</Integer_Literal>
-</Exp_Comparison>
-<Exp_Comparison op='='>
-<Attr>
-<Pos l='18' c='10' s='1'/>
+<Pos l='14' c='10' s='1'/>
 </Attr>
 <Id value='LEVELS' typref='2'>
 <Attr>
-<Pos l='18' c='3' s='6'/>
+<Pos l='14' c='3' s='6'/>
 </Attr>
 </Id>
 <Binary_Exp op='..' typref='2'>
 <Attr>
-<Pos l='18' c='21' s='2'/>
+<Pos l='14' c='13' s='2'/>
 </Attr>
-<Id value='MIN_LEVEL' typref='1'>
+<Integer_Literal value='0' typref='1'>
 <Attr>
-<Pos l='18' c='12' s='9'/>
+<Pos l='14' c='12' s='1'/>
 </Attr>
-</Id>
-<Id value='MAX_LEVEL' typref='1'>
+</Integer_Literal>
+<Integer_Literal value='2' typref='1'>
 <Attr>
-<Pos l='18' c='23' s='9'/>
+<Pos l='14' c='15' s='1'/>
 </Attr>
-</Id>
+</Integer_Literal>
 </Binary_Exp>
 </Exp_Comparison>
 <Exp_Comparison op='='>
 <Attr>
-<Pos l='19' c='16' s='1'/>
+<Pos l='15' c='16' s='1'/>
 </Attr>
 <Id value='MAX_CAPACITY' typref='1'>
 <Attr>
-<Pos l='19' c='3' s='12'/>
+<Pos l='15' c='3' s='12'/>
 </Attr>
 </Id>
 <Integer_Literal value='450' typref='1'>
 <Attr>
-<Pos l='19' c='18' s='3'/>
+<Pos l='15' c='18' s='3'/>
 </Attr>
 </Integer_Literal>
 </Exp_Comparison>
@@ -236,160 +196,160 @@
 </Properties>
 <Invariant>
 <Attr>
-<Pos l='34' c='1' s='9'/>
+<Pos l='30' c='1' s='9'/>
 </Attr>
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='35' c='8' s='1'/>
+<Pos l='31' c='8' s='1'/>
 </Attr>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='35' c='3' s='4'/>
+<Pos l='31' c='3' s='4'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='35' c='10' s='7'/>
+<Pos l='31' c='10' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='37' c='19' s='1'/>
+<Pos l='33' c='19' s='1'/>
 </Attr>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='37' c='3' s='15'/>
+<Pos l='33' c='3' s='15'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='37' c='21' s='7'/>
+<Pos l='33' c='21' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='38' c='20' s='1'/>
+<Pos l='34' c='20' s='1'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='38' c='3' s='16'/>
+<Pos l='34' c='3' s='16'/>
 </Attr>
 </Id>
 <Binary_Exp op='+-&gt;' typref='12'>
 <Attr>
-<Pos l='38' c='30' s='3'/>
+<Pos l='34' c='30' s='3'/>
 </Attr>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='38' c='22' s='7'/>
+<Pos l='34' c='22' s='7'/>
 </Attr>
 </Id>
 <Id value='NATURAL1' typref='2'>
 <Attr>
-<Pos l='38' c='34' s='8'/>
+<Pos l='34' c='34' s='8'/>
 </Attr>
 </Id>
 </Binary_Exp>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='40' c='9' s='1'/>
+<Pos l='36' c='9' s='1'/>
 </Attr>
 <Id value='level' typref='1'>
 <Attr>
-<Pos l='40' c='3' s='5'/>
+<Pos l='36' c='3' s='5'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='40' c='11' s='7'/>
+<Pos l='36' c='11' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='41' c='9' s='1'/>
+<Pos l='37' c='9' s='1'/>
 </Attr>
 <Id value='level' typref='1'>
 <Attr>
-<Pos l='41' c='3' s='5'/>
+<Pos l='37' c='3' s='5'/>
 </Attr>
 </Id>
 <Id value='LEVELS' typref='2'>
 <Attr>
-<Pos l='41' c='11' s='6'/>
+<Pos l='37' c='11' s='6'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='42' c='13' s='1'/>
+<Pos l='38' c='13' s='1'/>
 </Attr>
 <Id value='direction' typref='5'>
 <Attr>
-<Pos l='42' c='3' s='9'/>
+<Pos l='38' c='3' s='9'/>
 </Attr>
 </Id>
 <Id value='DIRECTIONS' typref='4'>
 <Attr>
-<Pos l='42' c='15' s='10'/>
+<Pos l='38' c='15' s='10'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='44' c='15' s='1'/>
+<Pos l='40' c='15' s='1'/>
 </Attr>
 <Id value='door_status' typref='7'>
 <Attr>
-<Pos l='44' c='3' s='11'/>
+<Pos l='40' c='3' s='11'/>
 </Attr>
 </Id>
 <Id value='DOOR_STATUS' typref='6'>
 <Attr>
-<Pos l='44' c='17' s='11'/>
+<Pos l='40' c='17' s='11'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op='&lt;:'>
 <Attr>
-<Pos l='45' c='18' s='2'/>
+<Pos l='41' c='18' s='2'/>
 </Attr>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='45' c='3' s='14'/>
+<Pos l='41' c='3' s='14'/>
 </Attr>
 </Id>
 <Id value='BUTTONS' typref='8'>
 <Attr>
-<Pos l='45' c='21' s='7'/>
+<Pos l='41' c='21' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='46' c='19' s='1'/>
+<Pos l='42' c='19' s='1'/>
 </Attr>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='46' c='3' s='15'/>
+<Pos l='42' c='3' s='15'/>
 </Attr>
 </Id>
 <Binary_Exp op='+-&gt;' typref='13'>
 <Attr>
-<Pos l='46' c='29' s='3'/>
+<Pos l='42' c='29' s='3'/>
 </Attr>
 <Id value='BUTTONS' typref='8'>
 <Attr>
-<Pos l='46' c='21' s='7'/>
+<Pos l='42' c='21' s='7'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='46' c='33' s='7'/>
+<Pos l='42' c='33' s='7'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -398,157 +358,157 @@
 </Invariant>
 <Initialisation>
 <Attr>
-<Pos l='48' c='1' s='14'/>
+<Pos l='44' c='1' s='14'/>
 </Attr>
 <Nary_Sub op='||'>
 <Assignement_Sub>
 <Attr>
-<Pos l='49' c='8' s='2'/>
+<Pos l='45' c='8' s='2'/>
 </Attr>
 <Variables>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='49' c='3' s='4'/>
+<Pos l='45' c='3' s='4'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Integer_Literal value='0' typref='1'>
 <Attr>
-<Pos l='49' c='11' s='1'/>
+<Pos l='45' c='11' s='1'/>
 </Attr>
 </Integer_Literal>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='51' c='19' s='2'/>
+<Pos l='47' c='19' s='2'/>
 </Attr>
 <Variables>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='51' c='3' s='15'/>
+<Pos l='47' c='3' s='15'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Integer_Literal value='0' typref='1'>
 <Attr>
-<Pos l='51' c='22' s='1'/>
+<Pos l='47' c='22' s='1'/>
 </Attr>
 </Integer_Literal>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='52' c='20' s='2'/>
+<Pos l='48' c='20' s='2'/>
 </Attr>
 <Variables>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='52' c='3' s='16'/>
+<Pos l='48' c='3' s='16'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <EmptySet typref='10'>
 <Attr>
-<Pos l='52' c='23' s='2'/>
+<Pos l='48' c='23' s='2'/>
 </Attr>
 </EmptySet>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='54' c='9' s='2'/>
+<Pos l='50' c='9' s='2'/>
 </Attr>
 <Variables>
 <Id value='level' typref='1'>
 <Attr>
-<Pos l='54' c='3' s='5'/>
+<Pos l='50' c='3' s='5'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Integer_Literal value='0' typref='1'>
 <Attr>
-<Pos l='54' c='12' s='1'/>
+<Pos l='50' c='12' s='1'/>
 </Attr>
 </Integer_Literal>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='55' c='13' s='2'/>
+<Pos l='51' c='13' s='2'/>
 </Attr>
 <Variables>
 <Id value='direction' typref='5'>
 <Attr>
-<Pos l='55' c='3' s='9'/>
+<Pos l='51' c='3' s='9'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='UP' typref='5'>
 <Attr>
-<Pos l='55' c='16' s='2'/>
+<Pos l='51' c='16' s='2'/>
 </Attr>
 </Id>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='57' c='15' s='2'/>
+<Pos l='53' c='15' s='2'/>
 </Attr>
 <Variables>
 <Id value='door_status' typref='7'>
 <Attr>
-<Pos l='57' c='3' s='11'/>
+<Pos l='53' c='3' s='11'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='CLOSED' typref='7'>
 <Attr>
-<Pos l='57' c='18' s='6'/>
+<Pos l='53' c='18' s='6'/>
 </Attr>
 </Id>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='59' c='18' s='2'/>
+<Pos l='55' c='18' s='2'/>
 </Attr>
 <Variables>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='59' c='3' s='14'/>
+<Pos l='55' c='3' s='14'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <EmptySet typref='8'>
 <Attr>
-<Pos l='59' c='21' s='2'/>
+<Pos l='55' c='21' s='2'/>
 </Attr>
 </EmptySet>
 </Values>
 </Assignement_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='60' c='19' s='2'/>
+<Pos l='56' c='19' s='2'/>
 </Attr>
 <Variables>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='60' c='3' s='15'/>
+<Pos l='56' c='3' s='15'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <EmptySet typref='11'>
 <Attr>
-<Pos l='60' c='22' s='2'/>
+<Pos l='56' c='22' s='2'/>
 </Attr>
 </EmptySet>
 </Values>
@@ -558,28 +518,28 @@
 <Operations>
 <Operation name='pass_time'>
 <Attr>
-<Pos l='63' c='3' s='9' endLine='68'/>
+<Pos l='59' c='3' s='9' endLine='64'/>
 </Attr>
 <Input_Parameters>
 <Id value='seconds' typref='1'>
 <Attr>
-<Pos l='63' c='13' s='7'/>
+<Pos l='59' c='13' s='7'/>
 </Attr>
 </Id>
 </Input_Parameters>
 <Precondition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='65' c='13' s='1'/>
+<Pos l='61' c='13' s='1'/>
 </Attr>
 <Id value='seconds' typref='1'>
 <Attr>
-<Pos l='65' c='5' s='7'/>
+<Pos l='61' c='5' s='7'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='65' c='15' s='7'/>
+<Pos l='61' c='15' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -587,28 +547,28 @@
 <Body>
 <Assignement_Sub>
 <Attr>
-<Pos l='67' c='10' s='2'/>
+<Pos l='63' c='10' s='2'/>
 </Attr>
 <Variables>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='67' c='5' s='4'/>
+<Pos l='63' c='5' s='4'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='+i' typref='1'>
 <Attr>
-<Pos l='67' c='18' s='1'/>
+<Pos l='63' c='18' s='1'/>
 </Attr>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='67' c='13' s='4'/>
+<Pos l='63' c='13' s='4'/>
 </Attr>
 </Id>
 <Id value='seconds' typref='1'>
 <Attr>
-<Pos l='67' c='20' s='7'/>
+<Pos l='63' c='20' s='7'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -618,28 +578,28 @@
 </Operation>
 <Operation name='insert_person'>
 <Attr>
-<Pos l='70' c='3' s='13' endLine='80'/>
+<Pos l='66' c='3' s='13' endLine='76'/>
 </Attr>
 <Input_Parameters>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='70' c='17' s='6'/>
+<Pos l='66' c='17' s='6'/>
 </Attr>
 </Id>
 </Input_Parameters>
 <Precondition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='72' c='12' s='1'/>
+<Pos l='68' c='12' s='1'/>
 </Attr>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='72' c='5' s='6'/>
+<Pos l='68' c='5' s='6'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='72' c='14' s='7'/>
+<Pos l='68' c='14' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -648,28 +608,28 @@
 <Nary_Sub op='||'>
 <Assignement_Sub>
 <Attr>
-<Pos l='74' c='21' s='2'/>
+<Pos l='70' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='74' c='5' s='15'/>
+<Pos l='70' c='5' s='15'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='+i' typref='1'>
 <Attr>
-<Pos l='74' c='40' s='1'/>
+<Pos l='70' c='40' s='1'/>
 </Attr>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='74' c='24' s='15'/>
+<Pos l='70' c='24' s='15'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='74' c='42' s='6'/>
+<Pos l='70' c='42' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -677,25 +637,25 @@
 </Assignement_Sub>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='75' c='5' s='2'/>
+<Pos l='71' c='5' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='75' c='15' s='1'/>
+<Pos l='71' c='15' s='1'/>
 </Attr>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='75' c='8' s='6'/>
+<Pos l='71' c='8' s='6'/>
 </Attr>
 </Id>
 <Unary_Exp op='dom' typref='2'>
 <Attr>
-<Pos l='75' c='17' s='3'/>
+<Pos l='71' c='17' s='3'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='75' c='21' s='16'/>
+<Pos l='71' c='21' s='16'/>
 </Attr>
 </Id>
 </Unary_Exp>
@@ -704,21 +664,21 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='76' c='32' s='2'/>
+<Pos l='72' c='32' s='2'/>
 </Attr>
 <Variables>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='76' c='23' s='0'/>
+<Pos l='72' c='23' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='76' c='7' s='16'/>
+<Pos l='72' c='7' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='76' c='24' s='6'/>
+<Pos l='72' c='24' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -726,26 +686,26 @@
 <Values>
 <Binary_Exp op='+i' typref='1'>
 <Attr>
-<Pos l='76' c='60' s='1'/>
+<Pos l='72' c='60' s='1'/>
 </Attr>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='76' c='51' s='0'/>
+<Pos l='72' c='51' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='76' c='35' s='16'/>
+<Pos l='72' c='35' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='76' c='52' s='6'/>
+<Pos l='72' c='52' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='76' c='62' s='1'/>
+<Pos l='72' c='62' s='1'/>
 </Attr>
 </Integer_Literal>
 </Binary_Exp>
@@ -755,21 +715,21 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='78' c='32' s='2'/>
+<Pos l='74' c='32' s='2'/>
 </Attr>
 <Variables>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='78' c='23' s='0'/>
+<Pos l='74' c='23' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='78' c='7' s='16'/>
+<Pos l='74' c='7' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='78' c='24' s='6'/>
+<Pos l='74' c='24' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -777,7 +737,7 @@
 <Values>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='78' c='35' s='1'/>
+<Pos l='74' c='35' s='1'/>
 </Attr>
 </Integer_Literal>
 </Values>
@@ -789,12 +749,12 @@
 </Operation>
 <Operation name='remove_person'>
 <Attr>
-<Pos l='82' c='3' s='13' endLine='93'/>
+<Pos l='78' c='3' s='13' endLine='90'/>
 </Attr>
 <Input_Parameters>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='82' c='17' s='6'/>
+<Pos l='78' c='17' s='6'/>
 </Attr>
 </Id>
 </Input_Parameters>
@@ -802,38 +762,53 @@
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='84' c='12' s='1'/>
+<Pos l='80' c='12' s='1'/>
 </Attr>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='84' c='5' s='6'/>
+<Pos l='80' c='5' s='6'/>
 </Attr>
 </Id>
 <Id value='NATURAL' typref='2'>
 <Attr>
-<Pos l='84' c='14' s='7'/>
+<Pos l='80' c='14' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='85' c='12' s='1'/>
+<Pos l='81' c='12' s='1'/>
 </Attr>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='85' c='5' s='6'/>
+<Pos l='81' c='5' s='6'/>
 </Attr>
 </Id>
 <Unary_Exp op='dom' typref='2'>
 <Attr>
-<Pos l='85' c='14' s='3'/>
+<Pos l='81' c='14' s='3'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='85' c='18' s='16'/>
+<Pos l='81' c='18' s='16'/>
 </Attr>
 </Id>
 </Unary_Exp>
+</Exp_Comparison>
+<Exp_Comparison op='&lt;=i'>
+<Attr>
+<Pos l='82' c='12' s='2'/>
+</Attr>
+<Id value='weight' typref='1'>
+<Attr>
+<Pos l='82' c='5' s='6'/>
+</Attr>
+</Id>
+<Id value='elevator_weight' typref='1'>
+<Attr>
+<Pos l='82' c='15' s='15'/>
+</Attr>
+</Id>
 </Exp_Comparison>
 </Nary_Pred>
 </Precondition>
@@ -841,28 +816,28 @@
 <Nary_Sub op='||'>
 <Assignement_Sub>
 <Attr>
-<Pos l='87' c='21' s='2'/>
+<Pos l='84' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='87' c='5' s='15'/>
+<Pos l='84' c='5' s='15'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='-i' typref='1'>
 <Attr>
-<Pos l='87' c='40' s='1'/>
+<Pos l='84' c='40' s='1'/>
 </Attr>
 <Id value='elevator_weight' typref='1'>
 <Attr>
-<Pos l='87' c='24' s='15'/>
+<Pos l='84' c='24' s='15'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='87' c='42' s='6'/>
+<Pos l='84' c='42' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -870,31 +845,31 @@
 </Assignement_Sub>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='88' c='5' s='2'/>
+<Pos l='85' c='5' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op='='>
 <Attr>
-<Pos l='88' c='33' s='1'/>
+<Pos l='85' c='33' s='1'/>
 </Attr>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='88' c='24' s='0'/>
+<Pos l='85' c='24' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='88' c='8' s='16'/>
+<Pos l='85' c='8' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='88' c='25' s='6'/>
+<Pos l='85' c='25' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='88' c='35' s='1'/>
+<Pos l='85' c='35' s='1'/>
 </Attr>
 </Integer_Literal>
 </Exp_Comparison>
@@ -902,33 +877,33 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='89' c='24' s='2'/>
+<Pos l='86' c='24' s='2'/>
 </Attr>
 <Variables>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='89' c='7' s='16'/>
+<Pos l='86' c='7' s='16'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='&lt;&lt;|' typref='10'>
 <Attr>
-<Pos l='89' c='36' s='3'/>
+<Pos l='86' c='36' s='3'/>
 </Attr>
 <Nary_Exp op='{' typref='2'>
 <Attr>
-<Pos l='89' c='27' s='1'/>
+<Pos l='86' c='27' s='1'/>
 </Attr>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='89' c='28' s='6'/>
+<Pos l='86' c='28' s='6'/>
 </Attr>
 </Id>
 </Nary_Exp>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='89' c='40' s='16'/>
+<Pos l='86' c='40' s='16'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -938,21 +913,21 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='91' c='32' s='2'/>
+<Pos l='88' c='32' s='2'/>
 </Attr>
 <Variables>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='91' c='23' s='0'/>
+<Pos l='88' c='23' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='91' c='7' s='16'/>
+<Pos l='88' c='7' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='91' c='24' s='6'/>
+<Pos l='88' c='24' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -960,26 +935,26 @@
 <Values>
 <Binary_Exp op='-i' typref='1'>
 <Attr>
-<Pos l='91' c='60' s='1'/>
+<Pos l='88' c='60' s='1'/>
 </Attr>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='91' c='51' s='0'/>
+<Pos l='88' c='51' s='0'/>
 </Attr>
 <Id value='weight_frequency' typref='10'>
 <Attr>
-<Pos l='91' c='35' s='16'/>
+<Pos l='88' c='35' s='16'/>
 </Attr>
 </Id>
 <Id value='weight' typref='1'>
 <Attr>
-<Pos l='91' c='52' s='6'/>
+<Pos l='88' c='52' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='91' c='62' s='1'/>
+<Pos l='88' c='62' s='1'/>
 </Attr>
 </Integer_Literal>
 </Binary_Exp>
@@ -992,12 +967,12 @@
 </Operation>
 <Operation name='press_button'>
 <Attr>
-<Pos l='95' c='3' s='12' endLine='101'/>
+<Pos l='92' c='3' s='12' endLine='98'/>
 </Attr>
 <Input_Parameters>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='95' c='16' s='6'/>
+<Pos l='92' c='16' s='6'/>
 </Attr>
 </Id>
 </Input_Parameters>
@@ -1005,35 +980,35 @@
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='97' c='12' s='1'/>
+<Pos l='94' c='12' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='97' c='5' s='6'/>
+<Pos l='94' c='5' s='6'/>
 </Attr>
 </Id>
 <Id value='BUTTONS' typref='8'>
 <Attr>
-<Pos l='97' c='14' s='7'/>
+<Pos l='94' c='14' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op='/:'>
 <Attr>
-<Pos l='98' c='12' s='2'/>
+<Pos l='95' c='12' s='2'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='98' c='5' s='6'/>
+<Pos l='95' c='5' s='6'/>
 </Attr>
 </Id>
 <Unary_Exp op='dom' typref='8'>
 <Attr>
-<Pos l='98' c='15' s='3'/>
+<Pos l='95' c='15' s='3'/>
 </Attr>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='98' c='19' s='15'/>
+<Pos l='95' c='19' s='15'/>
 </Attr>
 </Id>
 </Unary_Exp>
@@ -1043,21 +1018,21 @@
 <Body>
 <Assignement_Sub>
 <Attr>
-<Pos l='100' c='29' s='2'/>
+<Pos l='97' c='29' s='2'/>
 </Attr>
 <Variables>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='100' c='20' s='0'/>
+<Pos l='97' c='20' s='0'/>
 </Attr>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='100' c='5' s='15'/>
+<Pos l='97' c='5' s='15'/>
 </Attr>
 </Id>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='100' c='21' s='6'/>
+<Pos l='97' c='21' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
@@ -1065,7 +1040,7 @@
 <Values>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='100' c='32' s='4'/>
+<Pos l='97' c='32' s='4'/>
 </Attr>
 </Id>
 </Values>
@@ -1074,12 +1049,12 @@
 </Operation>
 <Operation name='release_button'>
 <Attr>
-<Pos l='103' c='3' s='14' endLine='114'/>
+<Pos l='100' c='3' s='14' endLine='111'/>
 </Attr>
 <Input_Parameters>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='103' c='18' s='6'/>
+<Pos l='100' c='18' s='6'/>
 </Attr>
 </Id>
 </Input_Parameters>
@@ -1087,35 +1062,35 @@
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='105' c='12' s='1'/>
+<Pos l='102' c='12' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='105' c='5' s='6'/>
+<Pos l='102' c='5' s='6'/>
 </Attr>
 </Id>
 <Id value='BUTTONS' typref='8'>
 <Attr>
-<Pos l='105' c='14' s='7'/>
+<Pos l='102' c='14' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='106' c='12' s='1'/>
+<Pos l='103' c='12' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='106' c='5' s='6'/>
+<Pos l='103' c='5' s='6'/>
 </Attr>
 </Id>
 <Unary_Exp op='dom' typref='8'>
 <Attr>
-<Pos l='106' c='14' s='3'/>
+<Pos l='103' c='14' s='3'/>
 </Attr>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='106' c='18' s='15'/>
+<Pos l='103' c='18' s='15'/>
 </Attr>
 </Id>
 </Unary_Exp>
@@ -1126,41 +1101,41 @@
 <Nary_Sub op='||'>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='108' c='5' s='2'/>
+<Pos l='105' c='5' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op='&gt;=i'>
 <Attr>
-<Pos l='108' c='39' s='2'/>
+<Pos l='105' c='39' s='2'/>
 </Attr>
 <Binary_Exp op='-i' typref='1'>
 <Attr>
-<Pos l='108' c='13' s='1'/>
+<Pos l='105' c='13' s='1'/>
 </Attr>
 <Id value='time' typref='1'>
 <Attr>
-<Pos l='108' c='8' s='4'/>
+<Pos l='105' c='8' s='4'/>
 </Attr>
 </Id>
 <Binary_Exp op='(' typref='1'>
 <Attr>
-<Pos l='108' c='30' s='0'/>
+<Pos l='105' c='30' s='0'/>
 </Attr>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='108' c='15' s='15'/>
+<Pos l='105' c='15' s='15'/>
 </Attr>
 </Id>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='108' c='31' s='6'/>
+<Pos l='105' c='31' s='6'/>
 </Attr>
 </Id>
 </Binary_Exp>
 </Binary_Exp>
 <Integer_Literal value='3' typref='1'>
 <Attr>
-<Pos l='108' c='42' s='1'/>
+<Pos l='105' c='42' s='1'/>
 </Attr>
 </Integer_Literal>
 </Exp_Comparison>
@@ -1168,32 +1143,32 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='109' c='22' s='2'/>
+<Pos l='106' c='22' s='2'/>
 </Attr>
 <Variables>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='109' c='7' s='14'/>
+<Pos l='106' c='7' s='14'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='-s' typref='8'>
 <Attr>
-<Pos l='109' c='40' s='1'/>
+<Pos l='106' c='40' s='1'/>
 </Attr>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='109' c='25' s='14'/>
+<Pos l='106' c='25' s='14'/>
 </Attr>
 </Id>
 <Nary_Exp op='{' typref='8'>
 <Attr>
-<Pos l='109' c='42' s='1'/>
+<Pos l='106' c='42' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='109' c='43' s='6'/>
+<Pos l='106' c='43' s='6'/>
 </Attr>
 </Id>
 </Nary_Exp>
@@ -1204,32 +1179,32 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='111' c='22' s='2'/>
+<Pos l='108' c='22' s='2'/>
 </Attr>
 <Variables>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='111' c='7' s='14'/>
+<Pos l='108' c='7' s='14'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='\/' typref='8'>
 <Attr>
-<Pos l='111' c='40' s='2'/>
+<Pos l='108' c='40' s='2'/>
 </Attr>
 <Id value='active_buttons' typref='8'>
 <Attr>
-<Pos l='111' c='25' s='14'/>
+<Pos l='108' c='25' s='14'/>
 </Attr>
 </Id>
 <Nary_Exp op='{' typref='8'>
 <Attr>
-<Pos l='111' c='43' s='1'/>
+<Pos l='108' c='43' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='111' c='44' s='6'/>
+<Pos l='108' c='44' s='6'/>
 </Attr>
 </Id>
 </Nary_Exp>
@@ -1240,33 +1215,33 @@
 </If_Sub>
 <Assignement_Sub>
 <Attr>
-<Pos l='113' c='21' s='2'/>
+<Pos l='110' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='113' c='5' s='15'/>
+<Pos l='110' c='5' s='15'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Binary_Exp op='&lt;&lt;|' typref='11'>
 <Attr>
-<Pos l='113' c='33' s='3'/>
+<Pos l='110' c='33' s='3'/>
 </Attr>
 <Nary_Exp op='{' typref='8'>
 <Attr>
-<Pos l='113' c='24' s='1'/>
+<Pos l='110' c='24' s='1'/>
 </Attr>
 <Id value='button' typref='9'>
 <Attr>
-<Pos l='113' c='25' s='6'/>
+<Pos l='110' c='25' s='6'/>
 </Attr>
 </Id>
 </Nary_Exp>
 <Id value='pressed_buttons' typref='11'>
 <Attr>
-<Pos l='113' c='37' s='15'/>
+<Pos l='110' c='37' s='15'/>
 </Attr>
 </Id>
 </Binary_Exp>

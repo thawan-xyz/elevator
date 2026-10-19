@@ -7,15 +7,11 @@ SETS
   BUTTONS = { L0 , L1 , L2 , UP0 , UP1 , DOWN1 , DOWN2 }
 
 CONCRETE_CONSTANTS
-  MIN_LEVEL ,
-  MAX_LEVEL ,
   LEVELS ,
   MAX_CAPACITY
 
 PROPERTIES
-  MIN_LEVEL = 0 &
-  MAX_LEVEL = 2 &
-  LEVELS = MIN_LEVEL .. MAX_LEVEL &
+  LEVELS = 0 .. 2 &
   MAX_CAPACITY = 450
 
 ABSTRACT_VARIABLES
@@ -82,7 +78,8 @@ OPERATIONS
   remove_person ( weight ) =
   PRE
     weight : NATURAL &
-    weight : dom ( weight_frequency )
+    weight : dom ( weight_frequency ) &
+    weight <= elevator_weight
   THEN
     elevator_weight := elevator_weight - weight ||
     IF weight_frequency ( weight ) = 1 THEN

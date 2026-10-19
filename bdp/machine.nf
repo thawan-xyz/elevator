@@ -126,7 +126,7 @@ THEORY ListOperationGuardX END
 THEORY ListPreconditionX IS
   List_Precondition(Machine(machine),pass_time)==(seconds: NATURAL);
   List_Precondition(Machine(machine),insert_person)==(weight: NATURAL);
-  List_Precondition(Machine(machine),remove_person)==(weight: NATURAL & weight: dom(weight_frequency));
+  List_Precondition(Machine(machine),remove_person)==(weight: NATURAL & weight: dom(weight_frequency) & weight<=elevator_weight);
   List_Precondition(Machine(machine),press_button)==(button: BUTTONS & button/:dom(pressed_buttons));
   List_Precondition(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons))
 END
@@ -134,7 +134,7 @@ END
 THEORY ListSubstitutionX IS
   Expanded_List_Substitution(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons) | time-pressed_buttons(button)>=3 ==> active_buttons:=active_buttons-{button} [] not(time-pressed_buttons(button)>=3) ==> active_buttons:=active_buttons\/{button} || pressed_buttons:={button}<<|pressed_buttons);
   Expanded_List_Substitution(Machine(machine),press_button)==(button: BUTTONS & button/:dom(pressed_buttons) | pressed_buttons:=pressed_buttons<+{button|->time});
-  Expanded_List_Substitution(Machine(machine),remove_person)==(weight: NATURAL & weight: dom(weight_frequency) | elevator_weight:=elevator_weight-weight || (weight_frequency(weight) = 1 ==> weight_frequency:={weight}<<|weight_frequency [] not(weight_frequency(weight) = 1) ==> weight_frequency:=weight_frequency<+{weight|->weight_frequency(weight)-1}));
+  Expanded_List_Substitution(Machine(machine),remove_person)==(weight: NATURAL & weight: dom(weight_frequency) & weight<=elevator_weight | elevator_weight:=elevator_weight-weight || (weight_frequency(weight) = 1 ==> weight_frequency:={weight}<<|weight_frequency [] not(weight_frequency(weight) = 1) ==> weight_frequency:=weight_frequency<+{weight|->weight_frequency(weight)-1}));
   Expanded_List_Substitution(Machine(machine),insert_person)==(weight: NATURAL | elevator_weight:=elevator_weight+weight || (weight: dom(weight_frequency) ==> weight_frequency:=weight_frequency<+{weight|->weight_frequency(weight)+1} [] not(weight: dom(weight_frequency)) ==> weight_frequency:=weight_frequency<+{weight|->1}));
   Expanded_List_Substitution(Machine(machine),pass_time)==(seconds: NATURAL | time:=time+seconds);
   List_Substitution(Machine(machine),pass_time)==(time:=time+seconds);
@@ -145,9 +145,9 @@ THEORY ListSubstitutionX IS
 END
 &
 THEORY ListConstantsX IS
-  List_Valuable_Constants(Machine(machine))==(MIN_LEVEL,MAX_LEVEL,LEVELS,MAX_CAPACITY);
+  List_Valuable_Constants(Machine(machine))==(LEVELS,MAX_CAPACITY);
   Inherited_List_Constants(Machine(machine))==(?);
-  List_Constants(Machine(machine))==(MIN_LEVEL,MAX_LEVEL,LEVELS,MAX_CAPACITY)
+  List_Constants(Machine(machine))==(LEVELS,MAX_CAPACITY)
 END
 &
 THEORY ListSetsX IS
@@ -177,7 +177,7 @@ THEORY ListPropertiesX IS
   Abstract_List_Properties(Machine(machine))==(btrue);
   Context_List_Properties(Machine(machine))==(btrue);
   Inherited_List_Properties(Machine(machine))==(btrue);
-  List_Properties(Machine(machine))==(MIN_LEVEL = 0 & MAX_LEVEL = 2 & LEVELS = MIN_LEVEL..MAX_LEVEL & MAX_CAPACITY = 450 & DIRECTIONS: FIN(INTEGER) & not(DIRECTIONS = {}) & DOOR_STATUS: FIN(INTEGER) & not(DOOR_STATUS = {}) & BUTTONS: FIN(INTEGER) & not(BUTTONS = {}))
+  List_Properties(Machine(machine))==(LEVELS = 0..2 & MAX_CAPACITY = 450 & DIRECTIONS: FIN(INTEGER) & not(DIRECTIONS = {}) & DOOR_STATUS: FIN(INTEGER) & not(DOOR_STATUS = {}) & BUTTONS: FIN(INTEGER) & not(BUTTONS = {}))
 END
 &
 THEORY ListSeenInfoX END
@@ -191,9 +191,9 @@ THEORY ListANYVarX IS
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (MIN_LEVEL,MAX_LEVEL,LEVELS,MAX_CAPACITY,DIRECTIONS,DOOR_STATUS,BUTTONS,UP,DOWN,OPEN,CLOSED,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | pressed_buttons,active_buttons,door_status,direction,level,weight_frequency,elevator_weight,time | ? | pass_time,insert_person,remove_person,press_button,release_button | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,DIRECTIONS,DOOR_STATUS,BUTTONS,UP,DOWN,OPEN,CLOSED,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | pressed_buttons,active_buttons,door_status,direction,level,weight_frequency,elevator_weight,time | ? | pass_time,insert_person,remove_person,press_button,release_button | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
-  List_Of_VisibleCst_Ids(Machine(machine)) == (MIN_LEVEL,MAX_LEVEL,LEVELS,MAX_CAPACITY);
+  List_Of_VisibleCst_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
   List_Of_Ids_SeenBNU(Machine(machine)) == (?: ?)
 END
@@ -203,7 +203,7 @@ THEORY SetsEnvX IS
 END
 &
 THEORY ConstantsEnvX IS
-  Constants(Machine(machine)) == (Type(UP) == Cst(etype(DIRECTIONS,0,1));Type(DOWN) == Cst(etype(DIRECTIONS,0,1));Type(OPEN) == Cst(etype(DOOR_STATUS,0,1));Type(CLOSED) == Cst(etype(DOOR_STATUS,0,1));Type(L0) == Cst(etype(BUTTONS,0,6));Type(L1) == Cst(etype(BUTTONS,0,6));Type(L2) == Cst(etype(BUTTONS,0,6));Type(UP0) == Cst(etype(BUTTONS,0,6));Type(UP1) == Cst(etype(BUTTONS,0,6));Type(DOWN1) == Cst(etype(BUTTONS,0,6));Type(DOWN2) == Cst(etype(BUTTONS,0,6));Type(MIN_LEVEL) == Cst(btype(INTEGER,?,?));Type(MAX_LEVEL) == Cst(btype(INTEGER,?,?));Type(LEVELS) == Cst(SetOf(btype(INTEGER,"[LEVELS","]LEVELS")));Type(MAX_CAPACITY) == Cst(btype(INTEGER,?,?)))
+  Constants(Machine(machine)) == (Type(UP) == Cst(etype(DIRECTIONS,0,1));Type(DOWN) == Cst(etype(DIRECTIONS,0,1));Type(OPEN) == Cst(etype(DOOR_STATUS,0,1));Type(CLOSED) == Cst(etype(DOOR_STATUS,0,1));Type(L0) == Cst(etype(BUTTONS,0,6));Type(L1) == Cst(etype(BUTTONS,0,6));Type(L2) == Cst(etype(BUTTONS,0,6));Type(UP0) == Cst(etype(BUTTONS,0,6));Type(UP1) == Cst(etype(BUTTONS,0,6));Type(DOWN1) == Cst(etype(BUTTONS,0,6));Type(DOWN2) == Cst(etype(BUTTONS,0,6));Type(LEVELS) == Cst(SetOf(btype(INTEGER,"[LEVELS","]LEVELS")));Type(MAX_CAPACITY) == Cst(btype(INTEGER,?,?)))
 END
 &
 THEORY VariablesEnvX IS

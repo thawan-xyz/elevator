@@ -18,7 +18,7 @@
     </Define>
     <Define name="ctx" hash="0"/>
     <Define name="seext" hash="0"/>
-    <Define name="lprp" hash="10272036552798773134">
+    <Define name="lprp" hash="12738439760142226286">
         <Set>
             <Id value="DIRECTIONS" typref="0"/>
             <Enumerated_Values>
@@ -46,23 +46,15 @@
             </Enumerated_Values>
         </Set>
         <Exp_Comparison op="=">
-            <Id value="MIN_LEVEL" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:1"/>
-            <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:2"/>
-        </Exp_Comparison>
-        <Exp_Comparison op="=">
-            <Id value="MAX_LEVEL" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:2:1"/>
-            <Integer_Literal value="2" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:2:2"/>
-        </Exp_Comparison>
-        <Exp_Comparison op="=">
-            <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:3:1"/>
+            <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:1"/>
             <Binary_Exp op=".." typref="0">
-                <Id value="MIN_LEVEL" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:3:2:1"/>
-                <Id value="MAX_LEVEL" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:3:2:2"/>
+                <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:2:1"/>
+                <Integer_Literal value="2" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:1:2:2"/>
             </Binary_Exp>
         </Exp_Comparison>
         <Exp_Comparison op="=">
-            <Id value="MAX_CAPACITY" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:4:1"/>
-            <Integer_Literal value="450" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:4:2"/>
+            <Id value="MAX_CAPACITY" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:2:1"/>
+            <Integer_Literal value="450" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:4:1:2:2"/>
         </Exp_Comparison>
     </Define>
     <Define name="inprp" hash="0"/>
@@ -356,6 +348,12 @@
                 <Unary_Exp op="dom" typref="0">
                     <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
                 </Unary_Exp>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Exp_Comparison op="&lt;=i">
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:3:1"/>
+                <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:3:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Local_Hyp num="1">
@@ -682,6 +680,12 @@
                 <Unary_Exp op="dom" typref="0">
                     <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
                 </Unary_Exp>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Exp_Comparison op="&lt;=i">
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:3:1"/>
+                <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:3:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Local_Hyp num="1">

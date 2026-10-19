@@ -1,17 +1,17 @@
 THEORY ProofList IS
-_f(1) & _f(2) & _f(8) & _f(22) & _f(25) & WellDefinedness_release_button.1,(_f(31) => _f(33));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & WellDefinedness_remove_person.2,(_f(18) & _f(31) => _f(32));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & WellDefinedness_remove_person.1,(_f(31) => _f(32));
-_f(1) & _f(2) & _f(8) & _f(11) & WellDefinedness_insert_person.1,(_f(12) & _f(31) => _f(32));
-_f(1) & _f(2) & _f(8) & _f(22) & _f(25) & Operation_release_button.4,(_f(27) & _f(3) => _f(29));
-_f(1) & _f(2) & _f(8) & _f(22) & _f(25) & Operation_release_button.3,(_f(27) & _f(3) => _f(30));
-_f(1) & _f(2) & _f(8) & _f(22) & _f(25) & Operation_release_button.2,(_f(26) & _f(3) => _f(29));
-_f(1) & _f(2) & _f(8) & _f(22) & _f(25) & Operation_release_button.1,(_f(26) & _f(3) => _f(28));
-_f(1) & _f(2) & _f(8) & _f(22) & _f(23) & Operation_press_button.1,(_f(3) => _f(24));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.4,(_f(18) & _f(3) => _f(21));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.3,(_f(18) & _f(3) => _f(19));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.2,(_f(17) & _f(3) => _f(20));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & Operation_remove_person.1,(_f(17) & _f(3) => _f(19));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & WellDefinedness_release_button.1,(_f(32) => _f(34));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & WellDefinedness_remove_person.2,(_f(19) & _f(32) => _f(33));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & WellDefinedness_remove_person.1,(_f(32) => _f(33));
+_f(1) & _f(2) & _f(8) & _f(11) & WellDefinedness_insert_person.1,(_f(12) & _f(32) => _f(33));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.4,(_f(28) & _f(3) => _f(30));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.3,(_f(28) & _f(3) => _f(31));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.2,(_f(27) & _f(3) => _f(30));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.1,(_f(27) & _f(3) => _f(29));
+_f(1) & _f(2) & _f(8) & _f(23) & _f(24) & Operation_press_button.1,(_f(3) => _f(25));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.4,(_f(19) & _f(3) => _f(22));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.3,(_f(19) & _f(3) => _f(20));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.2,(_f(18) & _f(3) => _f(21));
+_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.1,(_f(18) & _f(3) => _f(20));
 _f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.4,(_f(13) & _f(3) => _f(16));
 _f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.3,(_f(13) & _f(3) => _f(14));
 _f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.2,(_f(12) & _f(3) => _f(15));
@@ -25,7 +25,7 @@ END
 &
 THEORY Formulas IS
 ((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
-((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((1..2)*{DOOR_STATUS}): FIN(NATURAL*{DOOR_STATUS})& not(((1..2)*{DOOR_STATUS}) = {}) & ((1..7)*{BUTTONS}): FIN(NATURAL*{BUTTONS})& not(((1..7)*{BUTTONS}) = {}) & ((MIN_LEVEL) = (0)) & ((MAX_LEVEL) = (2)) & ((LEVELS) = (((MIN_LEVEL) .. (MAX_LEVEL)))) & ((MAX_CAPACITY) = (450));
+((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((1..2)*{DOOR_STATUS}): FIN(NATURAL*{DOOR_STATUS})& not(((1..2)*{DOOR_STATUS}) = {}) & ((1..7)*{BUTTONS}): FIN(NATURAL*{BUTTONS})& not(((1..7)*{BUTTONS}) = {}) & ((LEVELS) = (((0) .. (2)))) & ((MAX_CAPACITY) = (450));
 "Invariant is preserved";
 ((0) : (NATURAL));
 (({}) : (((NATURAL) +-> ((NATURAL-{0})))));
@@ -40,6 +40,7 @@ not(((weight) : (dom(weight_frequency))));
 (((elevator_weight + weight)) : (NATURAL));
 ((((weight_frequency) <+ (({((weight) |-> (((weight_frequency )(weight) + 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
 ((((weight_frequency) <+ (({((weight) |-> (1))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+(weight <= elevator_weight);
 (((weight_frequency )(weight)) = (1));
 not((((weight_frequency )(weight)) = (1)));
 (((elevator_weight - weight)) : (NATURAL));

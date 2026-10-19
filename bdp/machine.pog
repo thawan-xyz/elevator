@@ -18,26 +18,31 @@
     </Define>
     <Define name="ctx" hash="0"/>
     <Define name="seext" hash="0"/>
-    <Define name="lprp" hash="6054081400664002172">
+    <Define name="lprp" hash="10272036552798773134">
         <Set>
             <Id value="DIRECTIONS" typref="0"/>
             <Enumerated_Values>
-                <Id value="up" typref="1"/>
-                <Id value="down" typref="1"/>
+                <Id value="UP" typref="1"/>
+                <Id value="DOWN" typref="1"/>
             </Enumerated_Values>
         </Set>
         <Set>
-            <Id value="STATUS" typref="0"/>
+            <Id value="DOOR_STATUS" typref="0"/>
             <Enumerated_Values>
-                <Id value="stopped" typref="1"/>
-                <Id value="moving" typref="1"/>
+                <Id value="OPEN" typref="1"/>
+                <Id value="CLOSED" typref="1"/>
             </Enumerated_Values>
         </Set>
         <Set>
-            <Id value="DOORS" typref="0"/>
+            <Id value="BUTTONS" typref="0"/>
             <Enumerated_Values>
-                <Id value="open" typref="1"/>
-                <Id value="closed" typref="1"/>
+                <Id value="L0" typref="1"/>
+                <Id value="L1" typref="1"/>
+                <Id value="L2" typref="1"/>
+                <Id value="UP0" typref="1"/>
+                <Id value="UP1" typref="1"/>
+                <Id value="DOWN1" typref="1"/>
+                <Id value="DOWN2" typref="1"/>
             </Enumerated_Values>
         </Set>
         <Exp_Comparison op="=">
@@ -62,17 +67,17 @@
     </Define>
     <Define name="inprp" hash="0"/>
     <Define name="inext" hash="0"/>
-    <Define name="inv" hash="9237934024570378683">
+    <Define name="inv" hash="6995076862001604608">
         <Exp_Comparison op=":">
             <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:1"/>
             <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1"/>
+            <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1"/>
             <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1"/>
+            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1"/>
             <Binary_Exp op="+-&gt;" typref="3">
                 <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:2:1"/>
                 <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:2:2"/>
@@ -91,47 +96,52 @@
             <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:6:2"/>
         </Exp_Comparison>
         <Exp_Comparison op=":">
-            <Id value="requests" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:1"/>
-            <Binary_Exp op="&lt;-&gt;" typref="3">
-                <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:2:1"/>
-                <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:2:2"/>
+            <Id value="door_status" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:1"/>
+            <Id value="DOOR_STATUS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:2"/>
+        </Exp_Comparison>
+        <Exp_Comparison op="&lt;:">
+            <Id value="active_buttons" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:1"/>
+            <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:2"/>
+        </Exp_Comparison>
+        <Exp_Comparison op=":">
+            <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1"/>
+            <Binary_Exp op="+-&gt;" typref="3">
+                <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:2"/>
             </Binary_Exp>
-        </Exp_Comparison>
-        <Exp_Comparison op=":">
-            <Id value="status" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:1"/>
-            <Id value="STATUS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:2"/>
-        </Exp_Comparison>
-        <Exp_Comparison op=":">
-            <Id value="doors" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1"/>
-            <Id value="DOORS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2"/>
         </Exp_Comparison>
     </Define>
     <Define name="ass" hash="0"/>
     <Define name="cst" hash="0"/>
-    <Define name="sets" hash="742844474082498412">
+    <Define name="sets" hash="6789606252360464701">
         <Set>
             <Id value="DIRECTIONS" typref="0"/>
             <Enumerated_Values>
-                <Id value="up" typref="1"/>
-                <Id value="down" typref="1"/>
+                <Id value="UP" typref="1"/>
+                <Id value="DOWN" typref="1"/>
             </Enumerated_Values>
         </Set>
         <Set>
-            <Id value="STATUS" typref="0"/>
+            <Id value="DOOR_STATUS" typref="0"/>
             <Enumerated_Values>
-                <Id value="stopped" typref="1"/>
-                <Id value="moving" typref="1"/>
+                <Id value="OPEN" typref="1"/>
+                <Id value="CLOSED" typref="1"/>
             </Enumerated_Values>
         </Set>
         <Set>
-            <Id value="DOORS" typref="0"/>
+            <Id value="BUTTONS" typref="0"/>
             <Enumerated_Values>
-                <Id value="open" typref="1"/>
-                <Id value="closed" typref="1"/>
+                <Id value="L0" typref="1"/>
+                <Id value="L1" typref="1"/>
+                <Id value="L2" typref="1"/>
+                <Id value="UP0" typref="1"/>
+                <Id value="UP1" typref="1"/>
+                <Id value="DOWN1" typref="1"/>
+                <Id value="DOWN2" typref="1"/>
             </Enumerated_Values>
         </Set>
     </Define>
-    <Proof_Obligation goalHash="4206487131167219026">
+    <Proof_Obligation goalHash="8084867347152900493">
         <Tag>Initialisation</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -174,17 +184,17 @@
             <Tag>Invariant is preserved</Tag>
             <Goal>
                 <Exp_Comparison op=":">
-                    <EmptySet typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:6:1:6:2:1"/>
-                    <Binary_Exp op="&lt;-&gt;" typref="3">
-                        <Id value="LEVELS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:2:1"/>
-                        <Id value="DIRECTIONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:7:2:2"/>
+                    <EmptySet typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:6:1:8:2:1"/>
+                    <Binary_Exp op="+-&gt;" typref="3">
+                        <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:1"/>
+                        <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:2"/>
                     </Binary_Exp>
                 </Exp_Comparison>
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="11854375995582713674">
-        <Tag>Operation_pass_seconds</Tag>
+    <Proof_Obligation goalHash="11667477436856171433">
+        <Tag>Operation_pass_time</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
         <Definition name="cst"/>
@@ -196,8 +206,8 @@
         <Definition name="ass"/>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="delta" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:2:1:1"/>
-                <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:2:1:2"/>
+                <Id value="seconds" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:2:1:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:2:1:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Simple_Goal>
@@ -206,14 +216,14 @@
                 <Exp_Comparison op=":">
                     <Binary_Exp op="+i" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:1">
                         <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:3:1:2:1:1"/>
-                        <Id value="delta" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:3:1:2:1:2"/>
+                        <Id value="seconds" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:1:3:1:2:1:2"/>
                     </Binary_Exp>
                     <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:1:2"/>
                 </Exp_Comparison>
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="14209745990545555062">
+    <Proof_Obligation goalHash="6458665415466041885">
         <Tag>Operation_insert_person</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -226,24 +236,24 @@
         <Definition name="ass"/>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:1"/>
-                <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:2"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Local_Hyp num="1">
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
                 <Unary_Exp op="dom" typref="0">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
                 </Unary_Exp>
             </Exp_Comparison>
         </Local_Hyp>
         <Local_Hyp num="2">
             <Unary_Pred op="not">
                 <Exp_Comparison op=":">
-                    <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
+                    <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
                     <Unary_Exp op="dom" typref="0">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
                     </Unary_Exp>
                 </Exp_Comparison>
             </Unary_Pred>
@@ -254,8 +264,8 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="+i" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1">
-                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:2"/>
+                        <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:2"/>
                     </Binary_Exp>
                     <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
                 </Exp_Comparison>
@@ -267,14 +277,14 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="&lt;+" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:1:1:1"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:1:1:1"/>
                         <Nary_Exp op="{" typref="2">
                             <Binary_Exp op="|-&gt;" typref="4">
-                                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:1:1:2"/>
+                                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:1:1:2"/>
                                 <Binary_Exp op="+i" typref="1">
                                     <Binary_Exp op="(" typref="1">
-                                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
-                                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:2"/>
+                                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
+                                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:2"/>
                                     </Binary_Exp>
                                     <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:2"/>
                                 </Binary_Exp>
@@ -294,8 +304,8 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="+i" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1">
-                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:2"/>
+                        <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:1:2:1:2"/>
                     </Binary_Exp>
                     <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
                 </Exp_Comparison>
@@ -307,10 +317,10 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="&lt;+" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:3:1:1:1:1"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:3:1:1:1:1"/>
                         <Nary_Exp op="{" typref="2">
                             <Binary_Exp op="|-&gt;" typref="4">
-                                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:3:1:1:1:2"/>
+                                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:3:1:1:1:2"/>
                                 <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:3:1:2:1"/>
                             </Binary_Exp>
                         </Nary_Exp>
@@ -323,7 +333,7 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="5628204833361684603">
+    <Proof_Obligation goalHash="12168081688936816283">
         <Tag>Operation_remove_person</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -336,23 +346,23 @@
         <Definition name="ass"/>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:1"/>
-                <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:2"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:1"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:1"/>
                 <Unary_Exp op="dom" typref="0">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
                 </Unary_Exp>
             </Exp_Comparison>
         </Hypothesis>
         <Local_Hyp num="1">
             <Exp_Comparison op="=">
                 <Binary_Exp op="(" typref="1">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
-                    <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                    <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
                 </Binary_Exp>
                 <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:2"/>
             </Exp_Comparison>
@@ -361,8 +371,8 @@
             <Unary_Pred op="not">
                 <Exp_Comparison op="=">
                     <Binary_Exp op="(" typref="1">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
                     </Binary_Exp>
                     <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:2"/>
                 </Exp_Comparison>
@@ -374,8 +384,8 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="-i" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1">
-                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:2"/>
+                        <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:2"/>
                     </Binary_Exp>
                     <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
                 </Exp_Comparison>
@@ -388,9 +398,9 @@
                 <Exp_Comparison op=":">
                     <Binary_Exp op="&lt;&lt;|" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1">
                         <Nary_Exp op="{" typref="0">
-                            <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:2:1:2:1:1:1"/>
+                            <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:2:1:2:1:1:1"/>
                         </Nary_Exp>
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:2:1:2:1:2"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:2:1:2:1:2"/>
                     </Binary_Exp>
                     <Binary_Exp op="+-&gt;" typref="3">
                         <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:2:1"/>
@@ -405,8 +415,8 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="-i" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:1">
-                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:2"/>
+                        <Id value="elevator_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:1:2:1:2"/>
                     </Binary_Exp>
                     <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:2:2"/>
                 </Exp_Comparison>
@@ -418,14 +428,14 @@
             <Goal>
                 <Exp_Comparison op=":">
                     <Binary_Exp op="&lt;+" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:3:1">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:1:1:1"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:1:1:1"/>
                         <Nary_Exp op="{" typref="2">
                             <Binary_Exp op="|-&gt;" typref="4">
-                                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:1:1:2"/>
+                                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:1:1:2"/>
                                 <Binary_Exp op="-i" typref="1">
                                     <Binary_Exp op="(" typref="1">
-                                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
-                                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:2"/>
+                                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
+                                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:2"/>
                                     </Binary_Exp>
                                     <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:2"/>
                                 </Binary_Exp>
@@ -440,7 +450,173 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="13579371816358357385">
+    <Proof_Obligation goalHash="12623367571909512395">
+        <Tag>Operation_press_button</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Definition name="inv"/>
+        <Definition name="ass"/>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:1:1"/>
+                <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:1:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Unary_Pred op="not">
+                <Exp_Comparison op=":">
+                    <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:2:1"/>
+                    <Unary_Exp op="dom" typref="0">
+                        <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:2:1:2:2:1"/>
+                    </Unary_Exp>
+                </Exp_Comparison>
+            </Unary_Pred>
+        </Hypothesis>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Binary_Exp op="&lt;+" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1">
+                        <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:1:1:1"/>
+                        <Nary_Exp op="{" typref="2">
+                            <Binary_Exp op="|-&gt;" typref="4">
+                                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:1:1:2"/>
+                                <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:4:3:1:2:1"/>
+                            </Binary_Exp>
+                        </Nary_Exp>
+                    </Binary_Exp>
+                    <Binary_Exp op="+-&gt;" typref="3">
+                        <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:1"/>
+                        <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:2"/>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
+    <Proof_Obligation goalHash="5773280904940346621">
+        <Tag>Operation_release_button</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Definition name="inv"/>
+        <Definition name="ass"/>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:1:1"/>
+                <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:1:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:2:1"/>
+                <Unary_Exp op="dom" typref="0">
+                    <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:2:2:1"/>
+                </Unary_Exp>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Local_Hyp num="1">
+            <Exp_Comparison op="&gt;=i">
+                <Binary_Exp op="-i" typref="1">
+                    <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:1"/>
+                    <Binary_Exp op="(" typref="1">
+                        <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:1"/>
+                        <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:2"/>
+                    </Binary_Exp>
+                </Binary_Exp>
+                <Integer_Literal value="3" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:2"/>
+            </Exp_Comparison>
+        </Local_Hyp>
+        <Local_Hyp num="2">
+            <Unary_Pred op="not">
+                <Exp_Comparison op="&gt;=i">
+                    <Binary_Exp op="-i" typref="1">
+                        <Id value="time" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:1"/>
+                        <Binary_Exp op="(" typref="1">
+                            <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:1"/>
+                            <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:2"/>
+                        </Binary_Exp>
+                    </Binary_Exp>
+                    <Integer_Literal value="3" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:2"/>
+                </Exp_Comparison>
+            </Unary_Pred>
+        </Local_Hyp>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Ref_Hyp num="1"/>
+            <Goal>
+                <Exp_Comparison op="&lt;:">
+                    <Binary_Exp op="-s" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:1">
+                        <Id value="active_buttons" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:2:1:2:1:1"/>
+                        <Nary_Exp op="{" typref="0">
+                            <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:2:1:2:1:2:1"/>
+                        </Nary_Exp>
+                    </Binary_Exp>
+                    <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:2"/>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Ref_Hyp num="1"/>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Binary_Exp op="&lt;&lt;|" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1">
+                        <Nary_Exp op="{" typref="0">
+                            <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:2:2:1:1:1"/>
+                        </Nary_Exp>
+                        <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:2:2:1:2"/>
+                    </Binary_Exp>
+                    <Binary_Exp op="+-&gt;" typref="3">
+                        <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:1"/>
+                        <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:2"/>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Ref_Hyp num="2"/>
+            <Goal>
+                <Exp_Comparison op="&lt;:">
+                    <Binary_Exp op="\/" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:1">
+                        <Id value="active_buttons" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:3:1:2:1:1"/>
+                        <Nary_Exp op="{" typref="0">
+                            <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:3:1:2:1:2:1"/>
+                        </Nary_Exp>
+                    </Binary_Exp>
+                    <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:8:2"/>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Ref_Hyp num="2"/>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Binary_Exp op="&lt;&lt;|" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:1">
+                        <Nary_Exp op="{" typref="0">
+                            <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:2:2:1:1:1"/>
+                        </Nary_Exp>
+                        <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:2:2:1:2"/>
+                    </Binary_Exp>
+                    <Binary_Exp op="+-&gt;" typref="3">
+                        <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:1"/>
+                        <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:5:1:9:2:2"/>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
+    <Proof_Obligation goalHash="1205345580748833352">
         <Tag>WellDefinedness_insert_person</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -453,15 +629,15 @@
         <Definition name="ass"/>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:1"/>
-                <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:2"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:2:1:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Local_Hyp num="1">
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:1"/>
                 <Unary_Exp op="dom" typref="0">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:1:1:2:1"/>
                 </Unary_Exp>
             </Exp_Comparison>
         </Local_Hyp>
@@ -470,20 +646,20 @@
             <Ref_Hyp num="1"/>
             <Goal>
                 <Exp_Comparison op=":">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
                     <Binary_Exp op="+-&gt;" typref="3">
                         <Unary_Exp op="dom" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
                         </Unary_Exp>
                         <Unary_Exp op="ran" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:2:3:1:2:2:1:2:1:1:1"/>
                         </Unary_Exp>
                     </Binary_Exp>
                 </Exp_Comparison>
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
-    <Proof_Obligation goalHash="3523062066694207712">
+    <Proof_Obligation goalHash="12590392601190714284">
         <Tag>WellDefinedness_remove_person</Tag>
         <Definition name="B definitions"/>
         <Definition name="ctx"/>
@@ -496,15 +672,15 @@
         <Definition name="ass"/>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:1"/>
-                <Id value="NATURAL1" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:2"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:1"/>
+                <Id value="NATURAL" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:1:2"/>
             </Exp_Comparison>
         </Hypothesis>
         <Hypothesis>
             <Exp_Comparison op=":">
-                <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:1"/>
+                <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:1"/>
                 <Unary_Exp op="dom" typref="0">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:2:1:2:2:1"/>
                 </Unary_Exp>
             </Exp_Comparison>
         </Hypothesis>
@@ -512,8 +688,8 @@
             <Unary_Pred op="not">
                 <Exp_Comparison op="=">
                     <Binary_Exp op="(" typref="1">
-                        <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
-                        <Id value="person_weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
+                        <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                        <Id value="weight" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:2"/>
                     </Binary_Exp>
                     <Integer_Literal value="1" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:2"/>
                 </Exp_Comparison>
@@ -523,13 +699,13 @@
             <Tag>Operation is well defined</Tag>
             <Goal>
                 <Exp_Comparison op=":">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
                     <Binary_Exp op="+-&gt;" typref="3">
                         <Unary_Exp op="dom" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
                         </Unary_Exp>
                         <Unary_Exp op="ran" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:1:1:1:1"/>
                         </Unary_Exp>
                     </Binary_Exp>
                 </Exp_Comparison>
@@ -540,13 +716,55 @@
             <Ref_Hyp num="1"/>
             <Goal>
                 <Exp_Comparison op=":">
-                    <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
+                    <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
                     <Binary_Exp op="+-&gt;" typref="3">
                         <Unary_Exp op="dom" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
                         </Unary_Exp>
                         <Unary_Exp op="ran" typref="0">
-                            <Id value="weights" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
+                            <Id value="weight_frequency" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:3:3:1:2:3:1:2:1:1:1"/>
+                        </Unary_Exp>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
+    <Proof_Obligation goalHash="9696203079387474232">
+        <Tag>WellDefinedness_release_button</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Definition name="inv"/>
+        <Definition name="ass"/>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:1:1"/>
+                <Id value="BUTTONS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:1:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Hypothesis>
+            <Exp_Comparison op=":">
+                <Id value="button" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:2:1"/>
+                <Unary_Exp op="dom" typref="0">
+                    <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:2:1:2:2:1"/>
+                </Unary_Exp>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Simple_Goal>
+            <Tag>Operation is well defined</Tag>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:1"/>
+                    <Binary_Exp op="+-&gt;" typref="3">
+                        <Unary_Exp op="dom" typref="0">
+                            <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:1"/>
+                        </Unary_Exp>
+                        <Unary_Exp op="ran" typref="0">
+                            <Id value="pressed_buttons" typref="2" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/machine.bxml:1:7:5:3:1:1:1:1:1:2:1"/>
                         </Unary_Exp>
                     </Binary_Exp>
                 </Exp_Comparison>

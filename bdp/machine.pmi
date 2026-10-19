@@ -1,10 +1,13 @@
 THEORY BalanceX IS
-machine,16,0,0,11,0,0,0;
+machine,22,0,0,19,0,0,0;
 Initialisation,4,0,0,4,0,0,0;
-Operation_insert_person,4,0,0,2,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0,0;
+Operation_insert_person,4,0,0,3,0,0,0;
+Operation_pass_time,1,0,0,1,0,0,0;
+Operation_press_button,1,0,0,1,0,0,0;
+Operation_release_button,4,0,0,4,0,0,0;
 Operation_remove_person,4,0,0,2,0,0,0;
 WellDefinedness_insert_person,1,0,0,1,0,0,0;
+WellDefinedness_release_button,1,0,0,1,0,0,0;
 WellDefinedness_remove_person,2,0,0,2,0,0,0
 END
 &
@@ -13,14 +16,20 @@ Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
-Unproved;
+Proved(0);
+Proved(0);
+Proved(0);
+Proved(0);
+Proved(0);
 Proved(0);
 Unproved;
 Proved(0);
 Unproved;
-Unproved;
+Proved(0);
 Proved(0);
 Unproved;
+Proved(0);
+Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
@@ -32,11 +41,17 @@ pr;
 pr;
 pr;
 pr;
-?;
+pr;
+pr;
+pr;
+pr;
+pr;
 pr;
 ?;
 pr;
 ?;
+pr;
+pr;
 ?;
 pr;
 pr;
@@ -51,14 +66,20 @@ Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
-Force(0),(?; 0);
 Force(0),?;
-Force(0),(?; 0);
 Force(0),?;
-Force(0),(?; 0);
-Force(0),(?; 0);
 Force(0),?;
-Force(0),(?; 0);
+Force(0),?;
+Force(0),?;
+Force(0),?;
+Force(0),(?; 0; 1; 2; 3);
+Force(0),?;
+Force(0),(?; 0; 1; 2; 3);
+Force(0),?;
+Force(0),?;
+Force(0),(?; 0; 1; 2; 3);
+Force(0),?;
+Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
@@ -66,11 +87,14 @@ Force(0),?
 END
 &
 THEORY Status IS
-machine,16,0,11,0,0,0;
+machine,22,0,19,0,0,0;
 Initialisation,4,0,4,0,0,0;
-Operation_insert_person,4,0,2,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0;
+Operation_insert_person,4,0,3,0,0,0;
+Operation_pass_time,1,0,1,0,0,0;
+Operation_press_button,1,0,1,0,0,0;
+Operation_release_button,4,0,4,0,0,0;
 Operation_remove_person,4,0,2,0,0,0;
 WellDefinedness_insert_person,1,0,1,0,0,0;
+WellDefinedness_release_button,1,0,1,0,0,0;
 WellDefinedness_remove_person,2,0,2,0,0,0
 END

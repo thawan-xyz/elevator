@@ -2,9 +2,9 @@
   machine
 
 SETS
-  DIRECTIONS = { up , down } ;
-  STATUS = { stopped , moving } ;
-  DOORS = { open , closed }
+  DIRECTIONS = { UP , DOWN } ;
+  DOOR_STATUS = { OPEN , CLOSED } ;
+  BUTTONS = { L0 , L1 , L2 , UP0 , UP1 , DOWN1 , DOWN2 }
 
 CONCRETE_CONSTANTS
   MIN_LEVEL ,
@@ -20,74 +20,96 @@ PROPERTIES
 
 ABSTRACT_VARIABLES
   time ,
-  weight ,
-  weights ,
+
+  elevator_weight ,
+  weight_frequency ,
+
   level ,
   direction ,
-  requests ,
-  status ,
-  doors
+
+  door_status ,
+  active_buttons ,
+  pressed_buttons
 
 INVARIANT
   time : NATURAL &
-  weight : NATURAL &
-  weights : NATURAL +-> NATURAL1 &
+
+  elevator_weight : NATURAL &
+  weight_frequency : NATURAL +-> NATURAL1 &
+
   level : NATURAL &
   level : LEVELS &
   direction : DIRECTIONS &
-  requests : LEVELS <-> DIRECTIONS &
-  status : STATUS &
-  doors : DOORS
+
+  door_status : DOOR_STATUS &
+  active_buttons <: BUTTONS &
+  pressed_buttons : BUTTONS +-> NATURAL
 
 INITIALISATION
   time := 0 ||
-  weight := 0 ||
-  weights := {} ||
+
+  elevator_weight := 0 ||
+  weight_frequency := {} ||
+
   level := 0 ||
-  direction := up ||
-  requests := {} ||
-  status := stopped ||
-  doors := closed
+  direction := UP ||
+
+  door_status := CLOSED ||
+
+  active_buttons := {} ||
+  pressed_buttons := {}
 
 OPERATIONS
-  pass_seconds ( delta ) =
+  pass_time ( seconds ) =
   PRE
-    delta : NATURAL1
+    seconds : NATURAL
   THEN
-    time := time + delta
+    time := time + seconds
   END ;
 
-  insert_person ( person_weight ) =
+  insert_person ( weight ) =
   PRE
-    person_weight : NATURAL1
+    weight : NATURAL
   THEN
-    weight := weight + person_weight ||
-    IF person_weight : dom ( weights ) THEN
-      weights ( person_weight ) := weights ( person_weight ) + 1
+    elevator_weight := elevator_weight + weight ||
+    IF weight : dom ( weight_frequency ) THEN
+      weight_frequency ( weight ) := weight_frequency ( weight ) + 1
     ELSE
-      weights ( person_weight ) := 1
+      weight_frequency ( weight ) := 1
     END
   END ;
 
-  remove_person ( person_weight ) =
+  remove_person ( weight ) =
   PRE
-    person_weight : NATURAL1 &
-    person_weight : dom ( weights )
+    weight : NATURAL &
+    weight : dom ( weight_frequency )
   THEN
-    weight := weight - person_weight ||
-    IF weights ( person_weight ) = 1 THEN
-      weights := { person_weight } <<| weights
+    elevator_weight := elevator_weight - weight ||
+    IF weight_frequency ( weight ) = 1 THEN
+      weight_frequency := { weight } <<| weight_frequency
     ELSE
-      weights ( person_weight ) := weights ( person_weight ) - 1
+      weight_frequency ( weight ) := weight_frequency ( weight ) - 1
     END
   END ;
 
-  move =
+  press_button ( button ) =
   PRE
-    status = stopped &
-    doors = closed &
-    weight <= MAX_CAPACITY
+    button : BUTTONS &
+    button /: dom ( pressed_buttons )
   THEN
-    status := moving
+    pressed_buttons ( button ) := time
+  END ;
+
+  release_button ( button ) =
+  PRE
+    button : BUTTONS &
+    button : dom ( pressed_buttons )
+  THEN
+    IF time - pressed_buttons ( button ) >= 3 THEN
+      active_buttons := active_buttons - { button }
+    ELSE
+      active_buttons := active_buttons \/ { button }
+    END ||
+    pressed_buttons := { button } <<| pressed_buttons
   END
 END

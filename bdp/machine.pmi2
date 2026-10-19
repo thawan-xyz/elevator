@@ -1,18 +1,28 @@
 THEORY BalanceX IS
-machine,10,0,0,7,0,0,0;
+machine,17,0,0,14,0,0,0;
 Initialisation,4,0,0,4,0,0,0;
-Operation_insert_weight,4,0,0,2,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0,0;
-WellDefinedness_insert_weight,1,0,0,1,0,0,0
+Operation_insert_person,4,0,0,3,0,0,0;
+Operation_pass_time,1,0,0,1,0,0,0;
+Operation_press_button,1,0,0,1,0,0,0;
+Operation_remove_person,4,0,0,2,0,0,0;
+WellDefinedness_insert_person,1,0,0,1,0,0,0;
+WellDefinedness_remove_person,2,0,0,2,0,0,0
 END
 &
 THEORY ProofState IS
 Proved(0);
 Proved(0);
-Unproved;
+Proved(0);
+Proved(0);
+Proved(0);
 Unproved;
 Proved(0);
 Unproved;
+Proved(0);
+Proved(0);
+Unproved;
+Proved(0);
+Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
@@ -21,6 +31,13 @@ END
 &
 THEORY MethodList IS
 pr;
+pr;
+pr;
+pr;
+pr;
+?;
+pr;
+?;
 pr;
 pr;
 ?;
@@ -35,10 +52,17 @@ END
 THEORY PassList IS
 Force(0),?;
 Force(0),?;
-Force(0),(?; 0);
+Force(0),?;
+Force(0),?;
+Force(0),?;
 Force(0),(?; 0);
 Force(0),?;
 Force(0),(?; 0);
+Force(0),?;
+Force(0),?;
+Force(0),(?; 0);
+Force(0),?;
+Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
@@ -46,9 +70,12 @@ Force(0),?
 END
 &
 THEORY Status IS
-machine,10,0,7,0,0,0;
+machine,17,0,14,0,0,0;
 Initialisation,4,0,4,0,0,0;
-Operation_insert_weight,4,0,2,0,0,0;
-Operation_pass_seconds,1,0,0,0,0,0;
-WellDefinedness_insert_weight,1,0,1,0,0,0
+Operation_insert_person,4,0,3,0,0,0;
+Operation_pass_time,1,0,1,0,0,0;
+Operation_press_button,1,0,1,0,0,0;
+Operation_remove_person,4,0,2,0,0,0;
+WellDefinedness_insert_person,1,0,1,0,0,0;
+WellDefinedness_remove_person,2,0,2,0,0,0
 END

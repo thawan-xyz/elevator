@@ -1,22 +1,28 @@
 THEORY ProofList IS
-_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & WellDefinedness_release_button.1,(_f(32) => _f(34));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & WellDefinedness_remove_person.2,(_f(19) & _f(32) => _f(33));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & WellDefinedness_remove_person.1,(_f(32) => _f(33));
-_f(1) & _f(2) & _f(8) & _f(11) & WellDefinedness_insert_person.1,(_f(12) & _f(32) => _f(33));
-_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.4,(_f(28) & _f(3) => _f(30));
-_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.3,(_f(28) & _f(3) => _f(31));
-_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.2,(_f(27) & _f(3) => _f(30));
-_f(1) & _f(2) & _f(8) & _f(23) & _f(26) & Operation_release_button.1,(_f(27) & _f(3) => _f(29));
-_f(1) & _f(2) & _f(8) & _f(23) & _f(24) & Operation_press_button.1,(_f(3) => _f(25));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.4,(_f(19) & _f(3) => _f(22));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.3,(_f(19) & _f(3) => _f(20));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.2,(_f(18) & _f(3) => _f(21));
-_f(1) & _f(2) & _f(8) & _f(11) & _f(12) & _f(17) & Operation_remove_person.1,(_f(18) & _f(3) => _f(20));
-_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.4,(_f(13) & _f(3) => _f(16));
-_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.3,(_f(13) & _f(3) => _f(14));
-_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.2,(_f(12) & _f(3) => _f(15));
-_f(1) & _f(2) & _f(8) & _f(11) & Operation_insert_person.1,(_f(12) & _f(3) => _f(14));
-_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.1,(_f(3) => _f(10));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & WellDefinedness_release_button.1,(_f(32) & _f(42) => _f(44));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & WellDefinedness_remove_person.2,(_f(25) & _f(42) => _f(43));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & WellDefinedness_remove_person.1,(_f(42) => _f(43));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & WellDefinedness_insert_person.1,(_f(18) & _f(42) => _f(43));
+_f(1) & _f(2) & _f(8) & _f(40) & _f(41) & Operation_insert_key.1,(_f(3) => _f(7));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & Operation_release_button.5,(_f(32) & _f(36) & _f(3) => _f(37));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & Operation_release_button.4,(_f(32) & _f(36) & _f(3) => _f(39));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & Operation_release_button.3,(_f(32) & _f(35) & _f(3) => _f(37));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & Operation_release_button.2,(_f(32) & _f(35) & _f(3) => _f(38));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(34) & Operation_release_button.1,(_f(31) & _f(3) => _f(37));
+_f(1) & _f(2) & _f(8) & _f(29) & _f(30) & Operation_press_button.1,(_f(32) & _f(3) => _f(33));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & Operation_remove_person.4,(_f(25) & _f(3) => _f(28));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & Operation_remove_person.3,(_f(25) & _f(3) => _f(26));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & Operation_remove_person.2,(_f(24) & _f(3) => _f(27));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & _f(18) & _f(23) & Operation_remove_person.1,(_f(24) & _f(3) => _f(26));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & Operation_insert_person.4,(_f(19) & _f(3) => _f(22));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & Operation_insert_person.3,(_f(19) & _f(3) => _f(20));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & Operation_insert_person.2,(_f(18) & _f(3) => _f(21));
+_f(1) & _f(2) & _f(8) & _f(16) & _f(17) & Operation_insert_person.1,(_f(18) & _f(3) => _f(20));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.5,(_f(13) & _f(3) => _f(14));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.4,(_f(10) & _f(12) & _f(3) => _f(15));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.3,(_f(10) & _f(12) & _f(3) => _f(14));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.2,(_f(10) & _f(11) & _f(3) => _f(4));
+_f(1) & _f(2) & _f(8) & _f(9) & Operation_pass_time.1,(_f(10) & _f(11) & _f(3) => _f(14));
 _f(1) & _f(2) & Initialisation.4,(_f(3) => _f(7));
 _f(1) & _f(2) & Initialisation.3,(_f(3) => _f(6));
 _f(1) & _f(2) & Initialisation.2,(_f(3) => _f(5));
@@ -25,43 +31,53 @@ END
 &
 THEORY Formulas IS
 ((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483648) .. (2147483647))));
-((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((1..2)*{DOOR_STATUS}): FIN(NATURAL*{DOOR_STATUS})& not(((1..2)*{DOOR_STATUS}) = {}) & ((1..7)*{BUTTONS}): FIN(NATURAL*{BUTTONS})& not(((1..7)*{BUTTONS}) = {}) & ((LEVELS) = (((0) .. (2)))) & ((MAX_CAPACITY) = (450));
+((1..2)*{DIRECTIONS}): FIN(NATURAL*{DIRECTIONS})& not(((1..2)*{DIRECTIONS}) = {}) & ((1..5)*{ELEVATOR_STATUS}): FIN(NATURAL*{ELEVATOR_STATUS})& not(((1..5)*{ELEVATOR_STATUS}) = {}) & ((1..7)*{BUTTONS}): FIN(NATURAL*{BUTTONS})& not(((1..7)*{BUTTONS}) = {}) & ((LEVELS) = (((0) .. (2)))) & ((MAX_CAPACITY) = (450));
 "Invariant is preserved";
 ((0) : (NATURAL));
 (({}) : (((NATURAL) +-> ((NATURAL-{0})))));
 ((0) : (LEVELS));
 (({}) : (((((1..7)*{BUTTONS})) +-> (NATURAL))));
-time : INTEGER & 0 <= time & ((time) : (NATURAL)) & elevator_weight : INTEGER & 0 <= elevator_weight & ((elevator_weight) : (NATURAL)) & ((weight_frequency) : (((NATURAL) +-> ((NATURAL-{0}))))) & level : INTEGER & 0 <= level & ((level) : (NATURAL)) & ((level) : (LEVELS)) & ((direction) : (((1..2)*{DIRECTIONS}))) & ((door_status) : (((1..2)*{DOOR_STATUS}))) & active_buttons : POW( ((1..7)*{BUTTONS})) & ((pressed_buttons) : (((((1..7)*{BUTTONS})) +-> (NATURAL))));
+time : INTEGER & 0 <= time & ((time) : (NATURAL)) & time_open : INTEGER & 0 <= time_open & ((time_open) : (NATURAL)) & elevator_weight : INTEGER & 0 <= elevator_weight & ((elevator_weight) : (NATURAL)) & ((frequency) : (((NATURAL) +-> ((NATURAL-{0}))))) & level : INTEGER & 0 <= level & ((level) : (NATURAL)) & ((level) : (LEVELS)) & ((direction) : (((1..2)*{DIRECTIONS}))) & ((elevator_status) : (((1..5)*{ELEVATOR_STATUS}))) & active_buttons : POW( ((1..7)*{BUTTONS})) & ((pressed_buttons) : (((((1..7)*{BUTTONS})) +-> (NATURAL)))) & ((key_inserted) : (BOOL));
 seconds : INTEGER & 0 <= seconds & ((seconds) : (NATURAL));
+((elevator_status) = ((1|->ELEVATOR_STATUS)));
+(120 <= (time_open + seconds));
+not((120 <= (time_open + seconds)));
+not(((elevator_status) = ((1|->ELEVATOR_STATUS))));
 (((time + seconds)) : (NATURAL));
+(((time_open + seconds)) : (NATURAL));
+not(((elevator_status) : (({(2|->ELEVATOR_STATUS)}\/{(3|->ELEVATOR_STATUS)}))));
 weight : INTEGER & 0 <= weight & ((weight) : (NATURAL));
-((weight) : (dom(weight_frequency)));
-not(((weight) : (dom(weight_frequency))));
+((weight) : (dom(frequency)));
+not(((weight) : (dom(frequency))));
 (((elevator_weight + weight)) : (NATURAL));
-((((weight_frequency) <+ (({((weight) |-> (((weight_frequency )(weight) + 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
-((((weight_frequency) <+ (({((weight) |-> (1))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((frequency) <+ (({((weight) |-> (((frequency )(weight) + 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((frequency) <+ (({((weight) |-> (1))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
 (weight <= elevator_weight);
-(((weight_frequency )(weight)) = (1));
-not((((weight_frequency )(weight)) = (1)));
+(((frequency )(weight)) = (1));
+not((((frequency )(weight)) = (1)));
 (((elevator_weight - weight)) : (NATURAL));
-((((({weight})) <<| (weight_frequency))) : (((NATURAL) +-> ((NATURAL-{0})))));
-((((weight_frequency) <+ (({((weight) |-> (((weight_frequency )(weight) - 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((({weight})) <<| (frequency))) : (((NATURAL) +-> ((NATURAL-{0})))));
+((((frequency) <+ (({((weight) |-> (((frequency )(weight) - 1)))})))) : (((NATURAL) +-> ((NATURAL-{0})))));
 ((button) : (((1..7)*{BUTTONS})));
 not(((button) : (dom(pressed_buttons))));
+((elevator_status) = ((5|->ELEVATOR_STATUS)));
+not(((elevator_status) = ((5|->ELEVATOR_STATUS))));
 ((((pressed_buttons) <+ (({((button) |-> (time))})))) : (((((1..7)*{BUTTONS})) +-> (NATURAL))));
 ((button) : (dom(pressed_buttons)));
 (3 <= (time - (pressed_buttons )(button)));
 not((3 <= (time - (pressed_buttons )(button))));
-(active_buttons - ({button})) : POW( ((1..7)*{BUTTONS}));
 ((((({button})) <<| (pressed_buttons))) : (((((1..7)*{BUTTONS})) +-> (NATURAL))));
+(active_buttons - ({button})) : POW( ((1..7)*{BUTTONS}));
 ((active_buttons) \/ (({button}))) : POW( ((1..7)*{BUTTONS}));
+((key_inserted) = (FALSE));
+((elevator_status) = ((4|->ELEVATOR_STATUS)));
 "Operation is well defined";
-((weight_frequency) : (((dom(weight_frequency)) +-> (ran(weight_frequency)))));
+((frequency) : (((dom(frequency)) +-> (ran(frequency)))));
 ((pressed_buttons) : (((dom(pressed_buttons)) +-> (ran(pressed_buttons)))))
 END
 &
 THEORY EnumerateX IS
 BUTTONS == {L0,L1,L2,UP0,UP1,DOWN1,DOWN2};
 DIRECTIONS == {UP,DOWN};
-DOOR_STATUS == {OPEN,CLOSED}
+ELEVATOR_STATUS == {OPEN,IDLE,MOVING,BROKEN,MAINTENANCE}
 END

@@ -57,7 +57,7 @@ THEORY ListInvariantX IS
   Expanded_List_Invariant(Machine(machine))==(btrue);
   Abstract_List_Invariant(Machine(machine))==(btrue);
   Context_List_Invariant(Machine(machine))==(btrue);
-  List_Invariant(Machine(machine))==(time: NATURAL & time_open: NATURAL & elevator_weight: NATURAL & frequency: NATURAL +-> NATURAL1 & level: NATURAL & level: LEVELS & direction: DIRECTIONS & elevator_status: ELEVATOR_STATUS & active_buttons <: BUTTONS & pressed_buttons: BUTTONS +-> NATURAL & key_inserted: BOOL)
+  List_Invariant(Machine(machine))==(time: NATURAL & time_open: NATURAL & elevator_weight: NATURAL & frequency: NATURAL +-> NATURAL1 & level: NATURAL & level: LEVELS & direction: DIRECTIONS & elevator_status: ELEVATOR_STATUS & active_buttons <: BUTTONS & active_buttons: FIN(BUTTONS) & pressed_buttons: BUTTONS +-> NATURAL & (level = 0 => direction = UP) & (level = 2 => direction = DOWN) & key_inserted: BOOL)
 END
 &
 THEORY ListAssertionsX IS
@@ -93,8 +93,8 @@ THEORY ListConstraintsX IS
 END
 &
 THEORY ListOperationsX IS
-  Internal_List_Operations(Machine(machine))==(pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key);
-  List_Operations(Machine(machine))==(pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key)
+  Internal_List_Operations(Machine(machine))==(pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key,open_door,close_door,move);
+  List_Operations(Machine(machine))==(pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key,open_door,close_door,move)
 END
 &
 THEORY ListInputX IS
@@ -104,7 +104,10 @@ THEORY ListInputX IS
   List_Input(Machine(machine),press_button)==(button);
   List_Input(Machine(machine),release_button)==(button);
   List_Input(Machine(machine),insert_key)==(?);
-  List_Input(Machine(machine),remove_key)==(?)
+  List_Input(Machine(machine),remove_key)==(?);
+  List_Input(Machine(machine),open_door)==(?);
+  List_Input(Machine(machine),close_door)==(?);
+  List_Input(Machine(machine),move)==(?)
 END
 &
 THEORY ListOutputX IS
@@ -114,7 +117,10 @@ THEORY ListOutputX IS
   List_Output(Machine(machine),press_button)==(?);
   List_Output(Machine(machine),release_button)==(?);
   List_Output(Machine(machine),insert_key)==(?);
-  List_Output(Machine(machine),remove_key)==(?)
+  List_Output(Machine(machine),remove_key)==(?);
+  List_Output(Machine(machine),open_door)==(?);
+  List_Output(Machine(machine),close_door)==(?);
+  List_Output(Machine(machine),move)==(?)
 END
 &
 THEORY ListHeaderX IS
@@ -124,7 +130,10 @@ THEORY ListHeaderX IS
   List_Header(Machine(machine),press_button)==(press_button(button));
   List_Header(Machine(machine),release_button)==(release_button(button));
   List_Header(Machine(machine),insert_key)==(insert_key);
-  List_Header(Machine(machine),remove_key)==(remove_key)
+  List_Header(Machine(machine),remove_key)==(remove_key);
+  List_Header(Machine(machine),open_door)==(open_door);
+  List_Header(Machine(machine),close_door)==(close_door);
+  List_Header(Machine(machine),move)==(move)
 END
 &
 THEORY ListOperationGuardX END
@@ -136,10 +145,16 @@ THEORY ListPreconditionX IS
   List_Precondition(Machine(machine),press_button)==(button: BUTTONS & button/:dom(pressed_buttons));
   List_Precondition(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons));
   List_Precondition(Machine(machine),insert_key)==(key_inserted = FALSE & elevator_status = BROKEN);
-  List_Precondition(Machine(machine),remove_key)==(key_inserted = TRUE)
+  List_Precondition(Machine(machine),remove_key)==(key_inserted = TRUE);
+  List_Precondition(Machine(machine),open_door)==(elevator_status = IDLE);
+  List_Precondition(Machine(machine),close_door)==(elevator_status = OPEN);
+  List_Precondition(Machine(machine),move)==(elevator_status = IDLE & elevator_weight<=MAX_CAPACITY)
 END
 &
 THEORY ListSubstitutionX IS
+  Expanded_List_Substitution(Machine(machine),move)==(elevator_status = IDLE & elevator_weight<=MAX_CAPACITY | level = 0 & card(active_buttons-{L0,UP0})>0 ==> level:=1 [] not(level = 0 & card(active_buttons-{L0,UP0})>0) ==> (level = 2 & card(active_buttons-{L2,DOWN2})>0 ==> level:=1 [] not(level = 2 & card(active_buttons-{L2,DOWN2})>0) ==> (level = 1 ==> (direction = UP ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level,direction:=2,DOWN [] not(card(active_buttons/\{L2,DOWN2})>0) ==> (card(active_buttons/\{L0,UP0})>0 ==> level:=0 [] not(card(active_buttons/\{L0,UP0})>0) ==> skip)) [] not(direction = UP) ==> (direction = DOWN ==> (card(active_buttons/\{L0,UP0})>0 ==> level,direction:=0,UP [] not(card(active_buttons/\{L0,UP0})>0) ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level:=2 [] not(card(active_buttons/\{L2,DOWN2})>0) ==> skip)) [] not(direction = DOWN) ==> skip)) [] not(level = 1) ==> skip)));
+  Expanded_List_Substitution(Machine(machine),close_door)==(elevator_status = OPEN | elevator_status:=IDLE);
+  Expanded_List_Substitution(Machine(machine),open_door)==(elevator_status = IDLE | elevator_status:=OPEN || (level = 0 ==> active_buttons:=active_buttons-{L0,UP0} [] not(level = 0) ==> (level = 1 & direction = UP ==> active_buttons:=active_buttons-{L1,UP1} [] not(level = 1 & direction = UP) ==> (level = 1 & direction = DOWN ==> active_buttons:=active_buttons-{L1,DOWN1} [] not(level = 1 & direction = DOWN) ==> (level = 2 ==> active_buttons:=active_buttons-{L2,DOWN2} [] not(level = 2) ==> skip)))));
   Expanded_List_Substitution(Machine(machine),remove_key)==(key_inserted = TRUE | key_inserted,elevator_status:=FALSE,IDLE);
   Expanded_List_Substitution(Machine(machine),insert_key)==(key_inserted = FALSE & elevator_status = BROKEN | key_inserted,elevator_status,active_buttons,pressed_buttons:=TRUE,MAINTENANCE,{},{});
   Expanded_List_Substitution(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons) | elevator_status = MAINTENANCE ==> skip [] not(elevator_status = MAINTENANCE) ==> (time-pressed_buttons(button)>=3 ==> active_buttons:=active_buttons-{button} [] not(time-pressed_buttons(button)>=3) ==> active_buttons:=active_buttons\/{button}) || pressed_buttons:={button}<<|pressed_buttons);
@@ -153,7 +168,10 @@ THEORY ListSubstitutionX IS
   List_Substitution(Machine(machine),press_button)==(IF elevator_status = MAINTENANCE THEN skip ELSE pressed_buttons(button):=time END);
   List_Substitution(Machine(machine),release_button)==(IF elevator_status = MAINTENANCE THEN skip ELSIF time-pressed_buttons(button)>=3 THEN active_buttons:=active_buttons-{button} ELSE active_buttons:=active_buttons\/{button} END || pressed_buttons:={button}<<|pressed_buttons);
   List_Substitution(Machine(machine),insert_key)==(key_inserted:=TRUE || elevator_status:=MAINTENANCE || active_buttons:={} || pressed_buttons:={});
-  List_Substitution(Machine(machine),remove_key)==(key_inserted:=FALSE || elevator_status:=IDLE)
+  List_Substitution(Machine(machine),remove_key)==(key_inserted:=FALSE || elevator_status:=IDLE);
+  List_Substitution(Machine(machine),open_door)==(elevator_status:=OPEN || IF level = 0 THEN active_buttons:=active_buttons-{L0,UP0} ELSIF level = 1 & direction = UP THEN active_buttons:=active_buttons-{L1,UP1} ELSIF level = 1 & direction = DOWN THEN active_buttons:=active_buttons-{L1,DOWN1} ELSIF level = 2 THEN active_buttons:=active_buttons-{L2,DOWN2} END);
+  List_Substitution(Machine(machine),close_door)==(elevator_status:=IDLE);
+  List_Substitution(Machine(machine),move)==(IF level = 0 & card(active_buttons-{L0,UP0})>0 THEN level:=1 ELSIF level = 2 & card(active_buttons-{L2,DOWN2})>0 THEN level:=1 ELSIF level = 1 THEN IF direction = UP THEN IF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 || direction:=DOWN ELSIF card(active_buttons/\{L0,UP0})>0 THEN level:=0 END ELSIF direction = DOWN THEN IF card(active_buttons/\{L0,UP0})>0 THEN level:=0 || direction:=UP ELSIF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 END END END)
 END
 &
 THEORY ListConstantsX IS
@@ -201,11 +219,14 @@ THEORY ListANYVarX IS
   List_ANY_Var(Machine(machine),press_button)==(?);
   List_ANY_Var(Machine(machine),release_button)==(?);
   List_ANY_Var(Machine(machine),insert_key)==(?);
-  List_ANY_Var(Machine(machine),remove_key)==(?)
+  List_ANY_Var(Machine(machine),remove_key)==(?);
+  List_ANY_Var(Machine(machine),open_door)==(?);
+  List_ANY_Var(Machine(machine),close_door)==(?);
+  List_ANY_Var(Machine(machine),move)==(?)
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time | ? | pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time | ? | pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key,open_door,close_door,move | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
   List_Of_VisibleCst_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
@@ -225,7 +246,7 @@ THEORY VariablesEnvX IS
 END
 &
 THEORY OperationsEnvX IS
-  Operations(Machine(machine)) == (Type(remove_key) == Cst(No_type,No_type);Type(insert_key) == Cst(No_type,No_type);Type(release_button) == Cst(No_type,etype(BUTTONS,?,?));Type(press_button) == Cst(No_type,etype(BUTTONS,?,?));Type(remove_person) == Cst(No_type,btype(INTEGER,?,?));Type(insert_person) == Cst(No_type,btype(INTEGER,?,?));Type(pass_time) == Cst(No_type,btype(INTEGER,?,?)))
+  Operations(Machine(machine)) == (Type(move) == Cst(No_type,No_type);Type(close_door) == Cst(No_type,No_type);Type(open_door) == Cst(No_type,No_type);Type(remove_key) == Cst(No_type,No_type);Type(insert_key) == Cst(No_type,No_type);Type(release_button) == Cst(No_type,etype(BUTTONS,?,?));Type(press_button) == Cst(No_type,etype(BUTTONS,?,?));Type(remove_person) == Cst(No_type,btype(INTEGER,?,?));Type(insert_person) == Cst(No_type,btype(INTEGER,?,?));Type(pass_time) == Cst(No_type,btype(INTEGER,?,?)))
 END
 &
 THEORY TCIntRdX IS

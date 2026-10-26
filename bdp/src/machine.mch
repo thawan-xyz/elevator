@@ -47,7 +47,11 @@ INVARIANT
   elevator_status : ELEVATOR_STATUS &
 
   active_buttons <: BUTTONS &
+  active_buttons : FIN ( BUTTONS ) & // AJUDA DE PROVA
   pressed_buttons : BUTTONS +-> NATURAL &
+
+  ( ( level = 0 ) => ( direction = UP ) ) &
+  ( ( level = 2 ) => ( direction = DOWN ) ) &
 
   key_inserted : BOOL
 
@@ -156,5 +160,56 @@ OPERATIONS
   THEN
     key_inserted := FALSE ||
     elevator_status := IDLE
+  END ;
+
+  open_door =
+  PRE
+    elevator_status = IDLE
+  THEN
+    elevator_status := OPEN ||
+    IF level = 0 THEN
+      active_buttons := active_buttons - { L0 , UP0 }
+    ELSIF level = 1 & direction = UP THEN
+      active_buttons := active_buttons - { L1 , UP1 }
+    ELSIF level = 1 & direction = DOWN THEN
+      active_buttons := active_buttons - { L1 , DOWN1 }
+    ELSIF level = 2 THEN
+      active_buttons := active_buttons - { L2 , DOWN2 }
+    END
+  END ;
+
+  close_door =
+  PRE
+    elevator_status = OPEN
+  THEN
+    elevator_status := IDLE
+  END ;
+
+  move =
+  PRE
+    elevator_status = IDLE &
+    elevator_weight <= MAX_CAPACITY
+  THEN
+    IF level = 0 & card ( active_buttons - { L0 , UP0 } ) > 0 THEN
+      level := 1
+    ELSIF level = 2 & card ( active_buttons - { L2 , DOWN2 } ) > 0 THEN
+      level := 1
+    ELSIF level = 1 THEN
+      IF direction = UP THEN
+        IF card ( active_buttons /\ { L2 , DOWN2 } ) > 0 THEN
+          level := 2 ||
+          direction := DOWN
+        ELSIF card ( active_buttons /\ { L0 , UP0 } ) > 0 THEN
+          level := 0
+        END
+      ELSIF direction = DOWN THEN
+        IF card ( active_buttons /\ { L0 , UP0 } ) > 0 THEN
+          level := 0 ||
+          direction := UP
+        ELSIF card ( active_buttons /\ { L2 , DOWN2 } ) > 0 THEN
+          level := 2
+        END
+      END
+    END
   END
 END

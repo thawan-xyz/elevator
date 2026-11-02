@@ -37,9 +37,9 @@ THEORY ListVariablesX IS
   External_Context_List_Variables(Machine(machine))==(?);
   Context_List_Variables(Machine(machine))==(?);
   Abstract_List_Variables(Machine(machine))==(?);
-  Local_List_Variables(Machine(machine))==(key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time);
-  List_Variables(Machine(machine))==(key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time);
-  External_List_Variables(Machine(machine))==(key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time)
+  Local_List_Variables(Machine(machine))==(key_inserted,pressed_buttons,maintenance_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_moving,time_open,time);
+  List_Variables(Machine(machine))==(key_inserted,pressed_buttons,maintenance_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_moving,time_open,time);
+  External_List_Variables(Machine(machine))==(key_inserted,pressed_buttons,maintenance_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_moving,time_open,time)
 END
 &
 THEORY ListVisibleVariablesX IS
@@ -57,7 +57,7 @@ THEORY ListInvariantX IS
   Expanded_List_Invariant(Machine(machine))==(btrue);
   Abstract_List_Invariant(Machine(machine))==(btrue);
   Context_List_Invariant(Machine(machine))==(btrue);
-  List_Invariant(Machine(machine))==(time: NATURAL & time_open: NATURAL & elevator_weight: NATURAL & frequency: NATURAL +-> NATURAL1 & level: NATURAL & level: LEVELS & direction: DIRECTIONS & elevator_status: ELEVATOR_STATUS & active_buttons <: BUTTONS & active_buttons: FIN(BUTTONS) & pressed_buttons: BUTTONS +-> NATURAL & (level = 0 => direction = UP) & (level = 2 => direction = DOWN) & key_inserted: BOOL)
+  List_Invariant(Machine(machine))==(time: NATURAL & time_open: NATURAL & time_moving: NATURAL & elevator_weight: NATURAL & frequency: NATURAL +-> NATURAL1 & level: NATURAL & level: LEVELS & direction: DIRECTIONS & elevator_status: ELEVATOR_STATUS & active_buttons <: BUTTONS & active_buttons: FIN(BUTTONS) & maintenance_buttons <: BUTTONS & pressed_buttons: BUTTONS +-> NATURAL & (level = 0 => direction = UP) & (level = 2 => direction = DOWN) & key_inserted: BOOL)
 END
 &
 THEORY ListAssertionsX IS
@@ -76,9 +76,9 @@ THEORY ListExclusivityX IS
 END
 &
 THEORY ListInitialisationX IS
-  Expanded_List_Initialisation(Machine(machine))==(time,time_open,elevator_weight,frequency,level,direction,elevator_status,active_buttons,pressed_buttons,key_inserted:=0,0,0,{},0,UP,IDLE,{},{},FALSE);
+  Expanded_List_Initialisation(Machine(machine))==(time,time_open,time_moving,frequency,elevator_weight,level,direction,elevator_status,active_buttons,maintenance_buttons,pressed_buttons,key_inserted:=0,0,0,{},0,0,UP,OPEN,{},{},{},FALSE);
   Context_List_Initialisation(Machine(machine))==(skip);
-  List_Initialisation(Machine(machine))==(time:=0 || time_open:=0 || elevator_weight:=0 || frequency:={} || level:=0 || direction:=UP || elevator_status:=IDLE || active_buttons:={} || pressed_buttons:={} || key_inserted:=FALSE)
+  List_Initialisation(Machine(machine))==(time:=0 || time_open:=0 || time_moving:=0 || frequency:={} || elevator_weight:=0 || level:=0 || direction:=UP || elevator_status:=OPEN || active_buttons:={} || maintenance_buttons:={} || pressed_buttons:={} || key_inserted:=FALSE)
 END
 &
 THEORY ListParametersX IS
@@ -152,26 +152,26 @@ THEORY ListPreconditionX IS
 END
 &
 THEORY ListSubstitutionX IS
-  Expanded_List_Substitution(Machine(machine),move)==(elevator_status = IDLE & elevator_weight<=MAX_CAPACITY | level = 0 & card(active_buttons-{L0,UP0})>0 ==> level:=1 [] not(level = 0 & card(active_buttons-{L0,UP0})>0) ==> (level = 2 & card(active_buttons-{L2,DOWN2})>0 ==> level:=1 [] not(level = 2 & card(active_buttons-{L2,DOWN2})>0) ==> (level = 1 ==> (direction = UP ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level,direction:=2,DOWN [] not(card(active_buttons/\{L2,DOWN2})>0) ==> (card(active_buttons/\{L0,UP0})>0 ==> level:=0 [] not(card(active_buttons/\{L0,UP0})>0) ==> skip)) [] not(direction = UP) ==> (direction = DOWN ==> (card(active_buttons/\{L0,UP0})>0 ==> level,direction:=0,UP [] not(card(active_buttons/\{L0,UP0})>0) ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level:=2 [] not(card(active_buttons/\{L2,DOWN2})>0) ==> skip)) [] not(direction = DOWN) ==> skip)) [] not(level = 1) ==> skip)));
+  Expanded_List_Substitution(Machine(machine),move)==(elevator_status = IDLE & elevator_weight<=MAX_CAPACITY | elevator_status:=MOVING || (level = 0 & card(active_buttons-{L0,UP0})>0 ==> level:=1 [] not(level = 0 & card(active_buttons-{L0,UP0})>0) ==> (level = 2 & card(active_buttons-{L2,DOWN2})>0 ==> level:=1 [] not(level = 2 & card(active_buttons-{L2,DOWN2})>0) ==> (level = 1 ==> (direction = UP ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level,direction:=2,DOWN [] not(card(active_buttons/\{L2,DOWN2})>0) ==> (card(active_buttons/\{L0,UP0})>0 ==> level:=0 [] not(card(active_buttons/\{L0,UP0})>0) ==> skip)) [] not(direction = UP) ==> (direction = DOWN ==> (card(active_buttons/\{L0,UP0})>0 ==> level,direction:=0,UP [] not(card(active_buttons/\{L0,UP0})>0) ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level:=2 [] not(card(active_buttons/\{L2,DOWN2})>0) ==> skip)) [] not(direction = DOWN) ==> skip)) [] not(level = 1) ==> skip))));
   Expanded_List_Substitution(Machine(machine),close_door)==(elevator_status = OPEN | elevator_status:=IDLE);
   Expanded_List_Substitution(Machine(machine),open_door)==(elevator_status = IDLE | elevator_status:=OPEN || (level = 0 ==> active_buttons:=active_buttons-{L0,UP0} [] not(level = 0) ==> (level = 1 & direction = UP ==> active_buttons:=active_buttons-{L1,UP1} [] not(level = 1 & direction = UP) ==> (level = 1 & direction = DOWN ==> active_buttons:=active_buttons-{L1,DOWN1} [] not(level = 1 & direction = DOWN) ==> (level = 2 ==> active_buttons:=active_buttons-{L2,DOWN2} [] not(level = 2) ==> skip)))));
-  Expanded_List_Substitution(Machine(machine),remove_key)==(key_inserted = TRUE | key_inserted,elevator_status:=FALSE,IDLE);
+  Expanded_List_Substitution(Machine(machine),remove_key)==(key_inserted = TRUE | key_inserted,elevator_status:=FALSE,OPEN);
   Expanded_List_Substitution(Machine(machine),insert_key)==(key_inserted = FALSE & elevator_status = BROKEN | key_inserted,elevator_status,active_buttons,pressed_buttons:=TRUE,MAINTENANCE,{},{});
-  Expanded_List_Substitution(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons) | elevator_status = MAINTENANCE ==> skip [] not(elevator_status = MAINTENANCE) ==> (time-pressed_buttons(button)>=3 ==> active_buttons:=active_buttons-{button} [] not(time-pressed_buttons(button)>=3) ==> active_buttons:=active_buttons\/{button}) || pressed_buttons:={button}<<|pressed_buttons);
-  Expanded_List_Substitution(Machine(machine),press_button)==(button: BUTTONS & button/:dom(pressed_buttons) | elevator_status = MAINTENANCE ==> skip [] not(elevator_status = MAINTENANCE) ==> pressed_buttons:=pressed_buttons<+{button|->time});
+  Expanded_List_Substitution(Machine(machine),release_button)==(button: BUTTONS & button: dom(pressed_buttons) | elevator_status = MAINTENANCE ==> maintenance_buttons:=maintenance_buttons\/{button} [] not(elevator_status = MAINTENANCE) ==> (time-pressed_buttons(button)>=3 ==> active_buttons:=active_buttons-{button} [] not(time-pressed_buttons(button)>=3) ==> active_buttons:=active_buttons\/{button}) || pressed_buttons:={button}<<|pressed_buttons);
+  Expanded_List_Substitution(Machine(machine),press_button)==(button: BUTTONS & button/:dom(pressed_buttons) | pressed_buttons:=pressed_buttons<+{button|->time});
   Expanded_List_Substitution(Machine(machine),remove_person)==(elevator_status/:{IDLE,MOVING} & weight: NATURAL & weight: dom(frequency) & weight<=elevator_weight | elevator_weight:=elevator_weight-weight || (frequency(weight) = 1 ==> frequency:={weight}<<|frequency [] not(frequency(weight) = 1) ==> frequency:=frequency<+{weight|->frequency(weight)-1}));
   Expanded_List_Substitution(Machine(machine),insert_person)==(elevator_status/:{IDLE,MOVING} & weight: NATURAL | elevator_weight:=elevator_weight+weight || (weight: dom(frequency) ==> frequency:=frequency<+{weight|->frequency(weight)+1} [] not(weight: dom(frequency)) ==> frequency:=frequency<+{weight|->1}));
-  Expanded_List_Substitution(Machine(machine),pass_time)==(seconds: NATURAL | time:=time+seconds || (elevator_status = OPEN ==> (time_open+seconds>=120 ==> elevator_status,time_open:=BROKEN,0 [] not(time_open+seconds>=120) ==> time_open:=time_open+seconds) [] not(elevator_status = OPEN) ==> skip));
-  List_Substitution(Machine(machine),pass_time)==(time:=time+seconds || IF elevator_status = OPEN THEN IF time_open+seconds>=120 THEN elevator_status:=BROKEN || time_open:=0 ELSE time_open:=time_open+seconds END END);
+  Expanded_List_Substitution(Machine(machine),pass_time)==(seconds: NATURAL | time,maintenance_buttons:=time+seconds,{} || (elevator_status = OPEN ==> (time_open+seconds>=120 ==> elevator_status,time_open:=BROKEN,0 [] not(time_open+seconds>=120) ==> time_open:=time_open+seconds) [] not(elevator_status = OPEN) ==> (elevator_status = MOVING ==> (time_moving+seconds>=5 ==> elevator_status,time_moving:=IDLE,0 [] not(time_moving+seconds>=5) ==> time_moving:=time_moving+seconds) [] not(elevator_status = MOVING) ==> skip)));
+  List_Substitution(Machine(machine),pass_time)==(time:=time+seconds || maintenance_buttons:={} || IF elevator_status = OPEN THEN IF time_open+seconds>=120 THEN elevator_status:=BROKEN || time_open:=0 ELSE time_open:=time_open+seconds END ELSIF elevator_status = MOVING THEN IF time_moving+seconds>=5 THEN elevator_status:=IDLE || time_moving:=0 ELSE time_moving:=time_moving+seconds END END);
   List_Substitution(Machine(machine),insert_person)==(elevator_weight:=elevator_weight+weight || IF weight: dom(frequency) THEN frequency(weight):=frequency(weight)+1 ELSE frequency(weight):=1 END);
   List_Substitution(Machine(machine),remove_person)==(elevator_weight:=elevator_weight-weight || IF frequency(weight) = 1 THEN frequency:={weight}<<|frequency ELSE frequency(weight):=frequency(weight)-1 END);
-  List_Substitution(Machine(machine),press_button)==(IF elevator_status = MAINTENANCE THEN skip ELSE pressed_buttons(button):=time END);
-  List_Substitution(Machine(machine),release_button)==(IF elevator_status = MAINTENANCE THEN skip ELSIF time-pressed_buttons(button)>=3 THEN active_buttons:=active_buttons-{button} ELSE active_buttons:=active_buttons\/{button} END || pressed_buttons:={button}<<|pressed_buttons);
+  List_Substitution(Machine(machine),press_button)==(pressed_buttons(button):=time);
+  List_Substitution(Machine(machine),release_button)==(IF elevator_status = MAINTENANCE THEN maintenance_buttons:=maintenance_buttons\/{button} ELSIF time-pressed_buttons(button)>=3 THEN active_buttons:=active_buttons-{button} ELSE active_buttons:=active_buttons\/{button} END || pressed_buttons:={button}<<|pressed_buttons);
   List_Substitution(Machine(machine),insert_key)==(key_inserted:=TRUE || elevator_status:=MAINTENANCE || active_buttons:={} || pressed_buttons:={});
-  List_Substitution(Machine(machine),remove_key)==(key_inserted:=FALSE || elevator_status:=IDLE);
+  List_Substitution(Machine(machine),remove_key)==(key_inserted:=FALSE || elevator_status:=OPEN);
   List_Substitution(Machine(machine),open_door)==(elevator_status:=OPEN || IF level = 0 THEN active_buttons:=active_buttons-{L0,UP0} ELSIF level = 1 & direction = UP THEN active_buttons:=active_buttons-{L1,UP1} ELSIF level = 1 & direction = DOWN THEN active_buttons:=active_buttons-{L1,DOWN1} ELSIF level = 2 THEN active_buttons:=active_buttons-{L2,DOWN2} END);
   List_Substitution(Machine(machine),close_door)==(elevator_status:=IDLE);
-  List_Substitution(Machine(machine),move)==(IF level = 0 & card(active_buttons-{L0,UP0})>0 THEN level:=1 ELSIF level = 2 & card(active_buttons-{L2,DOWN2})>0 THEN level:=1 ELSIF level = 1 THEN IF direction = UP THEN IF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 || direction:=DOWN ELSIF card(active_buttons/\{L0,UP0})>0 THEN level:=0 END ELSIF direction = DOWN THEN IF card(active_buttons/\{L0,UP0})>0 THEN level:=0 || direction:=UP ELSIF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 END END END)
+  List_Substitution(Machine(machine),move)==(elevator_status:=MOVING || IF level = 0 & card(active_buttons-{L0,UP0})>0 THEN level:=1 ELSIF level = 2 & card(active_buttons-{L2,DOWN2})>0 THEN level:=1 ELSIF level = 1 THEN IF direction = UP THEN IF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 || direction:=DOWN ELSIF card(active_buttons/\{L0,UP0})>0 THEN level:=0 END ELSIF direction = DOWN THEN IF card(active_buttons/\{L0,UP0})>0 THEN level:=0 || direction:=UP ELSIF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 END END END)
 END
 &
 THEORY ListConstantsX IS
@@ -226,7 +226,7 @@ THEORY ListANYVarX IS
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | key_inserted,pressed_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_open,time | ? | pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key,open_door,close_door,move | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | key_inserted,pressed_buttons,maintenance_buttons,active_buttons,elevator_status,direction,level,frequency,elevator_weight,time_moving,time_open,time | ? | pass_time,insert_person,remove_person,press_button,release_button,insert_key,remove_key,open_door,close_door,move | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
   List_Of_VisibleCst_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
@@ -242,7 +242,7 @@ THEORY ConstantsEnvX IS
 END
 &
 THEORY VariablesEnvX IS
-  Variables(Machine(machine)) == (Type(key_inserted) == Mvl(btype(BOOL,?,?));Type(pressed_buttons) == Mvl(SetOf(etype(BUTTONS,?,?)*btype(INTEGER,?,?)));Type(active_buttons) == Mvl(SetOf(etype(BUTTONS,?,?)));Type(elevator_status) == Mvl(etype(ELEVATOR_STATUS,?,?));Type(direction) == Mvl(etype(DIRECTIONS,?,?));Type(level) == Mvl(btype(INTEGER,?,?));Type(frequency) == Mvl(SetOf(btype(INTEGER,?,?)*btype(INTEGER,?,?)));Type(elevator_weight) == Mvl(btype(INTEGER,?,?));Type(time_open) == Mvl(btype(INTEGER,?,?));Type(time) == Mvl(btype(INTEGER,?,?)))
+  Variables(Machine(machine)) == (Type(key_inserted) == Mvl(btype(BOOL,?,?));Type(pressed_buttons) == Mvl(SetOf(etype(BUTTONS,?,?)*btype(INTEGER,?,?)));Type(maintenance_buttons) == Mvl(SetOf(etype(BUTTONS,?,?)));Type(active_buttons) == Mvl(SetOf(etype(BUTTONS,?,?)));Type(elevator_status) == Mvl(etype(ELEVATOR_STATUS,?,?));Type(direction) == Mvl(etype(DIRECTIONS,?,?));Type(level) == Mvl(btype(INTEGER,?,?));Type(frequency) == Mvl(SetOf(btype(INTEGER,?,?)*btype(INTEGER,?,?)));Type(elevator_weight) == Mvl(btype(INTEGER,?,?));Type(time_moving) == Mvl(btype(INTEGER,?,?));Type(time_open) == Mvl(btype(INTEGER,?,?));Type(time) == Mvl(btype(INTEGER,?,?)))
 END
 &
 THEORY OperationsEnvX IS

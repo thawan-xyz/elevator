@@ -19,6 +19,7 @@ PROPERTIES
 VARIABLES
   time,
   time_open,
+  time_moving,
   
   elevator_weight,
   frequency,
@@ -29,6 +30,7 @@ VARIABLES
   elevator_status,
   
   active_buttons,
+  maintenance_buttons,
   pressed_buttons,
   
   key_inserted
@@ -36,9 +38,11 @@ VARIABLES
 INVARIANT
   time : NATURAL &
   time_open : NATURAL &
+  time_moving : NATURAL &
   
   elevator_weight : NATURAL &
   frequency : NATURAL +-> NATURAL1 &
+  // elevator_weight = SIGMA(X_).(X_ : dom(frequency) | X_ * frequency(X_)) &
   
   level : NATURAL &
   level : LEVELS &
@@ -48,6 +52,7 @@ INVARIANT
   
   active_buttons <: BUTTONS &
   active_buttons : FIN(BUTTONS) & // AJUDA DE PROVA
+  maintenance_buttons <: BUTTONS &
   pressed_buttons : BUTTONS +-> NATURAL &
   
   ((level = 0) => (direction = UP)) &
@@ -58,16 +63,18 @@ INVARIANT
 INITIALISATION
   time := 0 ||
   time_open := 0 ||
+  time_moving := 0 ||
   
-  elevator_weight := 0 ||
   frequency := {} ||
+  elevator_weight := 0 ||
   
   level := 0 ||
   direction := UP ||
   
-  elevator_status := IDLE ||
+  elevator_status := OPEN ||
   
   active_buttons := {} ||
+  maintenance_buttons := {} ||
   pressed_buttons := {} ||
   
   key_inserted := FALSE
@@ -78,12 +85,20 @@ OPERATIONS
     seconds : NATURAL
   THEN
     time := time + seconds ||
+    maintenance_buttons := {} ||
     IF elevator_status = OPEN THEN
       IF time_open + seconds >= 120 THEN
         elevator_status := BROKEN ||
         time_open := 0
       ELSE
         time_open := time_open + seconds
+      END
+    ELSIF elevator_status = MOVING THEN
+      IF time_moving + seconds >= 5 THEN
+        elevator_status := IDLE ||
+        time_moving := 0
+      ELSE
+        time_moving := time_moving + seconds
       END
     END
   END;
@@ -121,11 +136,7 @@ OPERATIONS
     button : BUTTONS &
     button /: dom(pressed_buttons)
   THEN
-    IF elevator_status = MAINTENANCE THEN
-      skip // PISCAR LED
-    ELSE
-      pressed_buttons(button) := time
-    END
+    pressed_buttons(button) := time
   END;
   
   release_button(button) =
@@ -134,7 +145,7 @@ OPERATIONS
     button : dom(pressed_buttons)
   THEN
     IF elevator_status = MAINTENANCE THEN
-      skip // PISCAR LED
+      maintenance_buttons := maintenance_buttons \/ {button}
     ELSIF time - pressed_buttons(button) >= 3 THEN
       active_buttons := active_buttons - {button} // DESATIVAR BOTAO
     ELSE
@@ -159,7 +170,7 @@ OPERATIONS
     key_inserted = TRUE
   THEN
     key_inserted := FALSE ||
-    elevator_status := IDLE
+    elevator_status := OPEN
   END;
   
   open_door =
@@ -190,6 +201,7 @@ OPERATIONS
     elevator_status = IDLE &
     elevator_weight <= MAX_CAPACITY
   THEN
+    elevator_status := MOVING ||
     IF level = 0 & card(active_buttons - {L0, UP0}) > 0 THEN
       level := 1
     ELSIF level = 2 & card(active_buttons - {L2, DOWN2}) > 0 THEN

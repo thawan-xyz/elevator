@@ -1,1 +1,1 @@
-﻿Flag(FileOn("machine.pmi.res")) & Set(toto | level: INTEGER & level: NATURAL & active_buttons: POW((1..7)*{BUTTONS}) & level: INTEGER & 0<=level & level: NATURAL & level: 0..2 & active_buttons: POW((1..7)*{BUTTONS}) & active_buttons: FIN((1..7)*{BUTTONS}) & (level = 0 => direction = 1|->DIRECTIONS) & (level = 2 => direction = 2|->DIRECTIONS) & level<=2 => (level = 0 & "Operation is well defined" => active_buttons-({1|->BUTTONS}\/{4|->BUTTONS}): FIN(active_buttons-({1|->BUTTONS}\/{4|->BUTTONS}))))
+﻿Flag(FileOn("machine.pmi.res")) & Set(toto | bfalse)

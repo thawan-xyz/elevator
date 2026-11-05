@@ -193,7 +193,8 @@ OPERATIONS
   PRE
     elevator_status = OPEN
   THEN
-    elevator_status := IDLE
+    elevator_status := IDLE ||
+    time_open := 0
   END ;
 
   move =

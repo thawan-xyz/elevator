@@ -153,7 +153,7 @@ END
 &
 THEORY ListSubstitutionX IS
   Expanded_List_Substitution(Machine(machine),move)==(elevator_status = IDLE & elevator_weight<=MAX_CAPACITY | elevator_status:=MOVING || (level = 0 & card(active_buttons-{L0,UP0})>0 ==> level:=1 [] not(level = 0 & card(active_buttons-{L0,UP0})>0) ==> (level = 2 & card(active_buttons-{L2,DOWN2})>0 ==> level:=1 [] not(level = 2 & card(active_buttons-{L2,DOWN2})>0) ==> (level = 1 ==> (direction = UP ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level,direction:=2,DOWN [] not(card(active_buttons/\{L2,DOWN2})>0) ==> (card(active_buttons/\{L0,UP0})>0 ==> level:=0 [] not(card(active_buttons/\{L0,UP0})>0) ==> skip)) [] not(direction = UP) ==> (direction = DOWN ==> (card(active_buttons/\{L0,UP0})>0 ==> level,direction:=0,UP [] not(card(active_buttons/\{L0,UP0})>0) ==> (card(active_buttons/\{L2,DOWN2})>0 ==> level:=2 [] not(card(active_buttons/\{L2,DOWN2})>0) ==> skip)) [] not(direction = DOWN) ==> skip)) [] not(level = 1) ==> skip))));
-  Expanded_List_Substitution(Machine(machine),close_door)==(elevator_status = OPEN | elevator_status:=IDLE);
+  Expanded_List_Substitution(Machine(machine),close_door)==(elevator_status = OPEN | elevator_status,time_open:=IDLE,0);
   Expanded_List_Substitution(Machine(machine),open_door)==(elevator_status = IDLE | elevator_status:=OPEN || (level = 0 ==> active_buttons:=active_buttons-{L0,UP0} [] not(level = 0) ==> (level = 1 & direction = UP ==> active_buttons:=active_buttons-{L1,UP1} [] not(level = 1 & direction = UP) ==> (level = 1 & direction = DOWN ==> active_buttons:=active_buttons-{L1,DOWN1} [] not(level = 1 & direction = DOWN) ==> (level = 2 ==> active_buttons:=active_buttons-{L2,DOWN2} [] not(level = 2) ==> skip)))));
   Expanded_List_Substitution(Machine(machine),remove_key)==(key_inserted = TRUE | key_inserted,elevator_status:=FALSE,OPEN);
   Expanded_List_Substitution(Machine(machine),insert_key)==(key_inserted = FALSE & elevator_status = BROKEN | key_inserted,elevator_status,active_buttons,pressed_buttons:=TRUE,MAINTENANCE,{},{});
@@ -170,7 +170,7 @@ THEORY ListSubstitutionX IS
   List_Substitution(Machine(machine),insert_key)==(key_inserted:=TRUE || elevator_status:=MAINTENANCE || active_buttons:={} || pressed_buttons:={});
   List_Substitution(Machine(machine),remove_key)==(key_inserted:=FALSE || elevator_status:=OPEN);
   List_Substitution(Machine(machine),open_door)==(elevator_status:=OPEN || IF level = 0 THEN active_buttons:=active_buttons-{L0,UP0} ELSIF level = 1 & direction = UP THEN active_buttons:=active_buttons-{L1,UP1} ELSIF level = 1 & direction = DOWN THEN active_buttons:=active_buttons-{L1,DOWN1} ELSIF level = 2 THEN active_buttons:=active_buttons-{L2,DOWN2} END);
-  List_Substitution(Machine(machine),close_door)==(elevator_status:=IDLE);
+  List_Substitution(Machine(machine),close_door)==(elevator_status:=IDLE || time_open:=0);
   List_Substitution(Machine(machine),move)==(elevator_status:=MOVING || IF level = 0 & card(active_buttons-{L0,UP0})>0 THEN level:=1 ELSIF level = 2 & card(active_buttons-{L2,DOWN2})>0 THEN level:=1 ELSIF level = 1 THEN IF direction = UP THEN IF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 || direction:=DOWN ELSIF card(active_buttons/\{L0,UP0})>0 THEN level:=0 END ELSIF direction = DOWN THEN IF card(active_buttons/\{L0,UP0})>0 THEN level:=0 || direction:=UP ELSIF card(active_buttons/\{L2,DOWN2})>0 THEN level:=2 END END END)
 END
 &

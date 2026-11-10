@@ -1,39 +1,28 @@
 THEORY BalanceX IS
-machine,57,0,0,55,0,0,0;
+machine,47,0,0,44,0,0,0;
 Initialisation,5,0,0,5,0,0,0;
 Operation_board_passenger,1,0,0,1,0,0,0;
-Operation_close_door,1,0,0,1,0,0,0;
+Operation_disembark_passenger,1,0,0,1,0,0,0;
 Operation_insert_maintenance_key,2,0,0,2,0,0,0;
 Operation_open_door,8,0,0,8,0,0,0;
-Operation_pass_time,9,0,0,9,0,0,0;
-Operation_press_button,1,0,0,1,0,0,0;
-Operation_release_button,8,0,0,8,0,0,0;
-Operation_start_moving,12,0,0,12,0,0,0;
-WellDefinednessPrecondition_start_moving,2,0,0,2,0,0,0;
+Operation_press_button_at,1,0,0,1,0,0,0;
+Operation_release_button_at,8,0,0,8,0,0,0;
+Operation_time_step,10,0,0,10,0,0,0;
 WellDefinedness_board_passenger,1,0,0,1,0,0,0;
-WellDefinedness_release_button,1,0,0,1,0,0,0;
-WellDefinedness_start_moving,6,0,0,4,0,0,0
+WellDefinedness_disembark_passenger,7,0,0,4,0,0,0;
+WellDefinedness_release_button_at,1,0,0,1,0,0,0;
+WellDefinedness_time_step,2,0,0,2,0,0,0
 END
 &
 THEORY ProofState IS
 Proved(0);
 Proved(0);
 Proved(0);
-Proved(0);
-Unproved;
 Unproved;
 Proved(0);
 Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
-Proved(0);
+Unproved;
+Unproved;
 Proved(0);
 Proved(0);
 Proved(0);
@@ -79,17 +68,7 @@ THEORY MethodList IS
 pr;
 pr;
 pr;
-pr;
-ch & ss & pp(rp.1 | 59);
-ss & pr;
-pr;
-pr;
-pr;
-pr;
-pr;
-pr;
-pr;
-pr;
+ch & pp(rt.1 | 59);
 pr;
 pr;
 pr;
@@ -139,21 +118,11 @@ THEORY PassList IS
 Force(0),?;
 Force(0),?;
 Force(0),?;
-Force(0),?;
-Force(0),(?; 0);
 Force(0),(?; 0);
 Force(0),?;
 Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),?;
+Force(0),(?; 0);
+Force(0),(?; 0);
 Force(0),?;
 Force(0),?;
 Force(0),?;
@@ -196,18 +165,17 @@ Force(0),?
 END
 &
 THEORY Status IS
-machine,57,0,55,0,0,0;
+machine,47,0,44,0,0,0;
 Initialisation,5,0,5,0,0,0;
 Operation_board_passenger,1,0,1,0,0,0;
-Operation_close_door,1,0,1,0,0,0;
+Operation_disembark_passenger,1,0,1,0,0,0;
 Operation_insert_maintenance_key,2,0,2,0,0,0;
 Operation_open_door,8,0,8,0,0,0;
-Operation_pass_time,9,0,9,0,0,0;
-Operation_press_button,1,0,1,0,0,0;
-Operation_release_button,8,0,8,0,0,0;
-Operation_start_moving,12,0,12,0,0,0;
-WellDefinednessPrecondition_start_moving,2,0,2,0,0,0;
+Operation_press_button_at,1,0,1,0,0,0;
+Operation_release_button_at,8,0,8,0,0,0;
+Operation_time_step,10,0,10,0,0,0;
 WellDefinedness_board_passenger,1,0,1,0,0,0;
-WellDefinedness_release_button,1,0,1,0,0,0;
-WellDefinedness_start_moving,6,0,4,0,0,0
+WellDefinedness_disembark_passenger,7,0,4,0,0,0;
+WellDefinedness_release_button_at,1,0,1,0,0,0;
+WellDefinedness_time_step,2,0,2,0,0,0
 END

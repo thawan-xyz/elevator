@@ -1,308 +1,254 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<Proof_Obligations xmlns="https://www.atelierb.eu/Formats/pog" author="pmi2Pos" version="1.0">
+<Proof_Obligations author="pmi2Pos" xmlns="https://www.atelierb.eu/Formats/pog" version="1.0">
 <Proof_Obligation>
 <Tag>Initialisation</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>Operation_pass_time</Tag>
+<Tag>Operation_time_step</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Proved">
+<Tag>Invariant is preserved</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>Operation_board_passenger</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>Operation_disembark_passenger</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>Operation_press_button</Tag>
+<Tag>Operation_press_button_at</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>Operation_release_button</Tag>
+<Tag>Operation_release_button_at</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>Operation_insert_maintenance_key</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>Operation_open_door</Tag>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>Operation_close_door</Tag>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-</Proof_Obligation>
-<Proof_Obligation>
-<Tag>Operation_start_moving</Tag>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Tag>WellDefinedness_time_step</Tag>
+<Simple_Goal status="Unproved">
+<Tag>Operation is well defined</Tag>
+<Proof_State proofState="Unproved" passList="Force(0),(?; 0; 1; 2)" methodList="?"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Tag>Operation is well defined</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Tag>Operation is well defined</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Invariant is preserved</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Tag>Operation is well defined</Tag>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>WellDefinedness_board_passenger</Tag>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
 <Tag>WellDefinedness_disembark_passenger</Tag>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(1)" methodList="pr" passList="Force(1),(?; 0)"/>
+<Proof_State proofState="Proved(1)" passList="Force(1),(?; 0)" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(2)" methodList="pr" passList="Force(2),(?; 0; 1)"/>
+<Proof_State proofState="Proved(2)" passList="Force(2),(?; 0; 1)" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
+</Simple_Goal>
+<Simple_Goal status="Unproved">
+<Tag>Operation is well defined</Tag>
+<Proof_State proofState="Unproved" passList="Force(0),(?; 0; 1; 2)" methodList="ch &amp; pp(rt.1 | 59)"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(Util)" methodList="ch &amp; pp(rt.1 | 59)" passList="Force(0),(?; 0; 1; 2; 3)"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>WellDefinedness_release_button</Tag>
+<Tag>WellDefinedness_release_button_at</Tag>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 <Proof_Obligation>
-<Tag>WellDefinednessPrecondition_start_moving</Tag>
-<Simple_Goal status="Proved">
-<Tag>Operation precondition is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation precondition is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-</Proof_Obligation>
-<Proof_Obligation>
-<Tag>WellDefinedness_start_moving</Tag>
-<Simple_Goal status="Proved">
+<Tag>WellDefinedness_open_door</Tag>
+<Simple_Goal status="Unproved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(Util)" methodList="ss &amp; pr" passList="Force(0),(?; 0; 1; 2; 3)"/>
+<Proof_State proofState="Unproved" passList="Force(0),(?; 0; 1)" methodList="?"/>
 </Simple_Goal>
 <Simple_Goal status="Proved">
 <Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(Util)" methodList="ss &amp; pr" passList="Force(0),(?; 0; 1; 2; 3)"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
-</Simple_Goal>
-<Simple_Goal status="Proved">
-<Tag>Operation is well defined</Tag>
-<Proof_State proofState="Proved(0)" methodList="pr" passList="Force(0),?"/>
+<Proof_State proofState="Proved(0)" passList="Force(0),?" methodList="pr"/>
 </Simple_Goal>
 </Proof_Obligation>
 </Proof_Obligations>

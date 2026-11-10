@@ -8,5 +8,8 @@
         <component_file path="/opt/atelierb-free-24.04.2/press/bdb/elevator" name="machine" suffix="mch" user="thawan">
             <component name="machine" type="specification" />
         </component_file>
+        <component_file path="/opt/atelierb-free-24.04.2/press/bdb/elevator" name="timer" suffix="mch" user="thawan">
+            <component name="timer" type="specification" />
+        </component_file>
     </project>
 </db_xml>

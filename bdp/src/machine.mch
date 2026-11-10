@@ -26,8 +26,7 @@ ABSTRACT_VARIABLES
   door_open_duration ,
   movement_duration ,
 
-  total_weight ,
-  passeger_weight_counts ,
+  passenger_weights ,
 
   current_floor ,
   travel_direction ,
@@ -45,9 +44,7 @@ INVARIANT
   door_open_duration : NATURAL &
   movement_duration : NATURAL &
 
-  total_weight : NATURAL &
-  passeger_weight_counts : NATURAL +-> NATURAL1 &
-  // total_weight = SIGMA(X_).(X_ : dom(passeger_weight_counts) | X_ * passeger_weight_counts(X_)) &
+  passenger_weights : seq ( NATURAL ) &
 
   current_floor : NATURAL &
   current_floor : LEVELS &
@@ -70,8 +67,7 @@ INITIALISATION
   door_open_duration := 0 ||
   movement_duration := 0 ||
 
-  passeger_weight_counts := {} ||
-  total_weight := 0 ||
+  passenger_weights := <> ||
 
   current_floor := 0 ||
   travel_direction := UP ||
@@ -122,12 +118,7 @@ OPERATIONS
     elevator_state /: { IDLE , MOVING } &
     weight : NATURAL
   THEN
-    total_weight := total_weight + weight ||
-    IF weight : dom ( passeger_weight_counts ) THEN
-      passeger_weight_counts ( weight ) := passeger_weight_counts ( weight ) + 1
-    ELSE
-      passeger_weight_counts ( weight ) := 1
-    END
+    passenger_weights := passenger_weights <- weight
   END ;
 
 
@@ -139,14 +130,12 @@ OPERATIONS
   PRE
     elevator_state /: { IDLE , MOVING } &
     weight : NATURAL &
-    weight : dom ( passeger_weight_counts ) &
-    weight <= total_weight
+    weight : ran ( passenger_weights )
   THEN
-    total_weight := total_weight - weight ||
-    IF passeger_weight_counts ( weight ) = 1 THEN
-      passeger_weight_counts := { weight } <<| passeger_weight_counts
-    ELSE
-      passeger_weight_counts ( weight ) := passeger_weight_counts ( weight ) - 1
+    LET idx BE
+      idx = min ( passenger_weights ~ [ { weight } ] )
+    IN
+      passenger_weights := ( passenger_weights /|\ ( idx - 1 ) ) ^ ( passenger_weights \|/ idx )
     END
   END ;
 
@@ -247,7 +236,7 @@ OPERATIONS
   start_moving =
   PRE
     elevator_state = IDLE &
-    total_weight <= MAX_CAPACITY
+    SIGMA ( idx ) . ( idx : dom ( passenger_weights ) | passenger_weights ( idx ) ) <= MAX_CAPACITY
   THEN
     elevator_state := MOVING ||
     IF current_floor = 0 & card ( pending_requests - { L0 , UP0 } ) > 0 THEN

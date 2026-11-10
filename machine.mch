@@ -1,91 +1,91 @@
 MACHINE
   machine
-  
+
 SETS
   DIRECTIONS = {UP, DOWN};
-  
+
   ELEVATOR_STATUS = {OPEN, IDLE, MOVING, BROKEN, MAINTENANCE};
-  
-  /* 
+
+  /*
   Botões do Sistema:
   Lx (internos dos andares 0, 1 e 2)
   UPx / DOWNx (externos de chamada nos andares)
   */
   BUTTONS = {L0, L1, L2, UP0, UP1, DOWN1, DOWN2}
-  
+
 CONSTANTS
   LEVELS,
   MAX_CAPACITY
-  
+
 PROPERTIES
   LEVELS = 0..2 &
   MAX_CAPACITY = 450
-  
+
 VARIABLES
-  globalTime,
-  doorOpenDuration,
-  movementDuration,
-  
-  totalWeight,
-  passegerWeightCounts,
-  
-  currentFloor,
-  travelDirection,
-  
-  elevatorState,
-  
-  pendingRequests,
-  testedMaintenanceButtons,
-  buttonPressTimestamps,
-  
-  isMaintenanceKeyInserted
-  
+  global_time,
+  door_open_duration,
+  movement_duration,
+
+  total_weight,
+  passeger_weight_counts,
+
+  current_floor,
+  travel_direction,
+
+  elevator_state,
+
+  pending_requests,
+  tested_maintenance_buttons,
+  button_press_timestamps,
+
+  is_maintenance_key_inserted
+
 INVARIANT
-  globalTime : NATURAL &
-  doorOpenDuration : NATURAL &
-  movementDuration : NATURAL &
-  
-  totalWeight : NATURAL &
-  passegerWeightCounts : NATURAL +-> NATURAL1 &
-  // totalWeight = SIGMA(X_).(X_ : dom(passegerWeightCounts) | X_ * passegerWeightCounts(X_)) &
-  
-  currentFloor : NATURAL &
-  currentFloor : LEVELS &
-  travelDirection : DIRECTIONS &
-  
-  elevatorState : ELEVATOR_STATUS &
-  
-  pendingRequests <: BUTTONS &
-  pendingRequests : FIN(BUTTONS) & // AJUDA DE PROVA
-  testedMaintenanceButtons <: BUTTONS &
-  buttonPressTimestamps : BUTTONS +-> NATURAL &
-  
-  ((currentFloor = 0) => (travelDirection = UP)) &
-  ((currentFloor = 2) => (travelDirection = DOWN)) &
-  
-  isMaintenanceKeyInserted : BOOL
-  
+  global_time : NATURAL &
+  door_open_duration : NATURAL &
+  movement_duration : NATURAL &
+
+  total_weight : NATURAL &
+  passeger_weight_counts : NATURAL +-> NATURAL1 &
+  // total_weight = SIGMA(X_).(X_ : dom(passeger_weight_counts) | X_ * passeger_weight_counts(X_)) &
+
+  current_floor : NATURAL &
+  current_floor : LEVELS &
+  travel_direction : DIRECTIONS &
+
+  elevator_state : ELEVATOR_STATUS &
+
+  pending_requests <: BUTTONS &
+  pending_requests : FIN(BUTTONS) & // AJUDA DE PROVA
+  tested_maintenance_buttons <: BUTTONS &
+  button_press_timestamps : BUTTONS +-> NATURAL &
+
+  ((current_floor = 0) => (travel_direction = UP)) &
+  ((current_floor = 2) => (travel_direction = DOWN)) &
+
+  is_maintenance_key_inserted : BOOL
+
 INITIALISATION
-  globalTime := 0 ||
-  doorOpenDuration := 0 ||
-  movementDuration := 0 ||
-  
-  passegerWeightCounts := {} ||
-  totalWeight := 0 ||
-  
-  currentFloor := 0 ||
-  travelDirection := UP ||
-  
-  elevatorState := OPEN ||
-  
-  pendingRequests := {} ||
-  testedMaintenanceButtons := {} ||
-  buttonPressTimestamps := {} ||
-  
-  isMaintenanceKeyInserted := FALSE
-  
+  global_time := 0 ||
+  door_open_duration := 0 ||
+  movement_duration := 0 ||
+
+  passeger_weight_counts := {} ||
+  total_weight := 0 ||
+
+  current_floor := 0 ||
+  travel_direction := UP ||
+
+  elevator_state := OPEN ||
+
+  pending_requests := {} ||
+  tested_maintenance_buttons := {} ||
+  button_press_timestamps := {} ||
+
+  is_maintenance_key_inserted := FALSE
+
 OPERATIONS
-  /* 
+  /*
   Avança o tempo do sistema e atualiza temporizadores de porta e movimento
   Se a porta ficar aberto por >= 120s o elevador quebra - BROKEN
   Se mover por >= 5s, o elevador chega ao destino intermediário/final - IDLE
@@ -94,72 +94,72 @@ OPERATIONS
   PRE
     seconds : NATURAL
   THEN
-    globalTime := globalTime + seconds ||
-    testedMaintenanceButtons := {} ||
-    IF elevatorState = OPEN THEN
-      IF doorOpenDuration + seconds >= 120 THEN
-        elevatorState := BROKEN ||
-        doorOpenDuration := 0
+    global_time := global_time + seconds ||
+    tested_maintenance_buttons := {} ||
+    IF elevator_state = OPEN THEN
+      IF door_open_duration + seconds >= 120 THEN
+        elevator_state := BROKEN ||
+        door_open_duration := 0
       ELSE
-        doorOpenDuration := doorOpenDuration + seconds
+        door_open_duration := door_open_duration + seconds
       END
-    ELSIF elevatorState = MOVING THEN
-      IF movementDuration + seconds >= 5 THEN
-        elevatorState := IDLE ||
-        movementDuration := 0
+    ELSIF elevator_state = MOVING THEN
+      IF movement_duration + seconds >= 5 THEN
+        elevator_state := IDLE ||
+        movement_duration := 0
       ELSE
-        movementDuration := movementDuration + seconds
+        movement_duration := movement_duration + seconds
       END
     END
   END;
-  
-  /* 
+
+  /*
   Registra a entrada de um passageito com determinado peso
   Só é permitido quando o elevador não está em transito - IDLE/MOVING
   */
   board_passenger(weight) =
   PRE
-    elevatorState /: {IDLE, MOVING} &
+    elevator_state /: {IDLE, MOVING} &
     weight : NATURAL
   THEN
-    totalWeight := totalWeight + weight ||
-    IF weight : dom(passegerWeightCounts) THEN
-      passegerWeightCounts(weight) := passegerWeightCounts(weight) + 1
+    total_weight := total_weight + weight ||
+    IF weight : dom(passeger_weight_counts) THEN
+      passeger_weight_counts(weight) := passeger_weight_counts(weight) + 1
     ELSE
-      passegerWeightCounts(weight) := 1
+      passeger_weight_counts(weight) := 1
     END
   END;
-    
-    
+
+
   /*
-  Registra a saída de uma pessoa do elevador de determinado peso 
+  Registra a saída de uma pessoa do elevador de determinado peso
   Atualiza o peso total e decrementa ou remove a contagem do mapa
   */
   disembark_passenger(weight) =
   PRE
-    elevatorState /: {IDLE, MOVING} &
+    elevator_state /: {IDLE, MOVING} &
     weight : NATURAL &
-    weight : dom(passegerWeightCounts) &
-    weight <= totalWeight // AJUDA DE PROVA
+    weight : dom(passeger_weight_counts) &
+    weight <= total_weight // AJUDA DE PROVA
   THEN
-    totalWeight := totalWeight - weight ||
-    IF passegerWeightCounts(weight) = 1 THEN
-      passegerWeightCounts := {weight} <<| passegerWeightCounts
+    total_weight := total_weight - weight ||
+    IF passeger_weight_counts(weight) = 1 THEN
+      passeger_weight_counts := {weight} <<| passeger_weight_counts
     ELSE
-      passegerWeightCounts(weight) := passegerWeightCounts(weight) - 1
+      passeger_weight_counts(weight) := passeger_weight_counts(weight) - 1
     END
   END;
-  
-  
+
+
   /*
   Registra o instante (timestamp) em que o botão começou a ser pressionado
   */
   press_button(button) =
   PRE
     button : BUTTONS &
-    button /: dom(buttonPressTimestamps)
+    button /: dom(button_press_timestamps)
   THEN
-    buttonPressTimestamps(button) := globalTime
+    button_press_timestamps(button) := global_time
   END;
 
   /*
@@ -168,106 +168,106 @@ OPERATIONS
   release_button(button) =
   PRE
     button : BUTTONS &
-    button : dom(buttonPressTimestamps)
+    button : dom(button_press_timestamps)
   THEN
-    IF elevatorState = MAINTENANCE THEN
-      testedMaintenanceButtons := testedMaintenanceButtons \/ {button}
-    ELSIF globalTime - buttonPressTimestamps(button) >= 3 THEN
-      pendingRequests := pendingRequests - {button} // DESATIVAR BOTAO
+    IF elevator_state = MAINTENANCE THEN
+      tested_maintenance_buttons := tested_maintenance_buttons \/ {button}
+    ELSIF global_time - button_press_timestamps(button) >= 3 THEN
+      pending_requests := pending_requests - {button} // DESATIVAR BOTAO
     ELSE
-      pendingRequests := pendingRequests \/ {button} // ATIVAR BOTAO
+      pending_requests := pending_requests \/ {button} // ATIVAR BOTAO
     END ||
-    buttonPressTimestamps := {button} <<| buttonPressTimestamps
+    button_press_timestamps := {button} <<| button_press_timestamps
   END;
-  
-  
+
+
   /*
   Transiciona o elevador do estado BROKEN para MAINTENANCE pela chave física
   */
   insert_maintenance_key =
   PRE
-    isMaintenanceKeyInserted = FALSE &
-    elevatorState = BROKEN
+    is_maintenance_key_inserted = FALSE &
+    elevator_state = BROKEN
   THEN
-    isMaintenanceKeyInserted := TRUE ||
-    elevatorState := MAINTENANCE ||
-    pendingRequests := {} ||
-    buttonPressTimestamps := {}
+    is_maintenance_key_inserted := TRUE ||
+    elevator_state := MAINTENANCE ||
+    pending_requests := {} ||
+    button_press_timestamps := {}
   END;
-  
-  
+
+
   /*
   Retira o elevador do estado MAINTENANCE para OPEN (funcionando normalmente)
   */
   remove_key =
   PRE
-    isMaintenanceKeyInserted = TRUE
+    is_maintenance_key_inserted = TRUE
   THEN
-    isMaintenanceKeyInserted := FALSE ||
-    elevatorState := OPEN
+    is_maintenance_key_inserted := FALSE ||
+    elevator_state := OPEN
   END;
-  
+
   /*
   Abre a porta do elevador ao chegar em um andar parado - IDLE
   Automaticamente limpa as requisiões atendidas naquele andar e sentido
   */
   open_door =
   PRE
-    elevatorState = IDLE
+    elevator_state = IDLE
   THEN
-    elevatorState := OPEN ||
-    IF currentFloor = 0 THEN
-      pendingRequests := pendingRequests - {L0, UP0}
-    ELSIF currentFloor = 1 & travelDirection = UP THEN
-      pendingRequests := pendingRequests - {L1, UP1}
-    ELSIF currentFloor = 1 & travelDirection = DOWN THEN
-      pendingRequests := pendingRequests - {L1, DOWN1}
-    ELSIF currentFloor = 2 THEN
-      pendingRequests := pendingRequests - {L2, DOWN2}
+    elevator_state := OPEN ||
+    IF current_floor = 0 THEN
+      pending_requests := pending_requests - {L0, UP0}
+    ELSIF current_floor = 1 & travel_direction = UP THEN
+      pending_requests := pending_requests - {L1, UP1}
+    ELSIF current_floor = 1 & travel_direction = DOWN THEN
+      pending_requests := pending_requests - {L1, DOWN1}
+    ELSIF current_floor = 2 THEN
+      pending_requests := pending_requests - {L2, DOWN2}
     END
   END;
-  
-  
+
+
   /*
   Fecha a porta do elevador e zera a contagem de tempo de porta aberta
   */
   close_door =
   PRE
-    elevatorState = OPEN
+    elevator_state = OPEN
   THEN
-    elevatorState := IDLE ||
-    doorOpenDuration := 0
+    elevator_state := IDLE ||
+    door_open_duration := 0
   END;
-  
-  
+
+
   /*
-  Inicia o movimento entre andares com base na fila de chamadas pendentes (pendingRequests)
+  Inicia o movimento entre andares com base na fila de chamadas pendentes (pending_requests)
   Respeita a capacidade máxima de carga e define a lógica de prioridade de sentido
   */
   start_moving =
   PRE
-    elevatorState = IDLE &
-    totalWeight <= MAX_CAPACITY
+    elevator_state = IDLE &
+    total_weight <= MAX_CAPACITY
   THEN
-    elevatorState := MOVING ||
-    IF currentFloor = 0 & card(pendingRequests - {L0, UP0}) > 0 THEN
-      currentFloor := 1
-    ELSIF currentFloor = 2 & card(pendingRequests - {L2, DOWN2}) > 0 THEN
-      currentFloor := 1
-    ELSIF currentFloor = 1 THEN
-      IF travelDirection = UP THEN
-        IF card(pendingRequests /\ {L2, DOWN2}) > 0 THEN
-          currentFloor := 2 ||
-          travelDirection := DOWN
-        ELSIF card(pendingRequests /\ {L0, UP0}) > 0 THEN
-          currentFloor := 0
+    elevator_state := MOVING ||
+    IF current_floor = 0 & card(pending_requests - {L0, UP0}) > 0 THEN
+      current_floor := 1
+    ELSIF current_floor = 2 & card(pending_requests - {L2, DOWN2}) > 0 THEN
+      current_floor := 1
+    ELSIF current_floor = 1 THEN
+      IF travel_direction = UP THEN
+        IF card(pending_requests /\ {L2, DOWN2}) > 0 THEN
+          current_floor := 2 ||
+          travel_direction := DOWN
+        ELSIF card(pending_requests /\ {L0, UP0}) > 0 THEN
+          current_floor := 0
         END
-      ELSIF travelDirection = DOWN THEN
-        IF card(pendingRequests /\ {L0, UP0}) > 0 THEN
-          currentFloor := 0 ||
-          travelDirection := UP
-        ELSIF card(pendingRequests /\ {L2, DOWN2}) > 0 THEN
-          currentFloor := 2
+      ELSIF travel_direction = DOWN THEN
+        IF card(pending_requests /\ {L0, UP0}) > 0 THEN
+          current_floor := 0 ||
+          travel_direction := UP
+        ELSIF card(pending_requests /\ {L2, DOWN2}) > 0 THEN
+          current_floor := 2
         END
       END
     END

@@ -6,6 +6,11 @@ SETS
 
   ELEVATOR_STATUS = { OPEN , IDLE , MOVING , BROKEN , MAINTENANCE } ;
 
+  /*
+  Botões do Sistema:
+  Lx (internos dos andares 0, 1 e 2)
+  UPx / DOWNx (externos de chamada nos andares)
+  */
   BUTTONS = { L0 , L1 , L2 , UP0 , UP1 , DOWN1 , DOWN2 }
 
 CONCRETE_CONSTANTS
@@ -17,210 +22,252 @@ PROPERTIES
   MAX_CAPACITY = 450
 
 ABSTRACT_VARIABLES
-  time ,
-  time_open ,
-  time_moving ,
+  global_time ,
+  door_open_duration ,
+  movement_duration ,
 
-  elevator_weight ,
-  frequency ,
+  total_weight ,
+  passeger_weight_counts ,
 
-  level ,
-  direction ,
+  current_floor ,
+  travel_direction ,
 
-  elevator_status ,
+  elevator_state ,
 
-  active_buttons ,
-  maintenance_buttons ,
-  pressed_buttons ,
+  pending_requests ,
+  tested_maintenance_buttons ,
+  button_press_timestamps ,
 
-  key_inserted
+  is_maintenance_key_inserted
 
 INVARIANT
-  time : NATURAL &
-  time_open : NATURAL &
-  time_moving : NATURAL &
+  global_time : NATURAL &
+  door_open_duration : NATURAL &
+  movement_duration : NATURAL &
 
-  elevator_weight : NATURAL &
-  frequency : NATURAL +-> NATURAL1 &
-  // elevator_weight = SIGMA(X_).(X_ : dom(frequency) | X_ * frequency(X_)) &
+  total_weight : NATURAL &
+  passeger_weight_counts : NATURAL +-> NATURAL1 &
+  // total_weight = SIGMA(X_).(X_ : dom(passeger_weight_counts) | X_ * passeger_weight_counts(X_)) &
 
-  level : NATURAL &
-  level : LEVELS &
-  direction : DIRECTIONS &
+  current_floor : NATURAL &
+  current_floor : LEVELS &
+  travel_direction : DIRECTIONS &
 
-  elevator_status : ELEVATOR_STATUS &
+  elevator_state : ELEVATOR_STATUS &
 
-  active_buttons <: BUTTONS &
-  active_buttons : FIN ( BUTTONS ) & // AJUDA DE PROVA
-  maintenance_buttons <: BUTTONS &
-  pressed_buttons : BUTTONS +-> NATURAL &
+  pending_requests <: BUTTONS &
+  pending_requests : FIN ( BUTTONS ) & // AJUDA DE PROVA
+  tested_maintenance_buttons <: BUTTONS &
+  button_press_timestamps : BUTTONS +-> NATURAL &
 
-  ( ( level = 0 ) => ( direction = UP ) ) &
-  ( ( level = 2 ) => ( direction = DOWN ) ) &
+  ( ( current_floor = 0 ) => ( travel_direction = UP ) ) &
+  ( ( current_floor = 2 ) => ( travel_direction = DOWN ) ) &
 
-  key_inserted : BOOL
+  is_maintenance_key_inserted : BOOL
 
 INITIALISATION
-  time := 0 ||
-  time_open := 0 ||
-  time_moving := 0 ||
+  global_time := 0 ||
+  door_open_duration := 0 ||
+  movement_duration := 0 ||
 
-  frequency := {} ||
-  elevator_weight := 0 ||
+  passeger_weight_counts := {} ||
+  total_weight := 0 ||
 
-  level := 0 ||
-  direction := UP ||
+  current_floor := 0 ||
+  travel_direction := UP ||
 
-  elevator_status := OPEN ||
+  elevator_state := OPEN ||
 
-  active_buttons := {} ||
-  maintenance_buttons := {} ||
-  pressed_buttons := {} ||
+  pending_requests := {} ||
+  tested_maintenance_buttons := {} ||
+  button_press_timestamps := {} ||
 
-  key_inserted := FALSE
+  is_maintenance_key_inserted := FALSE
 
 OPERATIONS
+  /*
+  Avança o tempo do sistema e atualiza temporizadores de porta e movimento
+  Se a porta ficar aberto por >= 120s o elevador quebra - BROKEN
+  Se mover por >= 5s, o elevador chega ao destino intermediário/final - IDLE
+  */
   pass_time ( seconds ) =
   PRE
     seconds : NATURAL
   THEN
-    time := time + seconds ||
-    maintenance_buttons := {} ||
-    IF elevator_status = OPEN THEN
-      IF time_open + seconds >= 120 THEN
-        elevator_status := BROKEN ||
-        time_open := 0
+    global_time := global_time + seconds ||
+    tested_maintenance_buttons := {} ||
+    IF elevator_state = OPEN THEN
+      IF door_open_duration + seconds >= 120 THEN
+        elevator_state := BROKEN ||
+        door_open_duration := 0
       ELSE
-        time_open := time_open + seconds
+        door_open_duration := door_open_duration + seconds
       END
-    ELSIF elevator_status = MOVING THEN
-      IF time_moving + seconds >= 5 THEN
-        elevator_status := IDLE ||
-        time_moving := 0
+    ELSIF elevator_state = MOVING THEN
+      IF movement_duration + seconds >= 5 THEN
+        elevator_state := IDLE ||
+        movement_duration := 0
       ELSE
-        time_moving := time_moving + seconds
+        movement_duration := movement_duration + seconds
       END
     END
   END ;
 
-  insert_person ( weight ) =
+  /*
+  Registra a entrada de um passageito com determinado peso
+  Só é permitido quando o elevador não está em transito - IDLE/MOVING
+  */
+  board_passenger ( weight ) =
   PRE
-    elevator_status /: { IDLE , MOVING } &
+    elevator_state /: { IDLE , MOVING } &
     weight : NATURAL
   THEN
-    elevator_weight := elevator_weight + weight ||
-    IF weight : dom ( frequency ) THEN
-      frequency ( weight ) := frequency ( weight ) + 1
+    total_weight := total_weight + weight ||
+    IF weight : dom ( passeger_weight_counts ) THEN
+      passeger_weight_counts ( weight ) := passeger_weight_counts ( weight ) + 1
     ELSE
-      frequency ( weight ) := 1
+      passeger_weight_counts ( weight ) := 1
     END
   END ;
 
-  remove_person ( weight ) =
+
+  /*
+  Registra a saída de uma pessoa do elevador de determinado peso
+  Atualiza o peso total e decrementa ou remove a contagem do mapa
+  */
+  disembark_passenger ( weight ) =
   PRE
-    elevator_status /: { IDLE , MOVING } &
+    elevator_state /: { IDLE , MOVING } &
     weight : NATURAL &
-    weight : dom ( frequency ) &
-    weight <= elevator_weight
+    weight : dom ( passeger_weight_counts ) &
+    weight <= total_weight
   THEN
-    elevator_weight := elevator_weight - weight ||
-    IF frequency ( weight ) = 1 THEN
-      frequency := { weight } <<| frequency
+    total_weight := total_weight - weight ||
+    IF passeger_weight_counts ( weight ) = 1 THEN
+      passeger_weight_counts := { weight } <<| passeger_weight_counts
     ELSE
-      frequency ( weight ) := frequency ( weight ) - 1
+      passeger_weight_counts ( weight ) := passeger_weight_counts ( weight ) - 1
     END
   END ;
 
+
+  /*
+  Registra o instante (timestamp) em que o botão começou a ser pressionado
+  */
   press_button ( button ) =
   PRE
     button : BUTTONS &
-    button /: dom ( pressed_buttons )
+    button /: dom ( button_press_timestamps )
   THEN
-    pressed_buttons ( button ) := time
+    button_press_timestamps ( button ) := global_time
   END ;
 
+  /*
+  Momento que o botão para de ser pressionado e contagem de tempo para cancelamento
+  */
   release_button ( button ) =
   PRE
     button : BUTTONS &
-    button : dom ( pressed_buttons )
+    button : dom ( button_press_timestamps )
   THEN
-    IF elevator_status = MAINTENANCE THEN
-      maintenance_buttons := maintenance_buttons \/ { button }
-    ELSIF time - pressed_buttons ( button ) >= 3 THEN
-      active_buttons := active_buttons - { button } // DESATIVAR BOTAO
+    IF elevator_state = MAINTENANCE THEN
+      tested_maintenance_buttons := tested_maintenance_buttons \/ { button }
+    ELSIF global_time - button_press_timestamps ( button ) >= 3 THEN
+      pending_requests := pending_requests - { button } // DESATIVAR BOTAO
     ELSE
-      active_buttons := active_buttons \/ { button } // ATIVAR BOTAO
+      pending_requests := pending_requests \/ { button } // ATIVAR BOTAO
     END ||
-    pressed_buttons := { button } <<| pressed_buttons
+    button_press_timestamps := { button } <<| button_press_timestamps
   END ;
 
-  insert_key =
+
+  /*
+  Transiciona o elevador do estado BROKEN para MAINTENANCE pela chave física
+  */
+  insert_maintenance_key =
   PRE
-    key_inserted = FALSE &
-    elevator_status = BROKEN
+    is_maintenance_key_inserted = FALSE &
+    elevator_state = BROKEN
   THEN
-    key_inserted := TRUE ||
-    elevator_status := MAINTENANCE ||
-    active_buttons := {} ||
-    pressed_buttons := {}
+    is_maintenance_key_inserted := TRUE ||
+    elevator_state := MAINTENANCE ||
+    pending_requests := {} ||
+    button_press_timestamps := {}
   END ;
 
+
+  /*
+  Retira o elevador do estado MAINTENANCE para OPEN (funcionando normalmente)
+  */
   remove_key =
   PRE
-    key_inserted = TRUE
+    is_maintenance_key_inserted = TRUE
   THEN
-    key_inserted := FALSE ||
-    elevator_status := OPEN
+    is_maintenance_key_inserted := FALSE ||
+    elevator_state := OPEN
   END ;
 
+  /*
+  Abre a porta do elevador ao chegar em um andar parado - IDLE
+  Automaticamente limpa as requisiões atendidas naquele andar e sentido
+  */
   open_door =
   PRE
-    elevator_status = IDLE
+    elevator_state = IDLE
   THEN
-    elevator_status := OPEN ||
-    IF level = 0 THEN
-      active_buttons := active_buttons - { L0 , UP0 }
-    ELSIF level = 1 & direction = UP THEN
-      active_buttons := active_buttons - { L1 , UP1 }
-    ELSIF level = 1 & direction = DOWN THEN
-      active_buttons := active_buttons - { L1 , DOWN1 }
-    ELSIF level = 2 THEN
-      active_buttons := active_buttons - { L2 , DOWN2 }
+    elevator_state := OPEN ||
+    IF current_floor = 0 THEN
+      pending_requests := pending_requests - { L0 , UP0 }
+    ELSIF current_floor = 1 & travel_direction = UP THEN
+      pending_requests := pending_requests - { L1 , UP1 }
+    ELSIF current_floor = 1 & travel_direction = DOWN THEN
+      pending_requests := pending_requests - { L1 , DOWN1 }
+    ELSIF current_floor = 2 THEN
+      pending_requests := pending_requests - { L2 , DOWN2 }
     END
   END ;
 
+
+  /*
+  Fecha a porta do elevador e zera a contagem de tempo de porta aberta
+  */
   close_door =
   PRE
-    elevator_status = OPEN
+    elevator_state = OPEN
   THEN
-    elevator_status := IDLE ||
-    time_open := 0
+    elevator_state := IDLE ||
+    door_open_duration := 0
   END ;
 
-  move =
+
+  /*
+  Inicia o movimento entre andares com base na fila de chamadas pendentes (pending_requests)
+  Respeita a capacidade máxima de carga e define a lógica de prioridade de sentido
+  */
+  start_moving =
   PRE
-    elevator_status = IDLE &
-    elevator_weight <= MAX_CAPACITY
+    elevator_state = IDLE &
+    total_weight <= MAX_CAPACITY
   THEN
-    elevator_status := MOVING ||
-    IF level = 0 & card ( active_buttons - { L0 , UP0 } ) > 0 THEN
-      level := 1
-    ELSIF level = 2 & card ( active_buttons - { L2 , DOWN2 } ) > 0 THEN
-      level := 1
-    ELSIF level = 1 THEN
-      IF direction = UP THEN
-        IF card ( active_buttons /\ { L2 , DOWN2 } ) > 0 THEN
-          level := 2 ||
-          direction := DOWN
-        ELSIF card ( active_buttons /\ { L0 , UP0 } ) > 0 THEN
-          level := 0
+    elevator_state := MOVING ||
+    IF current_floor = 0 & card ( pending_requests - { L0 , UP0 } ) > 0 THEN
+      current_floor := 1
+    ELSIF current_floor = 2 & card ( pending_requests - { L2 , DOWN2 } ) > 0 THEN
+      current_floor := 1
+    ELSIF current_floor = 1 THEN
+      IF travel_direction = UP THEN
+        IF card ( pending_requests /\ { L2 , DOWN2 } ) > 0 THEN
+          current_floor := 2 ||
+          travel_direction := DOWN
+        ELSIF card ( pending_requests /\ { L0 , UP0 } ) > 0 THEN
+          current_floor := 0
         END
-      ELSIF direction = DOWN THEN
-        IF card ( active_buttons /\ { L0 , UP0 } ) > 0 THEN
-          level := 0 ||
-          direction := UP
-        ELSIF card ( active_buttons /\ { L2 , DOWN2 } ) > 0 THEN
-          level := 2
+      ELSIF travel_direction = DOWN THEN
+        IF card ( pending_requests /\ { L0 , UP0 } ) > 0 THEN
+          current_floor := 0 ||
+          travel_direction := UP
+        ELSIF card ( pending_requests /\ { L2 , DOWN2 } ) > 0 THEN
+          current_floor := 2
         END
       END
     END

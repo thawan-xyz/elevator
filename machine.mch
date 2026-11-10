@@ -25,14 +25,14 @@ PROPERTIES
   /*
   Botões atendidos ao abrir a porta em cada andar, de acordo com o sentido
   */
-  SERVED : (LEVELS * DIRECTIONS) --> POW(BUTTONS) &
+  SERVED : (LEVELS * DIRECTIONS) <-> BUTTONS &
   SERVED = {
-    (0 |-> UP)   |-> {L0, UP0},
-    (0 |-> DOWN) |-> {L0, UP0},
-    (1 |-> UP)   |-> {L1, UP1},
-    (1 |-> DOWN) |-> {L1, DOWN1},
-    (2 |-> UP)   |-> {L2, DOWN2},
-    (2 |-> DOWN) |-> {L2, DOWN2}
+    (0 |-> UP)   |-> L0, (0 |-> UP)   |-> UP0,
+    (0 |-> DOWN) |-> L0, (0 |-> DOWN) |-> UP0,
+    (1 |-> UP)   |-> L1, (1 |-> UP)   |-> UP1,
+    (1 |-> DOWN) |-> L1, (1 |-> DOWN) |-> DOWN1,
+    (2 |-> UP)   |-> L2, (2 |-> UP)   |-> DOWN2,
+    (2 |-> DOWN) |-> L2, (2 |-> DOWN) |-> DOWN2
   }
 
 VARIABLES
@@ -100,7 +100,7 @@ OPERATIONS
   THEN
     tested_maintenance_buttons := {} ||
     LET served BE
-      served = SERVED(current_floor |-> travel_direction)
+      served = SERVED[{current_floor |-> travel_direction}]
     IN
       IF elevator_state = OPEN & door_expired = TRUE THEN
         elevator_state := BROKEN
@@ -167,7 +167,7 @@ OPERATIONS
 
   /*
   Registra a saída de um passageiro de determinado peso
-  Remove a primeira ocorrência desse peso da sequência
+  Remove uma ocorrência desse peso da sequência
   */
   disembark_passenger(weight) =
   PRE
@@ -175,13 +175,12 @@ OPERATIONS
     weight : NATURAL &
     weight : ran(passenger_weights)
   THEN
-    LET idx BE
-      idx = min(passenger_weights~[{weight}])
-    IN
+    ANY idx WHERE
+      idx : dom(passenger_weights) & passenger_weights(idx) = weight
+    THEN
       passenger_weights := (passenger_weights /|\ (idx - 1)) ^ (passenger_weights \|/ idx)
     END
   END;
-
 
   /*
   Registra o instante (now, fornecido pelo timer) em que o botão começou a ser pressionado
@@ -252,7 +251,7 @@ OPERATIONS
     elevator_state = IDLE
   THEN
     elevator_state := OPEN ||
-    pending_requests := pending_requests - SERVED(current_floor |-> travel_direction)
+    pending_requests := pending_requests - SERVED[{current_floor |-> travel_direction}]
   END;
 
 

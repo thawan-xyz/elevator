@@ -53,10 +53,7 @@ OPERATIONS
       movement_duration := 0
     END ||
 
-    time_step (
-      bool ( door_open_duration + 1 >= 120 ) ,
-      bool ( movement_duration + 1 >= 5 )
-    )
+    time_step ( bool ( door_open_duration + 1 >= 120 ) , bool ( movement_duration + 1 >= 5 ) )
   END ;
 
   /*

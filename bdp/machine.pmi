@@ -1,5 +1,5 @@
 THEORY BalanceX IS
-machine,53,0,0,48,1,1,0;
+machine,48,1,0,47,0,0,0;
 Initialisation,5,0,0,5,0,0,0;
 Operation_board_passenger,1,0,0,1,0,0,0;
 Operation_disembark_passenger,1,0,0,1,0,0,0;
@@ -9,28 +9,22 @@ Operation_press_button_at,1,0,0,1,0,0,0;
 Operation_release_button_at,8,0,0,8,0,0,0;
 Operation_time_step,18,0,0,18,0,0,0;
 WellDefinedness_board_passenger,1,0,0,1,0,0,0;
-WellDefinedness_disembark_passenger,7,0,0,4,1,1,0;
-WellDefinedness_open_door,2,0,0,1,0,0,0;
+WellDefinedness_disembark_passenger,6,1,0,5,0,0,0;
 WellDefinedness_release_button_at,1,0,0,1,0,0,0;
-WellDefinedness_time_step,4,0,0,3,0,0,0
+WellDefinedness_time_step,2,0,0,2,0,0,0
 END
 &
 THEORY ProofState IS
 Proved(0);
-Unproved;
 Proved(0);
 Proved(0);
-Proved(0);
-Unproved;
-Proved(0);
-Proved(0);
-Proved(2);
-Proved(1);
+Proved(Util);
 Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
-Unproved;
+Proved(0);
+Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
@@ -73,20 +67,15 @@ END
 &
 THEORY MethodList IS
 pr;
-?;
 pr;
 pr;
-pr;
-ch & pp(rt.1 | 59);
-pr;
-pr;
+pp(rt.1 | 59);
 pr;
 pr;
 pr;
 pr;
 pr;
 pr;
-?;
 pr;
 pr;
 pr;
@@ -129,20 +118,15 @@ END
 &
 THEORY PassList IS
 Force(0),?;
-Force(0),(?; 0; 1);
-Force(0),?;
-Force(0),?;
-Force(0),?;
-Force(0),(?; 0; 1; 2);
-Force(0),?;
-Force(0),?;
-Force(2),(?; 0; 1);
-Force(1),(?; 0);
 Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
-Force(0),(?; 0; 1; 2);
+Force(0),?;
+Force(0),?;
+Force(0),?;
+Force(0),?;
+Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
@@ -184,7 +168,7 @@ Force(0),?
 END
 &
 THEORY Status IS
-machine,53,0,50,0,0,0;
+machine,48,1,47,0,0,0;
 Initialisation,5,0,5,0,0,0;
 Operation_board_passenger,1,0,1,0,0,0;
 Operation_disembark_passenger,1,0,1,0,0,0;
@@ -194,8 +178,7 @@ Operation_press_button_at,1,0,1,0,0,0;
 Operation_release_button_at,8,0,8,0,0,0;
 Operation_time_step,18,0,18,0,0,0;
 WellDefinedness_board_passenger,1,0,1,0,0,0;
-WellDefinedness_disembark_passenger,7,0,6,0,0,0;
-WellDefinedness_open_door,2,0,1,0,0,0;
+WellDefinedness_disembark_passenger,6,1,5,0,0,0;
 WellDefinedness_release_button_at,1,0,1,0,0,0;
-WellDefinedness_time_step,4,0,3,0,0,0
+WellDefinedness_time_step,2,0,2,0,0,0
 END

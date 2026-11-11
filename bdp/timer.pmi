@@ -1,6 +1,7 @@
 THEORY BalanceX IS
-timer,232,0,0,232,0,0,0;
+timer,233,0,0,233,0,0,0;
 Initialisation,3,0,0,3,0,0,0;
+Operation_close_door,1,0,0,1,0,0,0;
 Operation_insert_maintenance_key,1,0,0,1,0,0,0;
 Operation_press_button,1,0,0,1,0,0,0;
 Operation_release_button,3,0,0,3,0,0,0;
@@ -8,6 +9,7 @@ Operation_tick,224,0,0,224,0,0,0
 END
 &
 THEORY ProofState IS
+Proved(0);
 Proved(0);
 Proved(0);
 Proved(0);
@@ -474,6 +476,7 @@ pr;
 pr;
 pr;
 pr;
+pr;
 pr
 END
 &
@@ -709,12 +712,14 @@ Force(0),?;
 Force(0),?;
 Force(0),?;
 Force(0),?;
+Force(0),?;
 Force(0),?
 END
 &
 THEORY Status IS
-timer,232,0,232,0,0,0;
+timer,233,0,233,0,0,0;
 Initialisation,3,0,3,0,0,0;
+Operation_close_door,1,0,1,0,0,0;
 Operation_insert_maintenance_key,1,0,1,0,0,0;
 Operation_press_button,1,0,1,0,0,0;
 Operation_release_button,3,0,3,0,0,0;

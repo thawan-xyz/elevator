@@ -1,5 +1,6 @@
 THEORY ProofList IS
 _f(1) & _f(2) & _f(3) & _f(16) & _f(87) & _f(88) & Operation_insert_maintenance_key.1,(_f(89) & _f(9) & _f(10) & _f(90) & _f(12) => _f(91));
+_f(1) & _f(2) & _f(3) & _f(16) & _f(17) & Operation_close_door.1,(_f(32) & _f(12) => _f(13));
 _f(1) & _f(2) & _f(3) & _f(16) & _f(71) & _f(75) & Operation_release_button.3,(_f(79) & _f(83) & _f(84) & _f(85) & _f(78) & _f(12) => _f(86));
 _f(1) & _f(2) & _f(3) & _f(16) & _f(71) & _f(75) & Operation_release_button.2,(_f(79) & _f(80) & _f(81) & _f(82) & _f(78) & _f(12) => _f(86));
 _f(1) & _f(2) & _f(3) & _f(16) & _f(71) & _f(75) & Operation_release_button.1,(_f(76) & _f(77) & _f(78) & _f(12) => _f(86));

@@ -93,8 +93,8 @@ THEORY ListConstraintsX IS
 END
 &
 THEORY ListOperationsX IS
-  Internal_List_Operations(Machine(machine))==(time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,close_door);
-  List_Operations(Machine(machine))==(time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,close_door)
+  Internal_List_Operations(Machine(machine))==(time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,shut_door);
+  List_Operations(Machine(machine))==(time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,shut_door)
 END
 &
 THEORY ListInputX IS
@@ -106,7 +106,7 @@ THEORY ListInputX IS
   List_Input(Machine(machine),insert_maintenance_key)==(?);
   List_Input(Machine(machine),remove_key)==(?);
   List_Input(Machine(machine),open_door)==(?);
-  List_Input(Machine(machine),close_door)==(?)
+  List_Input(Machine(machine),shut_door)==(?)
 END
 &
 THEORY ListOutputX IS
@@ -118,7 +118,7 @@ THEORY ListOutputX IS
   List_Output(Machine(machine),insert_maintenance_key)==(?);
   List_Output(Machine(machine),remove_key)==(?);
   List_Output(Machine(machine),open_door)==(?);
-  List_Output(Machine(machine),close_door)==(?)
+  List_Output(Machine(machine),shut_door)==(?)
 END
 &
 THEORY ListHeaderX IS
@@ -130,7 +130,7 @@ THEORY ListHeaderX IS
   List_Header(Machine(machine),insert_maintenance_key)==(insert_maintenance_key);
   List_Header(Machine(machine),remove_key)==(remove_key);
   List_Header(Machine(machine),open_door)==(open_door);
-  List_Header(Machine(machine),close_door)==(close_door)
+  List_Header(Machine(machine),shut_door)==(shut_door)
 END
 &
 THEORY ListOperationGuardX END
@@ -144,11 +144,11 @@ THEORY ListPreconditionX IS
   List_Precondition(Machine(machine),insert_maintenance_key)==(is_maintenance_key_inserted = FALSE & elevator_state = BROKEN);
   List_Precondition(Machine(machine),remove_key)==(is_maintenance_key_inserted = TRUE);
   List_Precondition(Machine(machine),open_door)==(elevator_state = IDLE);
-  List_Precondition(Machine(machine),close_door)==(elevator_state = OPEN)
+  List_Precondition(Machine(machine),shut_door)==(elevator_state = OPEN)
 END
 &
 THEORY ListSubstitutionX IS
-  Expanded_List_Substitution(Machine(machine),close_door)==(elevator_state = OPEN | elevator_state:=IDLE);
+  Expanded_List_Substitution(Machine(machine),shut_door)==(elevator_state = OPEN | elevator_state:=IDLE);
   Expanded_List_Substitution(Machine(machine),open_door)==(elevator_state = IDLE | elevator_state,pending_requests:=OPEN,pending_requests-SERVED[{current_floor|->travel_direction}]);
   Expanded_List_Substitution(Machine(machine),remove_key)==(is_maintenance_key_inserted = TRUE | is_maintenance_key_inserted,elevator_state:=FALSE,OPEN);
   Expanded_List_Substitution(Machine(machine),insert_maintenance_key)==(is_maintenance_key_inserted = FALSE & elevator_state = BROKEN | is_maintenance_key_inserted,elevator_state,pending_requests,button_press_timestamps:=TRUE,MAINTENANCE,{},{});
@@ -165,7 +165,7 @@ THEORY ListSubstitutionX IS
   List_Substitution(Machine(machine),insert_maintenance_key)==(is_maintenance_key_inserted:=TRUE || elevator_state:=MAINTENANCE || pending_requests:={} || button_press_timestamps:={});
   List_Substitution(Machine(machine),remove_key)==(is_maintenance_key_inserted:=FALSE || elevator_state:=OPEN);
   List_Substitution(Machine(machine),open_door)==(elevator_state:=OPEN || pending_requests:=pending_requests-SERVED[{current_floor|->travel_direction}]);
-  List_Substitution(Machine(machine),close_door)==(elevator_state:=IDLE)
+  List_Substitution(Machine(machine),shut_door)==(elevator_state:=IDLE)
 END
 &
 THEORY ListConstantsX IS
@@ -215,11 +215,11 @@ THEORY ListANYVarX IS
   List_ANY_Var(Machine(machine),insert_maintenance_key)==(?);
   List_ANY_Var(Machine(machine),remove_key)==(?);
   List_ANY_Var(Machine(machine),open_door)==(?);
-  List_ANY_Var(Machine(machine),close_door)==(?)
+  List_ANY_Var(Machine(machine),shut_door)==(?)
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,SERVED,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | is_maintenance_key_inserted,button_press_timestamps,tested_maintenance_buttons,pending_requests,elevator_state,travel_direction,current_floor,passenger_weights | ? | time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,close_door | ? | ? | ? | machine);
+  List_Of_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,SERVED,DIRECTIONS,ELEVATOR_STATUS,BUTTONS,UP,DOWN,OPEN,IDLE,MOVING,BROKEN,MAINTENANCE,L0,L1,L2,UP0,UP1,DOWN1,DOWN2 | ? | is_maintenance_key_inserted,button_press_timestamps,tested_maintenance_buttons,pending_requests,elevator_state,travel_direction,current_floor,passenger_weights | ? | time_step,board_passenger,disembark_passenger,press_button_at,release_button_at,insert_maintenance_key,remove_key,open_door,shut_door | ? | ? | ? | machine);
   List_Of_HiddenCst_Ids(Machine(machine)) == (? | ?);
   List_Of_VisibleCst_Ids(Machine(machine)) == (LEVELS,MAX_CAPACITY,SERVED);
   List_Of_VisibleVar_Ids(Machine(machine)) == (? | ?);
@@ -239,7 +239,7 @@ THEORY VariablesEnvX IS
 END
 &
 THEORY OperationsEnvX IS
-  Operations(Machine(machine)) == (Type(close_door) == Cst(No_type,No_type);Type(open_door) == Cst(No_type,No_type);Type(remove_key) == Cst(No_type,No_type);Type(insert_maintenance_key) == Cst(No_type,No_type);Type(release_button_at) == Cst(No_type,etype(BUTTONS,?,?)*btype(INTEGER,?,?));Type(press_button_at) == Cst(No_type,etype(BUTTONS,?,?)*btype(INTEGER,?,?));Type(disembark_passenger) == Cst(No_type,btype(INTEGER,?,?));Type(board_passenger) == Cst(No_type,btype(INTEGER,?,?));Type(time_step) == Cst(No_type,btype(BOOL,?,?)*btype(BOOL,?,?)))
+  Operations(Machine(machine)) == (Type(shut_door) == Cst(No_type,No_type);Type(open_door) == Cst(No_type,No_type);Type(remove_key) == Cst(No_type,No_type);Type(insert_maintenance_key) == Cst(No_type,No_type);Type(release_button_at) == Cst(No_type,etype(BUTTONS,?,?)*btype(INTEGER,?,?));Type(press_button_at) == Cst(No_type,etype(BUTTONS,?,?)*btype(INTEGER,?,?));Type(disembark_passenger) == Cst(No_type,btype(INTEGER,?,?));Type(board_passenger) == Cst(No_type,btype(INTEGER,?,?));Type(time_step) == Cst(No_type,btype(BOOL,?,?)*btype(BOOL,?,?)))
 END
 &
 THEORY TCIntRdX IS

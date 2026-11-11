@@ -9,8 +9,7 @@ PROMOTES
   disembark_passenger,
   insert_maintenance_key,
   remove_key,
-  open_door,
-  close_door
+  open_door
 
 VARIABLES
   global_time,
@@ -76,5 +75,13 @@ OPERATIONS
     button : dom(button_press_timestamps)
   THEN
     release_button_at(button, global_time)
+  END;
+  
+  close_door =
+  PRE
+    elevator_state = OPEN
+  THEN
+    shut_door ||
+    door_open_duration := 0
   END
 END

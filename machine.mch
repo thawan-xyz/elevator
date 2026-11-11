@@ -254,12 +254,11 @@ OPERATIONS
     pending_requests := pending_requests - SERVED[{current_floor |-> travel_direction}]
   END;
 
-
   /*
   Fecha a porta do elevador
-  (a contagem de porta aberta é zerada pelo timer ao ver o estado /= OPEN)
+  (chamada pelo timer, que também zera o contador de porta aberta)
   */
-  close_door =
+  shut_door =
   PRE
     elevator_state = OPEN
   THEN

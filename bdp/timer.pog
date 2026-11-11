@@ -8230,6 +8230,43 @@
             </Goal>
         </Simple_Goal>
     </Proof_Obligation>
+    <Proof_Obligation goalHash="15852392431614244958">
+        <Tag>Operation_close_door</Tag>
+        <Definition name="B definitions"/>
+        <Definition name="ctx"/>
+        <Definition name="cst"/>
+        <Definition name="lprp"/>
+        <Definition name="inprp"/>
+        <Definition name="inext"/>
+        <Definition name="seext"/>
+        <Definition name="inv"/>
+        <Definition name="ass"/>
+        <Hypothesis>
+            <Exp_Comparison op="=">
+                <Id value="elevator_state" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:6:4:1:1:1"/>
+                <Id value="OPEN" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:6:4:1:1:2"/>
+            </Exp_Comparison>
+        </Hypothesis>
+        <Local_Hyp num="1">
+            <Exp_Comparison op=":">
+                <Id value="IDLE" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp//machine.bxml:1:5:1:5:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp//machine.bxml:1:7:9:2:1:2:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:6:4:2:1:1:1:1"/>
+                <Id value="ELEVATOR_STATUS" typref="0" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp//machine.bxml:1:5:1:5:2"/>
+            </Exp_Comparison>
+        </Local_Hyp>
+        <Simple_Goal>
+            <Tag>Invariant is preserved</Tag>
+            <Ref_Hyp num="1"/>
+            <Goal>
+                <Exp_Comparison op=":">
+                    <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:4:1:2:1,/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:6:4:2:1:2:2:1"/>
+                    <Binary_Exp op=".." typref="0">
+                        <Integer_Literal value="0" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:4:1:2:2:1"/>
+                        <Integer_Literal value="119" typref="1" tag="/opt/atelierb-free-24.04.2/press/bdb/elevator/bdp/timer.bxml:1:4:1:2:2:2"/>
+                    </Binary_Exp>
+                </Exp_Comparison>
+            </Goal>
+        </Simple_Goal>
+    </Proof_Obligation>
     <Proof_Obligation goalHash="8997388887966881452">
         <Tag>Operation_insert_maintenance_key</Tag>
         <Definition name="B definitions"/>

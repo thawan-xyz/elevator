@@ -30,17 +30,17 @@
     {
       "id": "door_l",
       "attr": "width",
-      "value": "IF elevator_state = OPEN THEN 6 ELSE 60 END"
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 6 ELSE 60 END"
     },
     {
       "id": "door_r",
       "attr": "x",
-      "value": "IF elevator_state = OPEN THEN 124 ELSE 70 END"
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 124 ELSE 70 END"
     },
     {
       "id": "door_r",
       "attr": "width",
-      "value": "IF elevator_state = OPEN THEN 6 ELSE 60 END"
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 6 ELSE 60 END"
     },
     {
       "id": "cabin_people",
@@ -75,7 +75,7 @@
     {
       "id": "rel_DOWN2_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN2}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN2}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_UP1_c",
@@ -95,7 +95,7 @@
     {
       "id": "rel_UP1_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP1}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_DOWN1_c",
@@ -115,7 +115,7 @@
     {
       "id": "rel_DOWN1_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN1}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_UP0_c",
@@ -135,7 +135,7 @@
     {
       "id": "rel_UP0_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP0}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP0}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_L2_c",
@@ -155,7 +155,7 @@
     {
       "id": "rel_L2_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{L2}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L2}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_L1_c",
@@ -175,7 +175,7 @@
     {
       "id": "rel_L1_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{L1}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "btn_L0_c",
@@ -195,7 +195,7 @@
     {
       "id": "rel_L0_t",
       "attr": "fill",
-      "value": "IF SIGMA(t).(t : button_press_timestamps[{L0}] | global_time - t) >= 3 THEN \"#fecaca\" ELSE \"white\" END"
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L0}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
     },
     {
       "id": "act_open",
@@ -220,12 +220,18 @@
     {
       "id": "dir_txt",
       "attr": "text",
-      "value": "IF travel_direction = UP THEN \"▲ subindo\" ELSE \"▼ descendo\" END"
+      "value": "IF elevator_state = MOVING THEN (IF (current_floor = 2 or (current_floor = 1 & travel_direction = UP)) THEN \"▲ subindo\" ELSE \"▼ descendo\" END) ELSE (IF travel_direction = UP THEN \"▲ subindo\" ELSE \"▼ descendo\" END) END",
+      "comment": "durante o movimento a seta segue o destino, não travel_direction (que muda ao sair do andar 1)"
     },
     {
       "id": "st_0",
       "attr": "text",
       "value": "global_time"
+    },
+    {
+      "id": "st_1_lbl",
+      "attr": "text",
+      "value": "IF elevator_state = MOVING THEN \"Indo para o andar\" ELSE \"Andar atual\" END"
     },
     {
       "id": "st_1",
@@ -283,9 +289,14 @@
       "value": "IF elevator_state /: {IDLE, MOVING} THEN \"1\" ELSE \"0.3\" END"
     },
     {
-      "id": "act_leave",
+      "id": "act_leave70",
       "attr": "opacity",
-      "value": "IF elevator_state /: {IDLE, MOVING} & passenger_weights /= [] THEN \"1\" ELSE \"0.3\" END"
+      "value": "IF elevator_state /: {IDLE, MOVING} & 70 : ran(passenger_weights) THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_leave150",
+      "attr": "opacity",
+      "value": "IF elevator_state /: {IDLE, MOVING} & 150 : ran(passenger_weights) THEN \"1\" ELSE \"0.3\" END"
     },
     {
       "id": "act_key_in",
@@ -520,18 +531,33 @@
       ]
     },
     {
-      "id": "act_leave",
+      "id": "act_leave70",
       "event": "disembark_passenger",
       "hovers": [
         {
-          "id": "act_leave_r",
+          "id": "act_leave70_r",
           "attr": "stroke",
           "enter": "#fbbf24",
           "leave": "none"
         }
       ],
       "predicates": [
-        "weight : ran(passenger_weights)"
+        "weight = 70"
+      ]
+    },
+    {
+      "id": "act_leave150",
+      "event": "disembark_passenger",
+      "hovers": [
+        {
+          "id": "act_leave150_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ],
+      "predicates": [
+        "weight = 150"
       ]
     },
     {

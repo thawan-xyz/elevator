@@ -1,0 +1,588 @@
+{
+  "svg": "elevador.svg",
+  "items": [
+    {
+      "id": "floor_hl_0",
+      "attr": "opacity",
+      "value": "IF current_floor = 0 & elevator_state /= MOVING THEN \"0.5\" ELSE \"0\" END"
+    },
+    {
+      "id": "floor_hl_1",
+      "attr": "opacity",
+      "value": "IF current_floor = 1 & elevator_state /= MOVING THEN \"0.5\" ELSE \"0\" END"
+    },
+    {
+      "id": "floor_hl_2",
+      "attr": "opacity",
+      "value": "IF current_floor = 2 & elevator_state /= MOVING THEN \"0.5\" ELSE \"0\" END"
+    },
+    {
+      "id": "cabin",
+      "attr": "y",
+      "value": "IF elevator_state = MOVING THEN 370 - 32 * (5 * (IF current_floor = 1 THEN IF travel_direction = UP THEN 0 ELSE 2 END ELSE 1 END) + (current_floor - (IF current_floor = 1 THEN IF travel_direction = UP THEN 0 ELSE 2 END ELSE 1 END)) * movement_duration) ELSE 370 - 160 * current_floor END",
+      "comment": "posição vertical da cabine"
+    },
+    {
+      "id": "cabin_frame",
+      "attr": "fill",
+      "value": "IF elevator_state = BROKEN THEN \"#ef4444\" ELSE IF elevator_state = MAINTENANCE THEN \"#fb923c\" ELSE \"#9ca3af\" END END"
+    },
+    {
+      "id": "door_l",
+      "attr": "width",
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 6 ELSE 60 END"
+    },
+    {
+      "id": "door_r",
+      "attr": "x",
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 124 ELSE 70 END"
+    },
+    {
+      "id": "door_r",
+      "attr": "width",
+      "value": "IF elevator_state : {OPEN, BROKEN} THEN 6 ELSE 60 END"
+    },
+    {
+      "id": "cabin_people",
+      "attr": "text",
+      "value": "size(passenger_weights)"
+    },
+    {
+      "id": "cabin_weight",
+      "attr": "text",
+      "value": "SIGMA(i).(i : dom(passenger_weights) | passenger_weights(i))"
+    },
+    {
+      "id": "cabin_weight",
+      "attr": "fill",
+      "value": "IF SIGMA(i).(i : dom(passenger_weights) | passenger_weights(i)) > MAX_CAPACITY THEN \"#dc2626\" ELSE \"#111827\" END"
+    },
+    {
+      "id": "btn_DOWN2_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & DOWN2 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF DOWN2 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_DOWN2",
+      "attr": "visibility",
+      "value": "IF DOWN2 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_DOWN2_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{DOWN2}] | global_time - t)"
+    },
+    {
+      "id": "rel_DOWN2_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN2}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_UP1_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & UP1 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF UP1 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_UP1",
+      "attr": "visibility",
+      "value": "IF UP1 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_UP1_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{UP1}] | global_time - t)"
+    },
+    {
+      "id": "rel_UP1_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_DOWN1_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & DOWN1 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF DOWN1 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_DOWN1",
+      "attr": "visibility",
+      "value": "IF DOWN1 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_DOWN1_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{DOWN1}] | global_time - t)"
+    },
+    {
+      "id": "rel_DOWN1_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{DOWN1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_UP0_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & UP0 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF UP0 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_UP0",
+      "attr": "visibility",
+      "value": "IF UP0 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_UP0_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{UP0}] | global_time - t)"
+    },
+    {
+      "id": "rel_UP0_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{UP0}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_L2_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & L2 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF L2 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_L2",
+      "attr": "visibility",
+      "value": "IF L2 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_L2_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{L2}] | global_time - t)"
+    },
+    {
+      "id": "rel_L2_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L2}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_L1_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & L1 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF L1 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_L1",
+      "attr": "visibility",
+      "value": "IF L1 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_L1_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{L1}] | global_time - t)"
+    },
+    {
+      "id": "rel_L1_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L1}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "btn_L0_c",
+      "attr": "fill",
+      "value": "IF elevator_state = MAINTENANCE & L0 : tested_maintenance_buttons THEN \"#22c55e\" ELSE IF L0 : pending_requests THEN \"#f59e0b\" ELSE \"#e5e7eb\" END END"
+    },
+    {
+      "id": "rel_L0",
+      "attr": "visibility",
+      "value": "IF L0 : dom(button_press_timestamps) THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "rel_L0_t",
+      "attr": "text",
+      "value": "SIGMA(t).(t : button_press_timestamps[{L0}] | global_time - t)"
+    },
+    {
+      "id": "rel_L0_t",
+      "attr": "fill",
+      "value": "IF SIGMA(t).(t : button_press_timestamps[{L0}] | global_time - t) >= 3 THEN \"#dc2626\" ELSE \"#1e3a8a\" END"
+    },
+    {
+      "id": "act_open",
+      "attr": "opacity",
+      "value": "IF elevator_state = IDLE THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_close",
+      "attr": "opacity",
+      "value": "IF elevator_state = OPEN THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "state_txt",
+      "attr": "text",
+      "value": "elevator_state"
+    },
+    {
+      "id": "state_pill",
+      "attr": "fill",
+      "value": "IF elevator_state = OPEN THEN \"#22c55e\" ELSE IF elevator_state = IDLE THEN \"#6b7280\" ELSE IF elevator_state = MOVING THEN \"#3b82f6\" ELSE IF elevator_state = BROKEN THEN \"#ef4444\" ELSE \"#fb923c\" END END END END"
+    },
+    {
+      "id": "dir_txt",
+      "attr": "text",
+      "value": "IF elevator_state = MOVING THEN (IF (current_floor = 2 or (current_floor = 1 & travel_direction = UP)) THEN \"▲ subindo\" ELSE \"▼ descendo\" END) ELSE (IF travel_direction = UP THEN \"▲ subindo\" ELSE \"▼ descendo\" END) END",
+      "comment": "durante o movimento a seta segue o destino, não travel_direction (que muda ao sair do andar 1)"
+    },
+    {
+      "id": "st_0",
+      "attr": "text",
+      "value": "global_time"
+    },
+    {
+      "id": "st_1_lbl",
+      "attr": "text",
+      "value": "IF elevator_state = MOVING THEN \"Indo para o andar\" ELSE \"Andar atual\" END"
+    },
+    {
+      "id": "st_1",
+      "attr": "text",
+      "value": "current_floor"
+    },
+    {
+      "id": "st_2",
+      "attr": "text",
+      "value": "door_open_duration"
+    },
+    {
+      "id": "st_3",
+      "attr": "text",
+      "value": "movement_duration"
+    },
+    {
+      "id": "st_4",
+      "attr": "text",
+      "value": "size(passenger_weights)"
+    },
+    {
+      "id": "st_5",
+      "attr": "text",
+      "value": "SIGMA(i).(i : dom(passenger_weights) | passenger_weights(i))"
+    },
+    {
+      "id": "st_6",
+      "attr": "text",
+      "value": "pending_requests"
+    },
+    {
+      "id": "st_7",
+      "attr": "text",
+      "value": "IF is_maintenance_key_inserted = TRUE THEN \"inserida\" ELSE \"fora\" END"
+    },
+    {
+      "id": "st_5",
+      "attr": "fill",
+      "value": "IF SIGMA(i).(i : dom(passenger_weights) | passenger_weights(i)) > MAX_CAPACITY THEN \"#dc2626\" ELSE \"#111827\" END"
+    },
+    {
+      "id": "st_2",
+      "attr": "fill",
+      "value": "IF door_open_duration >= 100 THEN \"#dc2626\" ELSE \"#111827\" END"
+    },
+    {
+      "id": "act_board70",
+      "attr": "opacity",
+      "value": "IF elevator_state /: {IDLE, MOVING} THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_board150",
+      "attr": "opacity",
+      "value": "IF elevator_state /: {IDLE, MOVING} THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_leave70",
+      "attr": "opacity",
+      "value": "IF elevator_state /: {IDLE, MOVING} & 70 : ran(passenger_weights) THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_leave150",
+      "attr": "opacity",
+      "value": "IF elevator_state /: {IDLE, MOVING} & 150 : ran(passenger_weights) THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_key_in",
+      "attr": "opacity",
+      "value": "IF is_maintenance_key_inserted = FALSE & elevator_state = BROKEN THEN \"1\" ELSE \"0.3\" END"
+    },
+    {
+      "id": "act_key_out",
+      "attr": "opacity",
+      "value": "IF is_maintenance_key_inserted = TRUE THEN \"1\" ELSE \"0.3\" END"
+    }
+  ],
+  "events": [
+    {
+      "id": "btn_DOWN2",
+      "event": "press_button",
+      "predicates": [
+        "button = DOWN2"
+      ],
+      "hovers": [
+        {
+          "id": "btn_DOWN2_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_DOWN2",
+      "event": "release_button",
+      "predicates": [
+        "button = DOWN2"
+      ]
+    },
+    {
+      "id": "btn_UP1",
+      "event": "press_button",
+      "predicates": [
+        "button = UP1"
+      ],
+      "hovers": [
+        {
+          "id": "btn_UP1_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_UP1",
+      "event": "release_button",
+      "predicates": [
+        "button = UP1"
+      ]
+    },
+    {
+      "id": "btn_DOWN1",
+      "event": "press_button",
+      "predicates": [
+        "button = DOWN1"
+      ],
+      "hovers": [
+        {
+          "id": "btn_DOWN1_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_DOWN1",
+      "event": "release_button",
+      "predicates": [
+        "button = DOWN1"
+      ]
+    },
+    {
+      "id": "btn_UP0",
+      "event": "press_button",
+      "predicates": [
+        "button = UP0"
+      ],
+      "hovers": [
+        {
+          "id": "btn_UP0_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_UP0",
+      "event": "release_button",
+      "predicates": [
+        "button = UP0"
+      ]
+    },
+    {
+      "id": "btn_L2",
+      "event": "press_button",
+      "predicates": [
+        "button = L2"
+      ],
+      "hovers": [
+        {
+          "id": "btn_L2_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_L2",
+      "event": "release_button",
+      "predicates": [
+        "button = L2"
+      ]
+    },
+    {
+      "id": "btn_L1",
+      "event": "press_button",
+      "predicates": [
+        "button = L1"
+      ],
+      "hovers": [
+        {
+          "id": "btn_L1_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_L1",
+      "event": "release_button",
+      "predicates": [
+        "button = L1"
+      ]
+    },
+    {
+      "id": "btn_L0",
+      "event": "press_button",
+      "predicates": [
+        "button = L0"
+      ],
+      "hovers": [
+        {
+          "id": "btn_L0_c",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "rel_L0",
+      "event": "release_button",
+      "predicates": [
+        "button = L0"
+      ]
+    },
+    {
+      "id": "act_open",
+      "event": "open_door",
+      "hovers": [
+        {
+          "id": "act_open_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ]
+    },
+    {
+      "id": "act_close",
+      "event": "close_door",
+      "hovers": [
+        {
+          "id": "act_close_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ]
+    },
+    {
+      "id": "act_tick",
+      "event": "tick",
+      "hovers": [
+        {
+          "id": "act_tick_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ]
+    },
+    {
+      "id": "act_board70",
+      "event": "board_passenger",
+      "hovers": [
+        {
+          "id": "act_board70_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ],
+      "predicates": [
+        "weight = 70"
+      ]
+    },
+    {
+      "id": "act_board150",
+      "event": "board_passenger",
+      "hovers": [
+        {
+          "id": "act_board150_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ],
+      "predicates": [
+        "weight = 150"
+      ]
+    },
+    {
+      "id": "act_leave70",
+      "event": "disembark_passenger",
+      "hovers": [
+        {
+          "id": "act_leave70_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ],
+      "predicates": [
+        "weight = 70"
+      ]
+    },
+    {
+      "id": "act_leave150",
+      "event": "disembark_passenger",
+      "hovers": [
+        {
+          "id": "act_leave150_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ],
+      "predicates": [
+        "weight = 150"
+      ]
+    },
+    {
+      "id": "act_key_in",
+      "event": "insert_maintenance_key",
+      "hovers": [
+        {
+          "id": "act_key_in_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ]
+    },
+    {
+      "id": "act_key_out",
+      "event": "remove_key",
+      "hovers": [
+        {
+          "id": "act_key_out_r",
+          "attr": "stroke",
+          "enter": "#fbbf24",
+          "leave": "none"
+        }
+      ]
+    }
+  ]
+}
